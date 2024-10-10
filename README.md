@@ -1,27 +1,30 @@
 # CashRegisterAngularApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.
+## Backend
+```
+backend/
+  |___database
+  |___controllers ---> refers to the action handlers
+  |___middleware ----> functions which stays between the req and the response
+  |___modals --------> data structure used in the application
+  |___routes
+```
 
-## Development server
+Steps:
+1) Create the backend folder, `node init` and add dependencies: `express`, `cors`, `body-parser`, `nodemon`, `dotenv`, `mongoose`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+2) Create index.js and initialize a simple express server.
 
-## Code scaffolding
+3) Create `.env` file which works with the dep _dotenv_. Add the _PORT_ variable as `KEY=value` pair. In `index.js` it is possible to use it with `require('dotenv').config()` and accessible through `process.env.PORT`.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+4) Install mongoDB and create a new database, a new collection, and import data. Use `mongoose` to connect to mongoDB with node, export the connection into index.js. Update the `.env` file with _URL_ variable of the database, which is possible to use. _Attention:_ you need to connect to the mongodb server **AND** the specific database!
 
-## Build
+5) Add Schemas of Data Structure used in the application.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+6) Setup the _router_ with the associated method (ex. `.get()`) and create the related _controller_. The controller has the responsability to handle that method, processing the request (for example getting the data, posting something new, or updating the existent one).
 
-## Running unit tests
+7) Add cors, to allow connection from the frontend.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Set up a get request in Angular18
+1) Create a service whose job is to simple send the Http request. This request is done inside a class method, like `getAll()`.
+2) The service is used as an argument in the constructor of the related component; the component will call the `getAll()` function and `.subscribe()`
