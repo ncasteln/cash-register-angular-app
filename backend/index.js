@@ -11,9 +11,7 @@ const ANGULAR_URI = process.env.ANGULAR_URI;
 require('./database/dbConnection');
 
 /* Cors */
-app.use(cors({
-  origin: ANGULAR_URI,
-}))
+app.use(cors({ origin: ANGULAR_URI, }))
 
 /* Request/response */
 app.get("/", (req, res) => {
@@ -25,5 +23,5 @@ app.listen(PORT, () => {
 })
 
 /* Routes */
-const products = require('./routes/products');
+const products = require('./routes/productsRoutes');
 app.use('/api', products);

@@ -1,5 +1,15 @@
+
+@if ( displayForm() ) {
+  <app-create-product></app-create-product>
+  <button (click)="displayForm.set(false)">Cancel</button>
+}
+@else {
+  <button (click)="displayForm.set(true)">New product</button>
+}
+
+<h2>Product list</h2>
 <ul>
-  @for (product of productList; track $index) {
+  @for ( product of productList; track $index ) {
     <li>{{ product.name }}</li>
   }
 </ul>

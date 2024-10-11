@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
+import { CreateProductComponent } from '../create-product/create-product.component';
 
 export interface IProduct {
   id: number,
@@ -11,12 +12,13 @@ export interface IProduct {
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [],
+  imports: [ CreateProductComponent ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
   productList: IProduct[] | undefined;
+  displayForm = signal(false);
 
   constructor( private _productsService: ProductsService ) {
     this.getData();
@@ -32,4 +34,14 @@ export class ProductsComponent {
       console.error(e);
     }
   }
+
+  /*
+    - Open the modal and present the form
+    - create-product comp collects data and triggers submit()
+    { to simplify can use mock data }
+    - submit() triggers the
+  */
+  // newProduct() {
+  //   this.displayForm.set(true);
+  // }
 }

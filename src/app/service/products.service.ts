@@ -11,6 +11,18 @@ export class ProductsService {
   constructor( private http: HttpClient ) { }
 
   getProducts() {
-    return this.http.get<IProduct[]>(this.productsUrl);
+    return (this.http.get<IProduct[]>(this.productsUrl));
+  }
+
+  createProduct( newProduct: IProduct ) {
+    return (this.http.post<IProduct>(
+      this.productsUrl,
+      {
+        id: 99,
+        name: "test",
+        price: -1,
+        img: ""
+      }
+    ))
   }
 }
