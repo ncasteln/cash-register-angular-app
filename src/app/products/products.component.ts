@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
 import { CreateProductComponent } from '../create-product/create-product.component';
+import { UpdateProductComponent } from '../update-product/update-product.component';
 
 export interface IProduct {
-  id: number,
   name: string,
   price: number,
   img: string
@@ -12,13 +12,17 @@ export interface IProduct {
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ CreateProductComponent ],
+  imports: [
+    CreateProductComponent,
+    UpdateProductComponent
+  ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
   productList: IProduct[] | undefined;
-  displayForm = signal(false);
+  displayPostForm = signal(false);
+  displayUpdateForm = signal(-1);
 
   constructor( private _productsService: ProductsService ) {
     this.getData();
@@ -26,22 +30,48 @@ export class ProductsComponent {
 
   getData() {
     try {
-      this._productsService.getProducts().subscribe(res => {
+      this._productsService.getAllProducts().subscribe(res => {
         this.productList = res;
-        console.log("* Products fetched");
       });
     } catch (e) {
       console.error(e);
     }
   }
 
-  /*
-    - Open the modal and present the form
-    - create-product comp collects data and triggers submit()
-    { to simplify can use mock data }
-    - submit() triggers the
-  */
-  // newProduct() {
-  //   this.displayForm.set(true);
-  // }
+  postProduct() {
+    /* Close unrelated forms */
+    this.displayUpdateForm.set(-1);
+    this.displayPostForm.set(true);
+  }
+
+  updateProduct( index: number ) {
+    /* Close all unrelated forms */
+    this.displayPostForm.set(false);
+    this.displayUpdateForm.set(index);
+
+    if (!this.productList || !this.productList[index]) {
+      throw Error("Product id out of range")
+    }
+    console.log("* Want to update: ", this.productList[index].name);
+    /* TO IMPLEMENT ! */
+    // try {
+    //   this._productsService.updateProduct(this.productList[index]).subscribe(res => {
+    //     console.log(res);
+    //   })
+    // } catch (e) {
+    //   console.error(e);
+    // }
+  }
+
+  deleteProduct( index: number ) {
+    /* Close all unrelated forms */
+    this.displayPostForm.set(false);
+    this.displayUpdateForm.set(-1);
+
+    if (!this.productList || !this.productList[index]) {
+      throw Error("Product id out of range")
+    }
+    console.log("* Want to delete: ", this.productList[index].name);
+    /* TO IMPLEMENT ! */
+  }
 }

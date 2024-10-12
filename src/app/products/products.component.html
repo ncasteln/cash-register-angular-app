@@ -1,15 +1,23 @@
+<h2>Product list</h2>
 
-@if ( displayForm() ) {
+@if ( displayPostForm() ) {
   <app-create-product></app-create-product>
-  <button (click)="displayForm.set(false)">Cancel</button>
+  <button (click)="displayPostForm.set(false)">Cancel</button>
 }
 @else {
-  <button (click)="displayForm.set(true)">New product</button>
+  <button (click)="postProduct()">Create new product</button>
 }
 
-<h2>Product list</h2>
 <ul>
   @for ( product of productList; track $index ) {
-    <li>{{ product.name }}</li>
+    @if ( displayUpdateForm() === $index ) {
+      <li>Modify form for: {{ product.name }} </li>
+      <button (click)="displayUpdateForm.set(-1)">Cancel</button>
+    }
+    @else {
+      <li>{{ product.name }} - {{ product.price }}</li>
+      <button (click)="updateProduct($index)">Update</button>
+      <button (click)="deleteProduct($index)">Delete</button>
+    }
   }
 </ul>

@@ -1,15 +1,15 @@
 <form [formGroup]="productForm">
   <div class="form-floating mb-3">
-    <input formControlName="name" type="text" class="form-control" id="floatingName"> <!-- required> -->
+    <input [value]="name" formControlName="name" type="text" class="form-control" id="floatingName"> <!-- required> -->
     <label for="floatingName">Name</label>
   </div>
   <div class="form-floating mb-3">
-    <input formControlName="price" type="text" class="form-control" id="floatingPrice" placeholder="price"> <!-- required> -->
+    <input [value]="price" formControlName="price" type="text" class="form-control" id="floatingPrice" placeholder="price"> <!-- required> -->
     <label for="floatingPrice">Price</label>
   </div>
   <div class="form mb-3">
     <label for="formFile">Image</label>
-    <input formControlName="img" type="text" class="form-control" id="floatingImg" placeholder="img"> <!-- required> -->
+    <input [value]="img" formControlName="img" type="text" class="form-control" id="floatingImg" placeholder="img"> <!-- required> -->
     <!-- <input formControlName="img" type="file" class="form-control" id="formFile"> -->
   </div>
 </form>

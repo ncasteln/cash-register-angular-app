@@ -10,19 +10,19 @@ export class ProductsService {
 
   constructor( private http: HttpClient ) { }
 
-  getProducts() {
+  getAllProducts() {
     return (this.http.get<IProduct[]>(this.productsUrl));
   }
 
-  createProduct( newProduct: IProduct ) {
-    return (this.http.post<IProduct>(
-      this.productsUrl,
-      {
-        id: 99,
-        name: "test",
-        price: -1,
-        img: ""
-      }
-    ))
+  createProduct( productForm: IProduct ) {
+    return (this.http.post<IProduct>(this.productsUrl, productForm));
+  }
+
+  deleteProduct( id: any /* !!!!! */ ) {
+    return (this.http.delete<String>(this.productsUrl, id));
+  }
+
+  updateProduct( productToUpdate: IProduct ) {
+    return (this.http.put<IProduct>(this.productsUrl, productToUpdate));
   }
 }

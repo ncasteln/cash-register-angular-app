@@ -15,7 +15,9 @@ router.get('/products', productsControllers.getProducts);
 router.post('/products', jsonParser, productsControllers.postProducts);
 
 /* UPDATE */
+router.put('/products', jsonParser, productsControllers.updateProducts);
 
 /* DELETE */
+router.delete('/products/:id', jsonParser, productsControllers.deleteProducts);
 
 module.exports = router;

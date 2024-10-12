@@ -1,18 +1,23 @@
 import { Component, Input } from '@angular/core';
-import { ProductsService } from '../service/products.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IProduct } from '../products/products.component';
+import { ProductsService } from '../service/products.service';
 
 @Component({
-  selector: 'app-create-product',
+  selector: 'app-update-product',
   standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule
   ],
-  templateUrl: './create-product.component.html',
-  styleUrl: './create-product.component.scss'
+  templateUrl: './update-product.component.html',
+  styleUrl: './update-product.component.scss'
 })
-export class CreateProductComponent {
+export class UpdateProductComponent {
+  @Input() name = '';
+  @Input() price = -1;
+  @Input() img = '';
+
   productForm!: FormGroup;
 
   constructor( private _productService: ProductsService ) {
@@ -26,8 +31,8 @@ export class CreateProductComponent {
   submit() {
     /* Mostra riepilogo e chiedi conferma ? */
 
-    this._productService.createProduct(this.productForm.value).subscribe(res => {
-      console.log(res);
-    });
+    // this._productService.createProduct(this.productForm.value).subscribe(res => {
+    //   console.log(res);
+    // });
   }
 }
