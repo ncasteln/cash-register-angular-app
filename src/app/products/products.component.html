@@ -1,23 +1,56 @@
-<h2>Product list</h2>
+<div class="container text-center py-5 bg-primary">
+  <h1>Product list</h1>
 
-@if ( displayPostForm() ) {
-  <app-create-product></app-create-product>
-  <button (click)="displayPostForm.set(false)">Cancel</button>
-}
-@else {
-  <button (click)="postProduct()">Create new product</button>
-}
+  <div class="row text-center">
+    <div class="col border" role="button" data-bs-toggle="modal" data-bs-target="#createProduct">New</div>
+    <div class="col border" role="button" (click)="displayGrid.set(false)">List</div>
+    <div class="col border" role="button" (click)="displayGrid.set(true)">Grid</div>
+  </div>
 
-<ul>
-  @for ( product of productList; track $index ) {
-    @if ( displayUpdateForm() === $index ) {
-      <li>Modify form for: {{ product.name }} </li>
-      <button (click)="displayUpdateForm.set(-1)">Cancel</button>
-    }
-    @else {
-      <li>{{ product.name }} - {{ product.price }}</li>
-      <button (click)="updateProduct($index)">Update</button>
-      <button (click)="deleteProduct($index)">Delete</button>
-    }
+  <!-- MODAL -->
+  <div class="modal fade" id="createProduct" tabindex="-1" aria-labelledby="createProductLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="createProductLabel">Create new product</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- FORM -->
+          <app-create-product></app-create-product>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIST -->
+  @if ( !displayGrid() ) {
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Image</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        @for ( product of productList; track $index ) {
+          <tr>
+            <th scope="row">{{ $index }}</th>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.img }}</td>
+            <td class="text-end">
+              <button (click)="updateProduct($index)">Update</button>
+              <button (click)="deleteProduct($index)">Delete</button>
+            </td>
+          </tr>
+        }
+    </table>
   }
-</ul>
+  @else {
+    <div class="display-1">GRID VIEW</div>
+  }
+</div>

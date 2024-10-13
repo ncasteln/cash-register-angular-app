@@ -21,8 +21,7 @@ export interface IProduct {
 })
 export class ProductsComponent {
   productList: IProduct[] | undefined;
-  displayPostForm = signal(false);
-  displayUpdateForm = signal(-1);
+  displayGrid = signal(false);
 
   constructor( private _productsService: ProductsService ) {
     this.getData();
@@ -38,17 +37,7 @@ export class ProductsComponent {
     }
   }
 
-  postProduct() {
-    /* Close unrelated forms */
-    this.displayUpdateForm.set(-1);
-    this.displayPostForm.set(true);
-  }
-
   updateProduct( index: number ) {
-    /* Close all unrelated forms */
-    this.displayPostForm.set(false);
-    this.displayUpdateForm.set(index);
-
     if (!this.productList || !this.productList[index]) {
       throw Error("Product id out of range")
     }
@@ -64,10 +53,6 @@ export class ProductsComponent {
   }
 
   deleteProduct( index: number ) {
-    /* Close all unrelated forms */
-    this.displayPostForm.set(false);
-    this.displayUpdateForm.set(-1);
-
     if (!this.productList || !this.productList[index]) {
       throw Error("Product id out of range")
     }
