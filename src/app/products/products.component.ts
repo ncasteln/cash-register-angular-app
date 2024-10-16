@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
-import { CreateProductComponent } from '../create-product/create-product.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpStatusCode } from '@angular/common/http';
 
 export interface IProduct {
   name: string,
@@ -13,8 +13,8 @@ export interface IProduct {
   selector: 'app-products',
   standalone: true,
   imports: [
-    CreateProductComponent,
-    FormsModule /* [(ngModel)] */
+    FormsModule,  /* [(ngModel)] */
+    ReactiveFormsModule
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
@@ -26,33 +26,54 @@ export class ProductsComponent implements OnInit {
     price: -1,
     img: ''
   };
+  postForm!: FormGroup;
 
   /* Signals */
   displayGrid = signal(false);
   isEditMode = signal(-1);
 
-  constructor( private _productsService: ProductsService ) {}
+  constructor( private _productsService: ProductsService ) {
+    this.postForm = new FormGroup({
+      name: new FormControl(''),
+      price: new FormControl(''),
+      img: new FormControl(''),
+    })
+  }
 
   ngOnInit(): void {
-    this.getProductList();
+    this.getProducts();
   }
 
-  /* GET */
-  getProductList() {
-    try {
-      this._productsService.getAllProducts().subscribe(res => {
-        this.productList = res;
-      });
-    } catch (e) {
-      console.error(e);
-    }
+  /* GET ALL */
+  getProducts() {
+    this._productsService.getAll().subscribe(res => {
+      this.productList = res;
+    });
   }
 
+  /* GET ONE */
   // getOneProduct( id: string ) {
   //   this._productsService.getProductById(id).subscribe(res => {
   //     console.log(res)
   //   })
   // }
+
+  showAlert( method: string, res: HttpStatusCode, expected: HttpStatusCode ) {
+    if (res !== expected) {
+      alert(`${method} operation: fail!`);
+      return (1);
+    }
+    alert(`${method} operation: success!`);
+    return (0);
+  }
+
+  /* CREATE */
+  createProduct() {
+    this._productsService.create(this.postForm.value).subscribe(res => {
+      if (this.showAlert("POST", res.status, HttpStatusCode.Created) == 0)
+        this.getProducts();
+    });
+  }
 
   /* UPDATE */
   onEdit( index: number ) {
@@ -75,16 +96,17 @@ export class ProductsComponent implements OnInit {
     this.oldProduct.img = '';
   }
   updateProduct( newProduct: IProduct ) {
-    this._productsService.updateProduct(this.oldProduct, newProduct).subscribe(res => {
-      console.log("* Status: ", res.status);
-      console.log("* Body:   ", res.body);
-    });
+    this._productsService.update(this.oldProduct, newProduct).subscribe(res => {
+      if (this.showAlert('UPDATE', res.status, HttpStatusCode.Ok) == 0)
+        this.getProducts();
+      });
   }
 
   /* DELETE */
   deleteProduct( index: number ) {
-    this._productsService.deleteProduct(this.productList[index]).subscribe(res => {
-      console.log("* Attempting to delete: ", this.productList[index].name);
-    })
+    this._productsService.delete(this.productList[index]).subscribe(res => {
+      if (this.showAlert('DELETE', res.status, HttpStatusCode.Ok) == 0)
+        this.getProducts();
+      });
   }
 }

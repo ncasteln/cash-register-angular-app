@@ -14,9 +14,9 @@ require('./database/dbConnection');
 app.use(cors({ origin: ANGULAR_URI, }))
 
 /* Request/response */
-app.get("/", (req, res) => {
-  res.send("* Hi user\n");
-});
+// app.get("/", (req, res, next) => {
+//   console.log("I've been triggered...")
+// });
 
 app.listen(PORT, () => {
   console.log(`* Server running on port ${PORT}`);

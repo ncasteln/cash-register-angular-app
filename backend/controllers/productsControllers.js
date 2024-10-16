@@ -22,13 +22,11 @@ exports.getProducts = async(req, res) => {
 
 exports.postProducts = async(req, res) => {
   try {
-    console.log("* POST:", res.body);
     const { name, price, img } = req.body;
     const newProduct = new Product({ name, price, img });
 
     /* Ensure no duplicates */
     const isDuplicate = await Product.findOne({ name });
-    console.log(isDuplicate)
     if (isDuplicate)
       throw Error("* No duplicates allowed");
 
@@ -37,7 +35,7 @@ exports.postProducts = async(req, res) => {
       How check if the post
       operation was succesful?
     */
-    res.status(201).json({ msg: "* Product ADDED successfully"});
+    res.status(201).json({ msg: "* Product CREATED successfully"});
   } catch (e) {
     console.error(e);
     res.status(500).json({ msg: "* Internal server error" });

@@ -7,10 +7,9 @@ import { IProduct } from '../products/products.component';
 })
 export class ProductsService {
   readonly url = 'http://localhost:3000/api/products'
+  constructor( private http: HttpClient ) {}
 
-  constructor( private http: HttpClient ) { }
-
-  getAllProducts() {
+  getAll() {
     return (this.http.get<IProduct[]>(this.url));
   }
 
@@ -18,19 +17,22 @@ export class ProductsService {
   //   return (this.http.get<IProduct>(this.url + "/" + id))
   // }
 
-  createProduct( productForm: IProduct ) {
-    return (this.http.post<IProduct>(this.url, productForm));
+  create( productForm: IProduct ) {
+    return (
+      this.http.post<IProduct>(
+        this.url,
+        productForm,
+        { observe: 'response' }));
   }
 
-  deleteProduct( product: IProduct ) {
-    console.log("HERE: ", this.url + "/delete/" + product.name)
+  delete( product: IProduct ) {
     return (
       this.http.delete<IProduct>(
-        this.url + "/delete/" + product.name));
+        this.url + "/delete/" + product.name,
+        { observe: 'response' }));
   }
 
-  updateProduct( oldProduct: IProduct, newProduct: IProduct ) {
-    console.log("HERE: ", this.url + "/update/" + oldProduct.name)
+  update( oldProduct: IProduct, newProduct: IProduct ) {
     return (
       this.http.put<IProduct>(
         this.url + "/update/" + oldProduct.name,
