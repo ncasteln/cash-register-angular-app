@@ -1,5 +1,11 @@
 const Product = require('../models/productsModels');
 
+/* SANITIZE
+  - No question marks
+  - No empty strings
+  - No duplicates
+*/
+
 exports.getProducts = async(req, res) => {
   try {
     console.log("* GET ALL");
@@ -17,17 +23,14 @@ exports.getProducts = async(req, res) => {
 exports.postProducts = async(req, res) => {
   try {
     console.log("* POST:", res.body);
-    const { id, name, price, img } = req.body;
-    const newProduct = new Product({
-      id,
-      name,
-      price,
-      img
-    });
-    /*
-      Where is the place in which put the logic
-      to deny duplicates?
-    */
+    const { name, price, img } = req.body;
+    const newProduct = new Product({ name, price, img });
+
+    /* Ensure no duplicates */
+    const isDuplicate = await Product.findOne({ name });
+    console.log(isDuplicate)
+    if (isDuplicate)
+      throw Error("* No duplicates allowed");
 
     const result = await newProduct.save();
     /*
@@ -43,13 +46,28 @@ exports.postProducts = async(req, res) => {
 
 exports.updateProducts = async(req, res) => {
   try {
-    console.log("* UPDATE: ", req.body);
-    // const { id, name, price, img } = req.body;
-    // const productToUpdate = await Product.findByIdAndUpdate(
-    //   {_id: id},
-    //   { $set: { name: name }},
-    //   { new: true } );
-    // res.status(200).json({ msg: "* Product UPDATED successfully", productToUpdate});
+    console.log("* UPDATE params: ", req.params);
+    const oldName = req.params.name;
+    const isFound = await Product.findOne({ name: oldName });
+    if (!isFound)
+      throw Error("* Product doesn't exists");
+
+    /* Updates */
+    const { name: newName, price, img } = req.body;
+
+    /* Ensure no duplicates */
+    const isDuplicate = await Product.findOne({ name: newName });
+    if (isDuplicate)
+      throw Error("* No duplicates allowed");
+
+    /* Ensure no white fields: maybe do it in the frontend??? */
+
+    const result = await Product.findOneAndUpdate(
+      { name: oldName },
+      { name: newName, price, img },
+      { new: true }
+    )
+    res.status(200).json({ msg: "* Product UPDATED successfully" });
   } catch (e) {
     console.error(e);
     res.status(500).json({ msg: "* Internal server error" });
@@ -58,12 +76,17 @@ exports.updateProducts = async(req, res) => {
 
 exports.deleteProducts = async(req, res) => {
   try {
-    console.log("* DELETE: ", req.params, "ID: ", req.params.id);
-    // const { id } = req.params; // id ?
-    // const result = await Product.findByIdAndDelete({ _id: id });
-    // res.status(200).json({ msg: "* Product DELETED successfully", result});
+    console.log("* DELETE params: ", req.params);
+    const isFound = await Product.findOneAndDelete({ name: req.params.name });
+    if (!isFound)
+      throw Error("* Product doesn't exists");
+    res.status(200).json({ msg: "* Product DELETED successfully" });
   } catch (e) {
     console.error(e);
     res.status(500).json({ msg: "* Internal server error" });
   }
+}
+
+exports.getProductById = async(req, res) => {
+
 }

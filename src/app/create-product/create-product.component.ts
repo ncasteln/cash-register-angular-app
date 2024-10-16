@@ -13,7 +13,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
   styleUrl: './create-product.component.scss'
 })
 export class CreateProductComponent {
-  productForm!: FormGroup;
+  productForm!: FormGroup; /* Meaning of ! ??? */
 
   constructor( private _productService: ProductsService ) {
     this.productForm = new FormGroup({

@@ -1,10 +1,15 @@
-<div class="container text-center py-5 bg-primary">
-  <h1>Product list</h1>
+<div class="container py-5 border">
 
+  <!-- NEW and LISTING options -->
   <div class="row text-center">
-    <div class="col border" role="button" data-bs-toggle="modal" data-bs-target="#createProduct">New</div>
-    <div class="col border" role="button" (click)="displayGrid.set(false)">List</div>
-    <div class="col border" role="button" (click)="displayGrid.set(true)">Grid</div>
+    <h1 class="col text-start">Products</h1>
+    <div class="col">
+      <div class="row">
+        <div class="col border bg-primary" role="button" data-bs-toggle="modal" data-bs-target="#createProduct">New</div>
+        <div class="col border bg-primary" role="button" (click)="displayGrid.set(false)">List</div>
+        <div class="col border bg-primary" role="button" (click)="displayGrid.set(true)">Grid</div>
+      </div>
+    </div>
   </div>
 
   <!-- MODAL -->
@@ -23,33 +28,56 @@
     </div>
   </div>
 
-  <!-- LIST -->
+  <!-- TABLE -->
   @if ( !displayGrid() ) {
-    <table class="table table-striped table-bordered">
+    <table class="table responsive table-striped table-bordered">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Price</th>
-          <th scope="col">Image</th>
-          <th scope="col"></th>
+          <th scope="col" class="col">#</th>
+          <th scope="col" class="col-3">Name</th>
+          <th scope="col" class="col-3">Price</th>
+          <th scope="col" class="col-4">Image</th>
+          <th scope="col" class="col">Actions</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
         @for ( product of productList; track $index ) {
-          <tr>
-            <th scope="row">{{ $index }}</th>
-            <td>{{ product.name }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.img }}</td>
-            <td class="text-end">
-              <button (click)="updateProduct($index)">Update</button>
-              <button (click)="deleteProduct($index)">Delete</button>
-            </td>
-          </tr>
+          @if ( isEditMode() === $index ) {
+            <tr>
+              <th scope="row">{{ $index }}</th>
+              <td>
+                <input type="text" [(ngModel)]="product.name"/>
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="product.price"/>
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="product.img"/>
+              </td>
+              <td class="text-end">
+                <button (click)="onSave($index)">Save</button>
+                <button (click)="onCancel($index)">Cancel</button>
+              </td>
+            </tr>
+          }
+          @else {
+            <tr>
+              <th scope="row">{{ $index }}</th>
+              <td>{{ product.name }}</td>
+              <td>{{ product.price }}</td>
+              <td>{{ product.img }}</td>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-warning" (click)="onEdit($index)">Update</button>
+                <button type="button" class="btn btn-danger" (click)="deleteProduct($index)">Delete</button>
+              </div>
+            </tr>
+          }
         }
+      </tbody>
     </table>
   }
+
+  <!-- GRID -->
   @else {
     <div class="display-1">GRID VIEW</div>
   }
