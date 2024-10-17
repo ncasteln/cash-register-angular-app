@@ -109,4 +109,11 @@ export class ProductsComponent implements OnInit {
         this.getProducts();
       });
   }
+
+  /* RESET */
+  resetDatabase() {
+    this._productsService.reset().subscribe(res => {
+      /* Needs implementation */
+    });
+  }
 }

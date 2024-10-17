@@ -39,4 +39,8 @@ export class ProductsService {
         newProduct,
         { observe: 'response' }));
   }
+
+  reset() {
+    return (this.http.delete(this.url + '/reset', { observe: 'response' }))
+  }
 }

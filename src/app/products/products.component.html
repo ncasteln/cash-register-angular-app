@@ -4,14 +4,12 @@
   <div class="row text-center">
     <h1 class="col text-start">Products</h1>
     <div class="col">
-      <div class="row">
-        <div class="col border bg-primary" role="button"
-          data-bs-toggle="modal" data-bs-target="#createProduct"
-          (click)="postForm.reset()">
-            New
-        </div>
-        <div class="col border bg-primary" role="button" (click)="displayGrid.set(false)">List</div>
-        <div class="col border bg-primary" role="button" (click)="displayGrid.set(true)">Grid</div>
+      <div class="btn-group">
+        <button class="btn btn-primary border" role="button" data-bs-toggle="modal"
+          data-bs-target="#createProduct"(click)="postForm.reset()">New</button>
+        <button class="btn btn-primary border" role="button" (click)="displayGrid.set(false)">List</button>
+        <button class="btn btn-primary border" role="button" (click)="displayGrid.set(true)">Grid</button>
+        <button class="btn btn-danger border" role="button" (click)="resetDatabase()">Reset</button>
       </div>
     </div>
   </div>
@@ -38,13 +36,12 @@
             </div>
             <div class="form mb-3">
               <label for="formFile">Image</label>
-              <input formControlName="img" type="text" class="form-control" id="floatingImg" placeholder="img"> <!-- required> -->
-              <!-- <input formControlName="img" type="file" class="form-control" id="formFile"> -->
+              <input formControlName="img" type="file" class="form-control" id="floatingImg"> <!-- required> -->
             </div>
           </form>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button (click)="createProduct()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+            <button (click)="createProduct()" type="button" class="btn btn-primary border" data-bs-dismiss="modal">Submit</button>
           </div>
         </div>
       </div>
@@ -75,11 +72,11 @@
                 <input type="text" [(ngModel)]="product.price"/>
               </td>
               <td>
-                <input type="text" [(ngModel)]="product.img"/>
+                <input type="file" [(ngModel)]="product.img"/>
               </td>
-              <td class="text-end">
-                <button (click)="onSave($index)">Save</button>
-                <button (click)="onCancel($index)">Cancel</button>
+              <td class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-success" (click)="onSave($index)">Save</button>
+                <button type="button" class="btn btn-dark" (click)="onCancel($index)">Cancel</button>
               </td>
             </tr>
           }
@@ -88,11 +85,13 @@
               <th scope="row">{{ $index }}</th>
               <td>{{ product.name }}</td>
               <td>{{ product.price }}</td>
-              <td>{{ product.img }}</td>
-              <div class="btn-group" role="group" aria-label="Basic example">
+              <td>
+                <img [src]="product.img" alt="" /> <!-- MODIFY ALT -->
+              </td>
+              <td class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-warning" (click)="onEdit($index)">Update</button>
                 <button type="button" class="btn btn-danger" (click)="deleteProduct($index)">Delete</button>
-              </div>
+              </td>
             </tr>
           }
         }

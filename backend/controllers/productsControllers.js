@@ -25,16 +25,8 @@ exports.postProducts = async(req, res) => {
     const { name, price, img } = req.body;
     const newProduct = new Product({ name, price, img });
 
-    /* Ensure no duplicates */
-    const isDuplicate = await Product.findOne({ name });
-    if (isDuplicate)
-      throw Error("* No duplicates allowed");
-
     const result = await newProduct.save();
-    /*
-      How check if the post
-      operation was succesful?
-    */
+
     res.status(201).json({ msg: "* Product CREATED successfully"});
   } catch (e) {
     console.error(e);
@@ -52,13 +44,6 @@ exports.updateProducts = async(req, res) => {
 
     /* Updates */
     const { name: newName, price, img } = req.body;
-
-    /* Ensure no duplicates */
-    const isDuplicate = await Product.findOne({ name: newName });
-    if (isDuplicate)
-      throw Error("* No duplicates allowed");
-
-    /* Ensure no white fields: maybe do it in the frontend??? */
 
     const result = await Product.findOneAndUpdate(
       { name: oldName },
@@ -87,4 +72,18 @@ exports.deleteProducts = async(req, res) => {
 
 exports.getProductById = async(req, res) => {
 
+}
+
+exports.resetProducts = async (req, res) => {
+  try {
+    console.log("* RESET");
+
+    /* Need a minimal validation */
+    // await Product.deleteMany();
+
+    res.status(200).json({ msg: "* Database reset success" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: "* Internal server error" });
+  }
 }
