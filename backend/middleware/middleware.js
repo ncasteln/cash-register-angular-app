@@ -1,4 +1,5 @@
 const Product = require('../models/productsModels');
+const fs = require('fs');
 
 const errLogger = ( res, msg ) => {
   console.error("* Error: validation:", msg);
@@ -43,13 +44,23 @@ exports.priceValidation = async(req, res, next) => {
 }
 
 exports.imgValidation = async(req, res, next) => {
-  const { img } = req.body;
-
+  console.log("----[ IMG and ALT ]----");
   /* Default img path */
-  if (!img)
-    req.body.img = '../../public/assets/img-not-found.png';
+  if (!req.body.img)
+    req.body.img = 'assets/img-not-found.png';
 
-  /* Check file permissions */
+  /* Check file exist/permission */
+  console.log("* FILE: ");
+  // fs.open(`../../public/${req.body.img}`, 'r', (err, fd) => {
+  //   console.log(fd)
+  // });
+
+
+  // /* Alt creation */
+  // if (!img)
+  //   req.body.alt = 'Image not found';
+  // else
+  //   req.body.alt = 'Vegetable image'; // need to customize
 
   next();
 }

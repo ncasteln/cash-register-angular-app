@@ -6,7 +6,8 @@ import { HttpStatusCode } from '@angular/common/http';
 export interface IProduct {
   name: string,
   price: number,
-  img: string
+  img: string,
+  alt: string
 }
 
 @Component({
@@ -24,7 +25,8 @@ export class ProductsComponent implements OnInit {
   oldProduct: IProduct = {
     name: '',
     price: -1,
-    img: ''
+    img: '',
+    alt: ''
   };
   postForm!: FormGroup;
 
@@ -99,7 +101,7 @@ export class ProductsComponent implements OnInit {
     this._productsService.update(this.oldProduct, newProduct).subscribe(res => {
       if (this.showAlert('UPDATE', res.status, HttpStatusCode.Ok) == 0)
         this.getProducts();
-      });
+    });
   }
 
   /* DELETE */

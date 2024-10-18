@@ -32,6 +32,6 @@ router.put('/products/update/:name', jsonParser,
 router.delete('/products/delete/:name', jsonParser, productsControllers.deleteProducts);
 
 /* RESET DB */
-router.delete('/products/reset', jsonParser, productsControllers.resetProducts);
+router.delete('/products/reset', productsControllers.resetProducts);
 
 module.exports = router;

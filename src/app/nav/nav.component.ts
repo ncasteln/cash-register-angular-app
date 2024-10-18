@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-nav',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'

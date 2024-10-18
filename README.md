@@ -28,3 +28,6 @@ Steps:
 ## Set up a get request in Angular18
 1) Create a service whose job is to simple send the Http request. This request is done inside a class method, like `getAll()`.
 2) The service is used as an argument in the constructor of the related component; the component will call the `getAll()` function and `.subscribe()`
+
+## The corresponding to React Fragment
+While in React there is the symbol `<>` to group elements of a new component, without creating and additional `<div>` or other container, in Angular there are 2 solutions, depending on the context. The first solution is the use of `<ng-container>`, while the second solution could be the _attribute selector_, like `selector: 'button[load]'` which is called in HTML with `<button load ...>Click me</button>`.

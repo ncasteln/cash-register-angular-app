@@ -1,4 +1,6 @@
 const Product = require('../models/productsModels');
+const fs = require('fs').promises;
+const resetFile = require('../reset.json');
 
 /* SANITIZE
   - No question marks
@@ -22,11 +24,9 @@ exports.getProducts = async(req, res) => {
 
 exports.postProducts = async(req, res) => {
   try {
-    const { name, price, img } = req.body;
-    const newProduct = new Product({ name, price, img });
-
-    const result = await newProduct.save();
-
+    const { name, price, img, alt } = req.body;
+    const newProduct = new Product({ name, price, img, alt });
+    await newProduct.save();
     res.status(201).json({ msg: "* Product CREATED successfully"});
   } catch (e) {
     console.error(e);
@@ -43,11 +43,11 @@ exports.updateProducts = async(req, res) => {
       throw Error("* Product doesn't exists");
 
     /* Updates */
-    const { name: newName, price, img } = req.body;
+    const { name: newName, price, img, alt } = req.body;
 
     const result = await Product.findOneAndUpdate(
       { name: oldName },
-      { name: newName, price, img },
+      { name: newName, price, img, alt },
       { new: true }
     )
     res.status(200).json({ msg: "* Product UPDATED successfully" });
@@ -70,17 +70,15 @@ exports.deleteProducts = async(req, res) => {
   }
 }
 
-exports.getProductById = async(req, res) => {
+// exports.getProductById = async(req, res) => {
 
-}
+// }
 
 exports.resetProducts = async (req, res) => {
   try {
     console.log("* RESET");
-
-    /* Need a minimal validation */
-    // await Product.deleteMany();
-
+    await Product.deleteMany();
+    await Product.insertMany(resetFile);
     res.status(200).json({ msg: "* Database reset success" });
   } catch (e) {
     console.error(e);
