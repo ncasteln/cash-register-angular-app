@@ -2,20 +2,16 @@ import { Component, OnInit, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpStatusCode } from '@angular/common/http';
-
-export interface IProduct {
-  name: string,
-  price: number,
-  img: string,
-  alt: string
-}
+import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { IProduct } from '../models';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   imports: [
     FormsModule,  /* [(ngModel)] */
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToolbarComponent
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
@@ -31,8 +27,19 @@ export class ProductsComponent implements OnInit {
   postForm!: FormGroup;
 
   /* Signals */
-  displayGrid = signal(false);
+  displayGrid = signal(false); /* Remove */
   isEditMode = signal(-1);
+
+  // displayMode = signal<'list' | 'grid'>('list');
+  // parentFunction( event: 'list' | 'grid') {
+  //   console.log(event)
+  //   this.displayMode.set(event);
+  // }
+  displayMode = 'list';
+  parent( event: 'list' | 'grid' ) {
+    console.log('PARENT --->', event);
+    this.displayMode = event;
+  }
 
   constructor( private _productsService: ProductsService ) {
     this.postForm = new FormGroup({

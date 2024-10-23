@@ -1,0 +1,11 @@
+@import '../../variables.scss';
+
+.product {
+  background-color: $green-lll;
+}
+
+.product:hover {
+  color: rgb(243, 243, 243);
+  background-color: rgb(123, 161, 161);
+  transition: 0.1s linear;
+}

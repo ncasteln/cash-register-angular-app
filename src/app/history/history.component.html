@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Storico</h1>
+  <!-- @if ( empty ) {
+    <h2>Empty history</h2>
+  } -->
+  @else {
+    @for ( day of history | keyvalue; track day.key ) {
+      <h2>{{ day.key }}</h2>
+    }
+  }
+</div>

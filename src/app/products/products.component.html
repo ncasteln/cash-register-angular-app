@@ -1,18 +1,5 @@
 <div class="container py-5 border">
-
-  <!-- NEW and LISTING options -->
-  <div class="row text-center">
-    <h1 class="col text-start">Products</h1>
-    <div class="col">
-      <div class="btn-group">
-        <button class="btn btn-primary border" role="button" data-bs-toggle="modal"
-          data-bs-target="#createProduct"(click)="postForm.reset()">New</button>
-        <button class="btn btn-primary border" role="button" (click)="displayGrid.set(false)">List</button>
-        <button class="btn btn-primary border" role="button" (click)="displayGrid.set(true)">Grid</button>
-        <button class="btn btn-danger border" role="button" (click)="resetDatabase()">Reset</button>
-      </div>
-    </div>
-  </div>
+  <toolbar (displayMode)="parent($event)" (resetDatabase)="resetDatabase()" />
 
   <!-- MODAL -->
   <div class="modal fade" id="createProduct" tabindex="-1" aria-labelledby="createProductLabel" aria-hidden="true">
@@ -49,8 +36,8 @@
   </div>
 
   <!-- TABLE -->
-  @if ( !displayGrid() ) {
-    <table class="table responsive table-striped table-bordered">
+  @if ( displayMode === 'list' ) {
+    <table class="table responsive table-striped table-bordered table-hover">
       <thead>
         <tr>
           <th scope="col" class="col">#</th>

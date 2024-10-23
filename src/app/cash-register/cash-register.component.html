@@ -28,50 +28,64 @@
         </div>
         @for( product of productList; track $index ) {
           <!-- ROW OF LIST -->
-          <div class="row">
+          <div class="row product">
             <div class="col-1 border">{{ $index }}</div>
             <div class="col border">{{ product.name }}</div>
             <div class="col border">{{ product.price }} €</div>
             <div class="col-5 border">
               <div class="row">
+                <div class="col"><button (click)="removeProductFromOrder(product.name)">-</button></div>
                 <div class="col">
-                  <button>-</button>
+                  <input class="form-control" type="text" [value]="checkQuantity(product.name)" />
                 </div>
-                <div class="col">
-                  <input class="form-control" type="text" [value]="$index" /> <!-- Set dynamic -->
-                </div>
-                <div class="col">
-                  <button>+</button>
-                </div>
+                <div class="col"><button (click)="addProductToOrder(product.name)">+</button></div>
               </div>
             </div>
           </div>
         }
       }
       @else {
-        @for( product of productList; track $index ) {
-          <!-- CELL OF GRID -->
-          <div class="row">
-            <div class="col border">{{ product.name }}</div>
-          </div>
-        }
+        <div class="row row-gap-2 column-gap-2 text-center">
+          @for( product of productList; track $index ) {
+            <!-- CELL OF GRID -->
+              <div class="product col-2">
+                <img class="img-fluid object-fit-cover my-2" [src]="product.img" [alt]="product.alt">
+                <h6>{{ product.name }}: {{ product.price }} €</h6>
+                <div class="row align-items-baseline p-2">
+                  <button class="col btn btn-success border rounded-0 rounded-start" (click)="removeProductFromOrder(product.name)">-</button>
+                  <h6 class="col btn btn-light rounded-0">{{ checkQuantity(product.name) }}</h6>
+                  <button class="col btn btn-success border rounded-0 rounded-end" (click)="addProductToOrder(product.name)">+</button>
+                </div>
+              </div>
+          }
+        </div>
       }
     </div>
-    <!-- CASSA -->
-    <div class="col-4 bg-light py-5 px-4">
-      <div class="row sticky-top">
-        <h2 class="text-end">{{ client.date }}</h2>
-        <hr />
-        @for( product of client.bought; track $index ) {
-          <div class="row text-end">
-            <div class="col-6 text-start">{{ product.name }}</div>
-            <div class="col">x{{ product.quantity }}</div>
-            <div class="col">{{ product.subtotal }} €</div>
-          </div>
-        }
-        <hr />
-        <h3 class="text-end">Total: {{ total }} €</h3>
 
+    <!-- CASSA -->
+    <div class="col-4 bg-light pb-5 px-4 text-end">
+      <div class="row sticky-top">
+        <div class="col">
+          <h3 class="pt-5">{{ fullDate | translateDate: 'tdpipe-not-defined' }}</h3>
+          <h4>Ordine: {{ order._id }}</h4>
+          <hr />
+            @if ( order.products.length === 0 ) {
+              <h3>Empty bill</h3>
+            }
+            @else {
+              @for( product of order.products; track $index ) {
+                <div class="row">
+                  <div class="col-4 text-start">{{ product.name }}</div>
+                  <div class="col-3">{{ product.price }}</div>
+                  <div class="col-2">x{{ product.quantity }}</div>
+                  <div class="col-3">{{ (product.price * product.quantity) | number: '1.2-2' }} €</div>
+                </div>
+              }
+              <hr />
+              <h3>{{ order.total | number: '1.2-2' }} €</h3>
+            }
+        </div>
+        <button class="btn btn-success mt-2" (click)="submit()">Salva</button>
       </div>
     </div>
   </div>
