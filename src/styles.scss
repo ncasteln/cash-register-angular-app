@@ -1,4 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "../src/custom.scss";
+
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* CUSTOM BACKGROUND CLASSES */
+// .back-dark { background-color: $dark; }
+// .back-green-dd { background-color: $green-dd; }
+// .back-green-d { background-color: $green-d; }
+// .back-green-m { background-color: $green-m; }
+// .back-green-l { background-color: $green-l; }
+// .back-green-ll { background-color: $green-ll; }
+// .back-green-lll { background-color: $green-lll; }
+// .back-white { background-color: $white; }
+// .back-yellow { background-color: $yellow; }
+// .back-red { background-color: $red; }
+
+// /* CUSTOM BACKGROUND CLASSES */
+// .txt-dark { color: $dark; }
+// .txt-green-dd { color: $green-dd; }
+// .txt-green-d { color: $green-d; }
+// .txt-green-m { color: $green-m; }
+// .txt-green-l { color: $green-l; }
+// .txt-green-ll { color: $green-ll; }
+// .txt-green-lll { color: $green-lll; }
+// .txt-white { color: $white; }
+// .txt-yellow { color: $yellow; }
+// .txt-red { color: $red; }

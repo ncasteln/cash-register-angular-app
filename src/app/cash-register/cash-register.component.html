@@ -1,11 +1,10 @@
-<div class="container py-4">
-  <div class="row">
+<div class="container py-5">
     <!-- TOOLBAR -->
-    <div class="row">
+    <div class="row align-items-center">
       <div class="col">
-        <h1>Cassa</h1>
+        <h1>Ordini</h1>
       </div>
-      <div class="col">
+      <div class="col text-end">
         <div class="btn-group" role="group" aria-label="Change display mode">
           <button (click)="displayMode.set('list')" class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></svg>
@@ -17,76 +16,78 @@
       </div>
     </div>
 
-    <!-- TABLE / GRID -->
-    <div class="col-8">
+    <div class="row justify-content-between">
+      <!-- TABLE / GRID -->
       @if ( displayMode() === 'list' ) {
-        <div class="row sticky-top border mb-3 bg-primary">
-          <div class="col-1 border p-3">#</div>
-          <div class="col border p-3">Nome</div>
-          <div class="col border p-3">Prezzo</div>
-          <div class="col-5 border p-3">Kg</div>
-        </div>
-        @for( product of productList; track $index ) {
-          <!-- ROW OF LIST -->
-          <div class="row product">
-            <div class="col-1 border">{{ $index }}</div>
-            <div class="col border">{{ product.name }}</div>
-            <div class="col border">{{ product.price }} €</div>
-            <div class="col-5 border">
-              <div class="row">
-                <div class="col"><button (click)="removeProductFromOrder(product.name)">-</button></div>
-                <div class="col">
-                  <input class="form-control" type="text" [value]="checkQuantity(product.name)" />
+          <div class="col-7">
+            <div class="row back-green-dd sticky-top mb-3 text-center">
+              <div class="col-1 bg-light border p-3">#</div>
+              <div class="col bg-light border p-3">Nome</div>
+              <div class="col bg-light border p-3">€ / Kg</div>
+              <div class="col bg-light border p-3">Quantità</div>
+            </div>
+            @for( product of productList; track $index ) {
+              <!-- ROW OF LIST -->
+              <div class="row product-row border text-center">
+                <div class="product-index d-flex flex-column justify-content-center col-1 border-end">{{ $index }}</div>
+                <div class="product-name d-flex flex-column justify-content-center col border-end">{{ product.name }}</div>
+                <div class="d-flex flex-column justify-content-center col border-end">{{ product.price | number: '1.2-2' }} €</div>
+                <div class="d-flex flex-column justify-content-center col">
+                  <div class="row align-items-baseline p-2">
+                    <button class="col btn btn-success border rounded-0 rounded-start" (click)="removeProductFromOrder(product.name)">-</button>
+                    <h6 class="col btn btn-light rounded-0">{{ checkQuantity(product.name) }}</h6>
+                    <button class="col btn btn-success border rounded-0 rounded-end" (click)="addProductToOrder(product.name)">+</button>
+                  </div>
                 </div>
-                <div class="col"><button (click)="addProductToOrder(product.name)">+</button></div>
               </div>
+            }
+          </div>
+        }
+        @else {
+          <div class="col-8">
+            <div class="row row-gap-2 column-gap-2 text-center">
+              @for( product of productList; track $index ) {
+                <!-- CELL OF GRID -->
+                  <div class="product-col col-2">
+                    <img class="img-fluid object-fit-cover my-2" [src]="product.img" [alt]="product.alt">
+                    <h6>{{ product.name }}: {{ product.price }} €</h6>
+                    <div class="row align-items-baseline p-2">
+                      <button class="col btn btn-success border rounded-0 rounded-start" (click)="removeProductFromOrder(product.name)">-</button>
+                      <h6 class="col btn btn-light rounded-0">{{ checkQuantity(product.name) }}</h6>
+                      <button class="col btn btn-success border rounded-0 rounded-end" (click)="addProductToOrder(product.name)">+</button>
+                    </div>
+                  </div>
+              }
             </div>
           </div>
         }
-      }
-      @else {
-        <div class="row row-gap-2 column-gap-2 text-center">
-          @for( product of productList; track $index ) {
-            <!-- CELL OF GRID -->
-              <div class="product col-2">
-                <img class="img-fluid object-fit-cover my-2" [src]="product.img" [alt]="product.alt">
-                <h6>{{ product.name }}: {{ product.price }} €</h6>
-                <div class="row align-items-baseline p-2">
-                  <button class="col btn btn-success border rounded-0 rounded-start" (click)="removeProductFromOrder(product.name)">-</button>
-                  <h6 class="col btn btn-light rounded-0">{{ checkQuantity(product.name) }}</h6>
-                  <button class="col btn btn-success border rounded-0 rounded-end" (click)="addProductToOrder(product.name)">+</button>
-                </div>
-              </div>
-          }
-        </div>
-      }
-    </div>
 
-    <!-- CASSA -->
-    <div class="col-4 bg-light pb-5 px-4 text-end">
-      <div class="row sticky-top">
-        <div class="col">
-          <h3 class="pt-5">{{ fullDate | translateDate: 'tdpipe-not-defined' }}</h3>
-          <h4>Ordine: {{ order._id }}</h4>
-          <hr />
-            @if ( order.products.length === 0 ) {
-              <h3>Empty bill</h3>
-            }
-            @else {
-              @for( product of order.products; track $index ) {
-                <div class="row">
-                  <div class="col-4 text-start">{{ product.name }}</div>
-                  <div class="col-3">{{ product.price }}</div>
-                  <div class="col-2">x{{ product.quantity }}</div>
-                  <div class="col-3">{{ (product.price * product.quantity) | number: '1.2-2' }} €</div>
-                </div>
+      <!-- CASSA -->
+      <div class="col-4 bg-light pb-5 px-4 text-end">
+        <div class="row sticky-top">
+          <div class="col">
+            <h3 class="pt-5">{{ fullDate | translateDate: 'tdpipe-not-defined' }}</h3>
+            <h4>Ordine: {{ order._id }}</h4>
+            <hr />
+              @if ( order.products.length === 0 ) {
+                <h3>Empty bill</h3>
               }
-              <hr />
-              <h3>{{ order.total | number: '1.2-2' }} €</h3>
-            }
+              @else {
+                @for( product of order.products; track $index ) {
+                  <div class="row">
+                    <div class="col-4 text-start">{{ product.name }}</div>
+                    <div class="col-3">{{ product.price }}</div>
+                    <div class="col-2">x{{ product.quantity }}</div>
+                    <div class="col-3">{{ (product.price * product.quantity) | number: '1.2-2' }} €</div>
+                  </div>
+                }
+                <hr />
+                <h3>{{ order.total | number: '1.2-2' }} €</h3>
+              }
+          </div>
+          <button class="btn btn-success mt-2" (click)="submit()">Salva</button>
         </div>
-        <button class="btn btn-success mt-2" (click)="submit()">Salva</button>
       </div>
+
     </div>
-  </div>
 </div>

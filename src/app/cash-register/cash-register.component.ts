@@ -15,7 +15,7 @@ import { TranslateDatePipe } from '../translate-date.pipe';
   styleUrl: './cash-register.component.scss'
 })
 export class CashRegisterComponent implements OnInit {
-  displayMode = signal<'list'|'grid'>('grid');
+  displayMode = signal<'list'|'grid'>('list');
   productList: IProduct[] = [];
   currentOrder: ICurrentOrder[] = [];
   dateToDisplay: string | null = null;
@@ -73,7 +73,7 @@ export class CashRegisterComponent implements OnInit {
       return ;
     if (currentProduct.quantity > 0) {
       currentProduct.quantity -= 1;
-      this.order.total -= this.productList[productIndex].price;
+      this.order.total -= currentProduct.price;
     }
 
     /* Remove from bill */

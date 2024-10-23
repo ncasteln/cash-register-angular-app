@@ -1,11 +1,45 @@
-<div class="container">
+<div class="container py-5">
   <h1>Storico</h1>
-  <!-- @if ( empty ) {
+  @if ( (history | keyvalue)?.length === 0 ) {
     <h2>Empty history</h2>
-  } -->
+  }
   @else {
     @for ( day of history | keyvalue; track day.key ) {
-      <h2>{{ day.key }}</h2>
+      <h2 class="sticky-top bg-light p-3" >{{ day.key }}</h2>
+      <table class="table responsive table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th scope="col" class="col">#</th>
+            <th scope="col" class="col-2">Cassa</th>
+            <th scope="col" class="col-6">Products</th>
+            <th scope="col" class="col-2">Total</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @for ( order of day.value; track $index ) {
+              <tr>
+                <th scope="row">{{ $index }}</th>
+                <td>{{ order.cassa ? 'Sì' : 'No' }}</td>
+                <td>
+                  @if ( order.products.length ) {
+                    <ul>
+                      @for ( product of order.products; track product.name ) {
+                        <li>
+                          <div class="row">
+                            <div class="col">{{ product.name }}</div>
+                            <div class="col">{{ product.price | number: '1.2-2' }} €</div>
+                            <div class="col">x{{ product.quantity }}</div>
+                          </div>
+                        </li>
+                      }
+                    </ul>
+                  } @else { 'Nessuno sfuso' }
+                </td>
+                <td>{{ order.total | number: '1.2-2' }} €</td>
+              </tr>
+            }
+          </tbody>
+        </table>
     }
   }
 </div>

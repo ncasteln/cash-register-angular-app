@@ -1,5 +1,11 @@
 [
   {
+    "name": "Cassetta",
+    "price": 20.00,
+    "img": "assets/img-not-found.png",
+    "alt": "Cassetta mista"
+  },
+  {
     "name": "Carrot",
     "price": 12,
     "img": "assets/carote.jpg",

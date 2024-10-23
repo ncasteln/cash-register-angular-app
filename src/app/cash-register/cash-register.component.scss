@@ -1,11 +1,20 @@
-@import '../../variables.scss';
+@import '../../custom.scss';
 
-.product {
+.product-index {
+  background-color: $green-l;
+}
+
+.product-name {
+  background-color: $green-ll;
+}
+
+.product-row,.product-col {
+  color: $dark;
   background-color: $green-lll;
 }
 
-.product:hover {
-  color: rgb(243, 243, 243);
-  background-color: rgb(123, 161, 161);
+.product-row:hover,.product-col:hover {
+  color: $white;
+  background-color: $green-m;
   transition: 0.1s linear;
 }
