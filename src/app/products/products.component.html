@@ -21,10 +21,6 @@
               <input formControlName="price" type="text" class="form-control" id="floatingPrice" placeholder="price"> <!-- required> -->
               <label for="floatingPrice">Price</label>
             </div>
-            <div class="form mb-3"> <!-- REMOVE !!! -->
-              <label for="formFile">Image</label>
-              <input formControlName="img" type="file" class="form-control" id="floatingImg"> <!-- required> -->
-            </div>
           </form>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -90,14 +86,15 @@
           @else {
             <tr>
               <th scope="row">{{ $index }}</th>
-              <td>{{ product.name }}</td>
-              <td>{{ product.price }}</td>
-              <td>
+              <td [class.opacity-25]="product.disabled">{{ product.name }}</td>
+              <td [class.opacity-25]="product.disabled">{{ product.price }}</td>
+              <td [class.opacity-25]="product.disabled">
                 <img width="100" height="100" [src]="product.img" [alt]="product.alt" />
               </td>
               <td class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-warning" (click)="onEdit($index)">Update</button>
-                <button type="button" class="btn btn-danger" (click)="deleteProduct($index)">Delete</button>
+                <button type="button" [class.opacity-25]="product.disabled" class="btn btn-warning" (click)="onEdit($index)">Update</button>
+                <button type="button" [class.opacity-25]="product.disabled" class="btn btn-danger" (click)="deleteProduct($index)">Delete</button>
+                <button type="button" class="btn btn-info" (click)="disableProduct($index)">{{ product.disabled ? 'Enable' : 'Disable' }}</button>
               </td>
             </tr>
           }

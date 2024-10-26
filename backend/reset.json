@@ -3,210 +3,245 @@
     "name": "Cassetta",
     "price": 20.00,
     "img": "assets/img-not-found.png",
-    "alt": "Cassetta mista"
+    "alt": "Cassetta mista",
+    "disabled": false
   },
   {
     "name": "Carrot",
     "price": 12,
     "img": "assets/carote.jpg",
-    "alt": "Crisp orange root vegetable"
+    "alt": "Crisp orange root vegetable",
+    "disabled": true
   },
   {
     "name": "Broccoli",
     "price": 15,
     "img": "assets/broccoli.jpg",
-    "alt": "Tight green flower buds"
+    "alt": "Tight green flower buds",
+    "disabled": false
   },
   {
     "name": "Spinach",
     "price": 11,
     "img": "assets/spinaci.jpg",
-    "alt": "Dark leafy green vegetable"
+    "alt": "Dark leafy green vegetable",
+    "disabled": true
   },
   {
     "name": "Lettuce",
     "price": 14,
     "img": "assets/img-not-found.png",
-    "alt": "Green leafy salad ingredient"
+    "alt": "Green leafy salad ingredient",
+    "disabled": true
   },
   {
     "name": "Potato",
     "price": 13,
     "img": "assets/img-not-found.png",
-    "alt": "Brown starchy tuber"
+    "alt": "Brown starchy tuber",
+    "disabled": false
   },
   {
     "name": "Tomato",
     "price": 16,
     "img": "assets/img-not-found.png",
-    "alt": "Round red fruit often eaten raw"
+    "alt": "Round red fruit often eaten raw",
+    "disabled": false
   },
   {
     "name": "Pepper",
     "price": 18,
     "img": "assets/img-not-found.png",
-    "alt": "Colorful sweet or hot variety"
+    "alt": "Colorful sweet or hot variety",
+    "disabled": false
   },
   {
     "name": "Cucumber",
     "price": 19,
     "img": "assets/img-not-found.png",
-    "alt": "Sliced green salad ingredient"
+    "alt": "Sliced green salad ingredient",
+    "disabled": false
   },
   {
     "name": "Zucchini",
     "price": 20,
     "img": "assets/img-not-found.png",
-    "alt": "Long summer squash vegetable"
+    "alt": "Long summer squash vegetable",
+    "disabled": false
   },
   {
     "name": "Eggplant",
     "price": 21,
     "img": "assets/img-not-found.png",
-    "alt": "Purple glossy nightshade plant"
+    "alt": "Purple glossy nightshade plant",
+    "disabled": false
   },
   {
     "name": "Onion",
     "price": 10,
     "img": "assets/img-not-found.png",
-    "alt": "White, yellow, or red bulbous vegetable"
+    "alt": "White, yellow, or red bulbous vegetable",
+    "disabled": false
   },
   {
     "name": "Garlic",
     "price": 12,
     "img": "assets/img-not-found.png",
-    "alt": "Small pungent bulbs used for flavoring"
+    "alt": "Small pungent bulbs used for flavoring",
+    "disabled": false
   },
   {
     "name": "Mushroom",
     "price": 13,
     "img": "assets/img-not-found.png",
-    "alt": "Fleshy spore-bearing organism"
+    "alt": "Fleshy spore-bearing organism",
+    "disabled": false
   },
   {
     "name": "Celery",
     "price": 11,
     "img": "assets/img-not-found.png",
-    "alt": "Crunchy stalk vegetable"
+    "alt": "Crunchy stalk vegetable",
+    "disabled": false
   },
   {
     "name": "Radish",
     "price": 10,
     "img": "assets/img-not-found.png",
-    "alt": "Spicy root vegetable"
+    "alt": "Spicy root vegetable",
+    "disabled": false
   },
   {
     "name": "Beetroot",
     "price": 14,
     "img": "assets/img-not-found.png",
-    "alt": "Sweet earthy root vegetable"
+    "alt": "Sweet earthy root vegetable",
+    "disabled": false
   },
   {
     "name": "Turnip",
     "price": 11,
     "img": "assets/img-not-found.png",
-    "alt": "White or purple root vegetable"
+    "alt": "White or purple root vegetable",
+    "disabled": false
   },
   {
     "name": "Swiss Chard",
     "price": 12,
     "img": "assets/img-not-found.png",
-    "alt": "Leafy green vegetable with colorful stems"
+    "alt": "Leafy green vegetable with colorful stems",
+    "disabled": false
   },
   {
     "name": "Asparagus",
     "price": 15,
     "img": "assets/img-not-found.png",
-    "alt": "Delicate spear-shaped vegetable"
+    "alt": "Delicate spear-shaped vegetable",
+    "disabled": false
   },
   {
     "name": "Artichoke",
     "price": 16,
     "img": "assets/img-not-found.png",
-    "alt": "Thistle-like flower bud vegetable"
+    "alt": "Thistle-like flower bud vegetable",
+    "disabled": false
   },
   {
     "name": "Leek",
     "price": 11,
     "img": "assets/img-not-found.png",
-    "alt": "White stem vegetable similar to onion"
+    "alt": "White stem vegetable similar to onion",
+    "disabled": false
   },
   {
     "name": "Rhubarb",
     "price": 10,
     "img": "assets/img-not-found.png",
-    "alt": "Tart stalk vegetable often paired with strawberries"
+    "alt": "Tart stalk vegetable often paired with strawberries",
+    "disabled": false
   },
   {
     "name": "Okra",
     "price": 13,
     "img": "assets/img-not-found.png",
-    "alt": "Green pod vegetable often used in soups"
+    "alt": "Green pod vegetable often used in soups",
+    "disabled": false
   },
   {
     "name": "Parsnip",
     "price": 12,
     "img": "assets/img-not-found.png",
-    "alt": "Sweet white root vegetable"
+    "alt": "Sweet white root vegetable",
+    "disabled": false
   },
   {
     "name": "Pumpkin",
     "price": 14,
     "img": "assets/img-not-found.png",
-    "alt": "Orange squash fruit"
+    "alt": "Orange squash fruit",
+    "disabled": false
   },
   {
     "name": "Squash",
     "price": 15,
     "img": "assets/img-not-found.png",
-    "alt": "Summer or winter variety of gourd vegetables"
+    "alt": "Summer or winter variety of gourd vegetables",
+    "disabled": false
   },
   {
     "name": "Corn",
     "price": 16,
     "img": "assets/img-not-found.png",
-    "alt": "Golden kernels on cob vegetable"
+    "alt": "Golden kernels on cob vegetable",
+    "disabled": false
   },
   {
     "name": "Green Beans",
     "price": 13,
     "img": "assets/img-not-found.png",
-    "alt": "Long, thin, edible pods"
+    "alt": "Long, thin, edible pods",
+    "disabled": false
   },
   {
     "name": "Peas",
     "price": 12,
     "img": "assets/img-not-found.png",
-    "alt": "Small round legumes often eaten fresh"
+    "alt": "Small round legumes often eaten fresh",
+    "disabled": false
   },
   {
     "name": "Cauliflower",
     "price": 14,
     "img": "assets/img-not-found.png",
-    "alt": "White flower buds vegetable"
+    "alt": "White flower buds vegetable",
+    "disabled": false
   },
   {
     "name": "Brussels Sprouts",
     "price": 15,
     "img": "assets/img-not-found.png",
-    "alt": "Small cabbage-like buds vegetable"
+    "alt": "Small cabbage-like buds vegetable",
+    "disabled": false
   },
   {
     "name": "Kale",
     "price": 16,
     "img": "assets/img-not-found.png",
-    "alt": "Dark leafy green superfood"
+    "alt": "Dark leafy green superfood",
+    "disabled": false
   },
   {
     "name": "Collard Greens",
     "price": 17,
     "img": "assets/img-not-found.png",
-    "alt": "Nutritious leafy green vegetable"
+    "alt": "Nutritious leafy green vegetable",
+    "disabled": false
   },
   {
     "name": "Mustard Greens",
     "price": 18,
     "img": "assets/img-not-found.png",
-    "alt": "Bitter leafy green vegetable"
+    "alt": "Bitter leafy green vegetable",
+    "disabled": false
   }
 ]

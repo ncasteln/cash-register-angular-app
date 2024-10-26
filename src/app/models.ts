@@ -2,7 +2,8 @@ export interface IProduct {
   name: string,
   price: number,
   img: string,
-  alt: string
+  alt: string,
+  disabled: boolean
 }
 
 export interface ICurrentOrder extends IProduct {

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrderComponent } from './order.component';
+import { HarvestComponent } from './harvest.component';
 
-describe('OrderComponent', () => {
-  let component: OrderComponent;
-  let fixture: ComponentFixture<OrderComponent>;
+describe('HarvestComponent', () => {
+  let component: HarvestComponent;
+  let fixture: ComponentFixture<HarvestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OrderComponent]
+      imports: [HarvestComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OrderComponent);
+    fixture = TestBed.createComponent(HarvestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

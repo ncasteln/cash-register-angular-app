@@ -26,6 +26,8 @@ router.put('/products/update/:name', jsonParser,
   productMiddleware.imgValidation,
   productControllers.updateProducts);
 
+  router.put('/products/update/disable/:name', jsonParser, productControllers.disableProduct);
+
 /* DELETE */
 router.delete('/products/delete/:name', jsonParser, productControllers.deleteProducts);
 

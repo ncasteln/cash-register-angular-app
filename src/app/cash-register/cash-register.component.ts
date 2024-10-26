@@ -5,16 +5,16 @@ import { DecimalPipe, formatDate } from '@angular/common';
 import { TranslateDatePipe } from '../pipes/translate-date.pipe';
 
 @Component({
-  selector: 'order',
+  selector: 'cash-register',
   standalone: true,
   imports: [
     TranslateDatePipe,
     DecimalPipe
   ],
-  templateUrl: './order.component.html',
-  styleUrl: './order.component.scss'
+  templateUrl: './cash-register.component.html',
+  styleUrl: './cash-register.component.scss'
 })
-export class OrderComponent implements OnInit {
+export class CashRegisterComponent implements OnInit {
   displayMode = signal<'list'|'grid'>('list');
   productList: IProduct[] = [];
   currentOrder: ICurrentOrder[] = [];
@@ -50,7 +50,7 @@ export class OrderComponent implements OnInit {
     if (productIndex === -1)
       return (console.error('product not in the list'));
 
-    /* Product already in current order */
+    /* Product already in current cash-register */
     const currentProduct: ICurrentOrder | undefined = this.order.products.find(item => item.name === name);
     if (currentProduct === undefined)
       this.order.products.push({ ...this.productList[productIndex], quantity: 1 });
@@ -67,7 +67,7 @@ export class OrderComponent implements OnInit {
     if (productIndex === -1)
       return (console.error('product not in the list'));
 
-    /* Product already in current order */
+    /* Product already in current cash-register */
     const currentProduct: ICurrentOrder | undefined = this.order.products.find(item => item.name === name);
     if (currentProduct === undefined)
       return ;
@@ -85,9 +85,9 @@ export class OrderComponent implements OnInit {
     _id: 't749t8hnv39',
     cassa: true,
     products: [
-      { name: 'spinaci', price: 1, quantity: 1, img:'', alt: '' },
-      { name: 'broccoli', price: 1, quantity: 1, img:'', alt: '' },
-      { name: 'carrot', price: 1, quantity: 1, img:'', alt: '' },
+      { name: 'spinaci', price: 1, quantity: 1, img:'', alt: '', disabled: false },
+      { name: 'broccoli', price: 1, quantity: 1, img:'', alt: '', disabled: false },
+      { name: 'carrot', price: 1, quantity: 1, img:'', alt: '', disabled: false },
     ],
     total: 3
   }

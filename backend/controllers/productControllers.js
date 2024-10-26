@@ -57,6 +57,21 @@ exports.updateProducts = async(req, res) => {
   }
 }
 
+exports.disableProduct = async (req, res) => {
+  try {
+    console.log("* productControllers: DISABLE ");
+    const product = await Product.findOne({ name: req.params.name })
+    if (!product)
+      throw Error("* Product doesn't exists");
+    product.disabled = !product.disabled;
+    await product.save();
+    res.status(200).json({ msg: `* Product ${product.disabled ? 'DISABLED' : 'ENABLED'} successfully` });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: "* Internal server error" });
+  }
+}
+
 exports.deleteProducts = async(req, res) => {
   try {
     console.log("* DELETE params: ", req.params);

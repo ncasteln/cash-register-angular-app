@@ -22,7 +22,8 @@ export class ProductsComponent implements OnInit {
     name: '',
     price: -1,
     img: '',
-    alt: ''
+    alt: '',
+    disabled: false
   };
   postForm!: FormGroup;
 
@@ -44,8 +45,8 @@ export class ProductsComponent implements OnInit {
   constructor( private _productsService: ProductsService ) {
     this.postForm = new FormGroup({
       name: new FormControl(''),
-      price: new FormControl(''),
-      img: new FormControl(''),
+      price: new FormControl('')
+      // img: new FormControl(''),
     })
   }
 
@@ -86,10 +87,13 @@ export class ProductsComponent implements OnInit {
 
   /* UPDATE */
   onEdit( index: number ) {
+    if (this.productList[index].disabled)
+      return ;
     this.isEditMode.set(index);
     this.oldProduct.name = this.productList[index].name;
     this.oldProduct.price = this.productList[index].price;
     this.oldProduct.img = this.productList[index].img;
+    this.oldProduct.alt = this.productList[index].alt;
   }
   onSave( index: number ) {
     this.isEditMode.set(-1);
@@ -100,9 +104,11 @@ export class ProductsComponent implements OnInit {
     this.productList[index].name = this.oldProduct.name;
     this.productList[index].price = this.oldProduct.price;
     this.productList[index].img = this.oldProduct.img;
+    this.productList[index].alt = this.oldProduct.alt;
     this.oldProduct.name = '';
     this.oldProduct.price = -1;
     this.oldProduct.img = '';
+    this.oldProduct.alt = '';
   }
   updateProduct( newProduct: IProduct ) {
     this._productsService.update(this.oldProduct, newProduct).subscribe(res => {
@@ -111,8 +117,17 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  disableProduct( index: number ) {
+    this._productsService.disable(this.productList[index]).subscribe(res => {
+      // if (this.showAlert('UPDATE', res.status, HttpStatusCode.Ok) == 0)
+        this.getProducts();
+    });
+  }
+
   /* DELETE */
   deleteProduct( index: number ) {
+    if (this.productList[index].disabled)
+      return ;
     this._productsService.delete(this.productList[index]).subscribe(res => {
       if (this.showAlert('DELETE', res.status, HttpStatusCode.Ok) == 0)
         this.getProducts();

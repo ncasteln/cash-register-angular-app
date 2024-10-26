@@ -40,6 +40,15 @@ export class ProductsService {
         { observe: 'response' }));
   }
 
+  disable( product: IProduct ) {
+    return (
+      this.http.put<IProduct>(
+        this.url + "/update/disable/" + product.name,
+        { observe: 'response' }
+      )
+    )
+  }
+
   reset() {
     return (this.http.delete(this.url + '/reset', { observe: 'response' }))
   }
