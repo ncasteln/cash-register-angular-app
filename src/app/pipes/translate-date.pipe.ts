@@ -7,7 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TranslateDatePipe implements PipeTransform {
   private readonly englishDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   private readonly englishMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
   private readonly italianDays = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
   private readonly italanMonth = ['Gennaio',  'Febbraio',  'Marzo',  'Aprile',  'Maggio',  'Giugno',  'Luglio',  'Agosto',  'Settembre',  'Ottobre',  'Novembre',  'Dicembre']
 

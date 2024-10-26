@@ -1,4 +1,4 @@
-const Product = require('../models/productsModels');
+const Product = require('../models/productModels');
 const fs = require('fs').promises;
 const resetFile = require('../reset.json');
 
@@ -10,7 +10,7 @@ const resetFile = require('../reset.json');
 
 exports.getProducts = async(req, res) => {
   try {
-    console.log("* GET ALL");
+    console.log("* productControllers: GET ALL");
     const result = await Product.find({});
     if (result)
       res.status(200).json(result);

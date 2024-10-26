@@ -2,19 +2,19 @@ import { Component, computed, OnInit, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
 import { IOrder, ICurrentOrder, IProduct } from '../models';
 import { DecimalPipe, formatDate } from '@angular/common';
-import { TranslateDatePipe } from '../translate-date.pipe';
+import { TranslateDatePipe } from '../pipes/translate-date.pipe';
 
 @Component({
-  selector: 'cash-register',
+  selector: 'order',
   standalone: true,
   imports: [
     TranslateDatePipe,
     DecimalPipe
   ],
-  templateUrl: './cash-register.component.html',
-  styleUrl: './cash-register.component.scss'
+  templateUrl: './order.component.html',
+  styleUrl: './order.component.scss'
 })
-export class CashRegisterComponent implements OnInit {
+export class OrderComponent implements OnInit {
   displayMode = signal<'list'|'grid'>('list');
   productList: IProduct[] = [];
   currentOrder: ICurrentOrder[] = [];

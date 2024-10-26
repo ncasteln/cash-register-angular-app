@@ -1,30 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "../src/custom.scss";
-
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-/* CUSTOM BACKGROUND CLASSES */
-// .back-dark { background-color: $dark; }
-// .back-green-dd { background-color: $green-dd; }
-// .back-green-d { background-color: $green-d; }
-// .back-green-m { background-color: $green-m; }
-// .back-green-l { background-color: $green-l; }
-// .back-green-ll { background-color: $green-ll; }
-// .back-green-lll { background-color: $green-lll; }
-// .back-white { background-color: $white; }
-// .back-yellow { background-color: $yellow; }
-// .back-red { background-color: $red; }
+// maybe these 2 not necessary
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
 
-// /* CUSTOM BACKGROUND CLASSES */
-// .txt-dark { color: $dark; }
-// .txt-green-dd { color: $green-dd; }
-// .txt-green-d { color: $green-d; }
-// .txt-green-m { color: $green-m; }
-// .txt-green-l { color: $green-l; }
-// .txt-green-ll { color: $green-ll; }
-// .txt-green-lll { color: $green-lll; }
-// .txt-white { color: $white; }
-// .txt-yellow { color: $yellow; }
-// .txt-red { color: $red; }
+$dark: #0E1219;
+$green-dd: #0b2e25;
+$green-d: #17473B;
+$green-m: #006622;
+$green-l: #8EC649;
+$green-ll: #a2da5d;
+$green-lll: #bbe488;
+$white: #d1e2bc;
+$yellow: #FFD100;
+$red: #b04f4a;
+
+$primary:       $green-m;
+$secondary:     $green-l;
+$success:       $yellow;
+$info:          $green-ll;
+$warning:       $red;
+$danger:        $red;
+$light:         $white;
+$dark:          $dark;
+// $hello:         $red;
+
+// maybe not necessary
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark,
+  // "hello": $red
+);
+
+@import '../node_modules/bootstrap/scss/bootstrap';

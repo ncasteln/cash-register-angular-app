@@ -1,5 +1,5 @@
-const Product = require('../models/productsModels');
-const fs = require('fs');
+const Product = require('../models/productModels');
+// const fs = require('fs');
 
 const errLogger = ( res, msg ) => {
   console.error("* Error: validation:", msg);
