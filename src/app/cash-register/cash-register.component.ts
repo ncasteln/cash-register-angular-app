@@ -26,7 +26,7 @@ export class CashRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this._productService.getAll().subscribe(res => {
-      this.productList = res;
+      this.productList = res.sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });
     });
 
     /* DATE */
@@ -85,9 +85,10 @@ export class CashRegisterComponent implements OnInit {
     _id: 't749t8hnv39',
     cassa: true,
     products: [
-      { name: 'spinaci', price: 1, quantity: 1, img:'', alt: '', disabled: false },
-      { name: 'broccoli', price: 1, quantity: 1, img:'', alt: '', disabled: false },
-      { name: 'carrot', price: 1, quantity: 1, img:'', alt: '', disabled: false },
+      { name: 'spinaci', price: 1, quantity: 1, img:'', alt: '', disabled: false, external: false },
+      { name: 'broccoli', price: 1, quantity: 1, img:'', alt: '', disabled: false, external: false },
+      { name: 'carrot', price: 1, quantity: 1, img:'', alt: '', disabled: false, external: false },
+      { name: 'cheese', price: 1, quantity: 1, img:'', alt: '', disabled: false, external: true },
     ],
     total: 3
   }

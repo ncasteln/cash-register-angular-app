@@ -28,18 +28,20 @@
             </div>
             @for( product of productList; track $index ) {
               <!-- ROW OF LIST -->
-              <div class="row product-row border text-center">
-                <div class="product-index d-flex flex-column justify-content-center col-1 border-end">{{ $index }}</div>
-                <div class="product-name d-flex flex-column justify-content-center col border-end">{{ product.name }}</div>
-                <div class="d-flex flex-column justify-content-center col border-end">{{ product.price | number: '1.2-2' }} €</div>
-                <div class="d-flex flex-column justify-content-center col">
-                  <div class="row align-items-baseline p-2">
-                    <button class="col btn btn-success border rounded-0 rounded-start" (click)="removeProductFromOrder(product.name)">-</button>
-                    <h6 class="col btn btn-light rounded-0">{{ checkQuantity(product.name) }}</h6>
-                    <button class="col btn btn-success border rounded-0 rounded-end" (click)="addProductToOrder(product.name)">+</button>
+              @if ( !product.disabled ) {
+                <div class="row product-row border text-center">
+                  <div class="product-index d-flex flex-column justify-content-center col-1 border-end">{{ $index }}</div>
+                  <div class="product-name d-flex flex-column justify-content-center col border-end">{{ product.name }}</div>
+                  <div class="d-flex flex-column justify-content-center col border-end">{{ product.price | number: '1.2-2' }} €</div>
+                  <div class="d-flex flex-column justify-content-center col">
+                    <div class="row align-items-baseline p-2">
+                      <button class="col btn btn-success border rounded-0 rounded-start" (click)="removeProductFromOrder(product.name)">-</button>
+                      <h6 class="col btn btn-light rounded-0">{{ checkQuantity(product.name) }}</h6>
+                      <button class="col btn btn-success border rounded-0 rounded-end" (click)="addProductToOrder(product.name)">+</button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              }
             }
           </div>
         }
@@ -48,6 +50,7 @@
             <div class="row row-gap-2 column-gap-2 text-center">
               @for( product of productList; track $index ) {
                 <!-- CELL OF GRID -->
+                @if ( !product.disabled ) {
                   <div class="product-col col-2">
                     <img class="img-fluid object-fit-cover my-2" [src]="product.img" [alt]="product.alt">
                     <h6>{{ product.name }}: {{ product.price }} €</h6>
@@ -56,7 +59,8 @@
                       <h6 class="col btn btn-light rounded-0">{{ checkQuantity(product.name) }}</h6>
                       <button class="col btn btn-success border rounded-0 rounded-end" (click)="addProductToOrder(product.name)">+</button>
                     </div>
-                  </div>
+                  </div>s
+                }
               }
             </div>
           </div>

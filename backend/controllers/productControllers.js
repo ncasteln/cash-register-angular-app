@@ -1,3 +1,4 @@
+const { nameValidation } = require('../middleware/productMiddleware');
 const Product = require('../models/productModels');
 const fs = require('fs').promises;
 const resetFile = require('../reset.json');
@@ -24,9 +25,10 @@ exports.getProducts = async(req, res) => {
 
 exports.postProducts = async(req, res) => {
   try {
-    const { name, price, img, alt } = req.body;
-    const newProduct = new Product({ name, price, img, alt });
+    const { name, price, img, alt, external } = req.body;
+    const newProduct = new Product({ name: name.toLowerCase(), price, img, alt, external });
     await newProduct.save();
+    console.log(newProduct)
     res.status(201).json({ msg: "* Product CREATED successfully"});
   } catch (e) {
     console.error(e);

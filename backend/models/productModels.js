@@ -5,7 +5,8 @@ const productSchema = new mongoose.Schema({
   price: Number,
   img: String,
   alt: String,
-  disabled: Boolean
+  disabled: Boolean,
+  external: Boolean
 });
 
 /* .model(schemaName, schema, nameOfTheCollection) */

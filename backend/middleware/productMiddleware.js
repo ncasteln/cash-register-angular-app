@@ -9,7 +9,10 @@ const errLogger = ( res, msg ) => {
 exports.nameValidation = async(req, res, next) => {
   console.log("[ VALIDATION ]");
 
-  const { name } = req.body;
+  let { name } = req.body;
+
+  /* Trim whitespaces */
+  name = name.trim();
 
   /* Valid name and price */
   if (!name)
@@ -24,7 +27,8 @@ exports.nameValidation = async(req, res, next) => {
     return (errLogger(res,'no empty string allowed'));
 
   /* Duplicate name */
-  const isDuplicate = await Product.findOne({ name });
+  const lowerName = name.toLowerCase();
+  const isDuplicate = await Product.findOne({ name: lowerName });
   if (isDuplicate)
     return (errLogger(res,'duplicate name'));
 

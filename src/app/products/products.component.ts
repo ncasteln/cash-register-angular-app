@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { HttpStatusCode } from '@angular/common/http';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { IProduct } from '../models';
+import { catchError, retry, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -23,30 +24,22 @@ export class ProductsComponent implements OnInit {
     price: -1,
     img: '',
     alt: '',
-    disabled: false
+    disabled: false,
+    external: false
   };
   postForm!: FormGroup;
 
   /* Signals */
-  displayGrid = signal(false); /* Remove */
   isEditMode = signal(-1);
-
-  // displayMode = signal<'list' | 'grid'>('list');
-  // parentFunction( event: 'list' | 'grid') {
-  //   console.log(event)
-  //   this.displayMode.set(event);
-  // }
   displayMode = 'list';
-  parent( event: 'list' | 'grid' ) {
-    console.log('PARENT --->', event);
-    this.displayMode = event;
-  }
+  toggleDisplayModeParent( event: 'list' | 'grid' ) { this.displayMode = event; }
 
   constructor( private _productsService: ProductsService ) {
     this.postForm = new FormGroup({
       name: new FormControl(''),
-      price: new FormControl('')
-      // img: new FormControl(''),
+      price: new FormControl(''),
+      external: new FormControl(false)
+      /* Shoul complete with other fields ??? */
     })
   }
 
@@ -57,16 +50,9 @@ export class ProductsComponent implements OnInit {
   /* GET ALL */
   getProducts() {
     this._productsService.getAll().subscribe(res => {
-      this.productList = res;
+      this.productList = res.sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });
     });
   }
-
-  /* GET ONE */
-  // getOneProduct( id: string ) {
-  //   this._productsService.getProductById(id).subscribe(res => {
-  //     console.log(res)
-  //   })
-  // }
 
   showAlert( method: string, res: HttpStatusCode, expected: HttpStatusCode ) {
     if (res !== expected) {
@@ -79,9 +65,16 @@ export class ProductsComponent implements OnInit {
 
   /* CREATE */
   createProduct() {
-    this._productsService.create(this.postForm.value).subscribe(res => {
-      if (this.showAlert("POST", res.status, HttpStatusCode.Created) == 0)
-        this.getProducts();
+    this._productsService.create(this.postForm.value)
+    .pipe(
+      retry(3),
+      catchError(err => {
+        alert(`Creazione prodotto fallita: ${err.error.msg}`)
+        return throwError(() => new Error(err.error.msg));
+      })
+    )
+    .subscribe(res => {
+      this.getProducts();
     });
   }
 
@@ -131,13 +124,11 @@ export class ProductsComponent implements OnInit {
     this._productsService.delete(this.productList[index]).subscribe(res => {
       if (this.showAlert('DELETE', res.status, HttpStatusCode.Ok) == 0)
         this.getProducts();
-      });
+    });
   }
 
   /* RESET */
   resetDatabase() {
-    this._productsService.reset().subscribe(res => {
-      /* Needs implementation */
-    });
+    this._productsService.reset().subscribe(res => { this.getProducts(); });
   }
 }

@@ -3,7 +3,8 @@ export interface IProduct {
   price: number,
   img: string,
   alt: string,
-  disabled: boolean
+  disabled: boolean,
+  external: boolean
 }
 
 export interface ICurrentOrder extends IProduct {

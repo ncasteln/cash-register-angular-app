@@ -11,13 +11,9 @@ import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
   }
 })
 export class ToolbarComponent {
-  @Output() displayMode = new EventEmitter<'list' | 'grid'>();
+  @Output() toggleDisplayModeChild = new EventEmitter<'list' | 'grid'>();
   @Output() resetDatabase = new EventEmitter();
 
-  emitDisplayMode( view: 'list' | 'grid') {
-    this.displayMode.emit(view);
-  }
-  emitResetDatabase() {
-    this.resetDatabase.emit();
-  }
+  emitDisplayMode( view: 'list' | 'grid') { this.toggleDisplayModeChild.emit(view); }
+  emitResetDatabase() { this.resetDatabase.emit(); }
 }
