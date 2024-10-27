@@ -54,19 +54,18 @@
       </div>
     </div>
 
-  <div class="row">
+  <div class="row column-gap-5">
     <!-- PRODOTTI INTERNI -->
     <div class="col">
       <h2>Prodotti interni</h2>
       @if ( displayMode === 'list' ) {
-        <!-- <div calss="table-responsive"></div> -->
         <table class="table table-responsive table-hover align-middle ">
           <thead>
-            <tr>
+            <tr class="table-secondary">
               <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Price</th>
-              <th scope="col" class="w-auto">Actions</th>
+              <th scope="col">Nome</th>
+              <th scope="col">€/Kg</th>
+              <th scope="col" class="w-auto">Azioni</th>
             </tr>
           </thead>
           <tbody class="table-group-divider">
@@ -106,6 +105,21 @@
           </tbody>
         </table>
       }
+      @else {
+        <div class="container">
+          <div class="row row-gap-2 column-gap-2 text-center justify-content-between">
+            @for( product of productList; track $index ) {
+              <!-- CELL OF GRID -->
+              @if ( !product.external ) {
+                <button class="col-3 bg-gray-100 border">
+                  <img class="img-fluid object-fit-cover my-2" [src]="product.img" [alt]="product.alt">
+                  <h6>{{ product.name }}</h6>
+                </button>
+              }
+            }
+          </div>
+        </div>
+      }
     </div>
 
     <!-- PRODOTTI ESTERNI -->
@@ -114,7 +128,7 @@
       @if ( displayMode === 'list' ) {
         <table class="table table-responsive table-hover align-middle ">
           <thead>
-            <tr>
+            <tr class="table-secondary">
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Price</th>
@@ -127,7 +141,7 @@
                 <tr>
                   <th scope="row">{{ $index }}</th>
                   <td [class.opacity-25]="product.disabled">{{ product.name }}</td>
-                  <td [class.opacity-25]="product.disabled">{{ product.price }}</td>
+                  <td [class.opacity-25]="product.disabled">-</td>
                   <td class="p-0">
                     <div class="btn-group w-100" role="group" aria-label="Basic example">
                       <button type="button" [class.opacity-25]="product.disabled" class="rounded-0 btn btn-warning" (click)="onEdit($index)">Update</button>
@@ -140,6 +154,21 @@
             }
           </tbody>
         </table>
+      }
+      @else {
+        <div class="container">
+          <div class="row row-gap-2 column-gap-2 text-center justify-content-between ">
+            @for( product of productList; track $index ) {
+              <!-- CELL OF GRID -->
+              @if ( product.external ) {
+                <button class="col-3 bg-gray-100 border">
+                  <img class="img-fluid object-fit-cover my-2" [src]="product.img" [alt]="product.alt">
+                  <h6>{{ product.name }}</h6>
+                </button>
+              }
+            }
+          </div>
+        </div>
       }
     </div>
   </div>

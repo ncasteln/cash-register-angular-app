@@ -7,28 +7,29 @@
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
 
-$dark: #0E1219;
-$green-dd: #0b2e25;
-$green-d: #17473B;
-$green-m: #006622;
-$green-l: #8EC649;
-$green-ll: #a2da5d;
-$green-lll: #bbe488;
-$white: #d1e2bc;
-$yellow: #FFD100;
-$red: #b04f4a;
+/* Overwrites */
+$dark:          #131313;
+$light:         #f0ffed;
+$primary:       #dbc500;
+$secondary:     #9eeb82;
+$success:       #006622;
+$warning:       #FFD100;
+$danger:        #b04f4a;
 
-$primary:       $green-m;
-$secondary:     $green-l;
-$success:       $yellow;
-$info:          $green-ll;
-$warning:       $yellow;
-$danger:        $red;
-$light:         $white;
-$dark:          $dark;
-// $hello:         $red;
+/* New */
+$accent:        #80ef58;
+$white:         #fff;
+$gray-100:      #f8f9fa;
+$gray-200:      #e9ecef;
+$gray-300:      #dee2e6;
+$gray-400:      #ced4da;
+$gray-500:      #adb5bd;
+$gray-600:      #6c757d;
+$gray-700:      #495057;
+$gray-800:      #343a40;
+$gray-900:      #212529;
+$black:         #000;
 
-// maybe not necessary
 $theme-colors: (
   "primary":    $primary,
   "secondary":  $secondary,
@@ -38,7 +39,18 @@ $theme-colors: (
   "danger":     $danger,
   "light":      $light,
   "dark":       $dark,
-  // "hello": $red
+  "accent":     $accent,
+  "white":      $white,
+  "gray-100":   $gray-100,
+  "gray-200":   $gray-200,
+  "gray-300":   $gray-300,
+  "gray-400":   $gray-400,
+  "gray-500":   $gray-500,
+  "gray-600":   $gray-600,
+  "gray-700":   $gray-700,
+  "gray-800":   $gray-800,
+  "gray-900":   $gray-900,
+  "black":      $black,
 );
 
 @import '../node_modules/bootstrap/scss/bootstrap';

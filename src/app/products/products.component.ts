@@ -31,7 +31,7 @@ export class ProductsComponent implements OnInit {
 
   /* Signals */
   isEditMode = signal(-1);
-  displayMode = 'list';
+  displayMode = 'grid';
   toggleDisplayModeParent( event: 'list' | 'grid' ) { this.displayMode = event; }
 
   constructor( private _productsService: ProductsService ) {
@@ -125,6 +125,10 @@ export class ProductsComponent implements OnInit {
       if (this.showAlert('DELETE', res.status, HttpStatusCode.Ok) == 0)
         this.getProducts();
     });
+  }
+
+  onFileInput( e: any) {
+    console.log("UPLOAD")
   }
 
   /* RESET */
