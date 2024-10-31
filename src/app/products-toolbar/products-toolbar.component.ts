@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 
 @Component({
-  selector: 'toolbar',
+  selector: 'products-toolbar',
   standalone: true,
   imports: [],
-  templateUrl: './toolbar.component.html',
-  styleUrl: './toolbar.component.scss',
+  templateUrl: './products-toolbar.component.html',
+  styleUrl: './products-toolbar.component.scss',
   host: {
     class: 'row align-items-center'
   }
 })
-export class ToolbarComponent {
+export class ProductsToolbarComponent {
   @Output() toggleDisplayModeChild = new EventEmitter<'list' | 'grid'>();
   @Output() resetDatabase = new EventEmitter();
 

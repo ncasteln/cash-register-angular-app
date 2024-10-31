@@ -1,0 +1,142 @@
+<div class="container py-5">
+  <!-- TOOLBAR -->
+  <div class="row align-items-center">
+    <div class="col">
+      <h1>Cassa</h1>
+    </div>
+    <div class="col text-end">
+      <div class="btn-group" role="group" aria-label="Change display mode">
+        <button (click)="displayMode.set('list')" class="btn btn-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></svg>
+        </button>
+        <button (click)="displayMode.set('grid')" class="btn btn-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-3x3" viewBox="0 0 16 16"><path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5zM1.5 1a.5.5 0 0 0-.5.5V5h4V1zM5 6H1v4h4zm1 4h4V6H6zm-1 1H1v3.5a.5.5 0 0 0 .5.5H5zm1 0v4h4v-4zm5 0v4h3.5a.5.5 0 0 0 .5-.5V11zm0-1h4V6h-4zm0-5h4V1.5a.5.5 0 0 0-.5-.5H11zm-1 0V1H6v4z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row column-gap-5">
+
+    <!-- TEST -->
+
+    <!-- PRODOTTI INTERNI -->
+    <div class="col">
+      <h2>Prodotti interni</h2>
+      @if ( displayMode() === 'list' ) {
+        <table class="table table-responsive table-hover align-middle">
+          <thead>
+            <tr class="table-secondary sticky-top">
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">€/Kg</th>
+              <th scope="col" class="w-auto">Azioni</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            @for ( product of productList; track $index ) {
+              @if ( !product.disabled && !product.external ) {
+                <tr>
+                  <th scope="row">{{ $index }}</th>
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.price }}</td>
+                  <td class="p-0">
+                    <div class="btn-group w-100" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-secondary border rounded-0" (click)="removeProductFromOrder(product.name)">-</button>
+                      <div type="button" class="btn btn-light rounded-0">{{ checkQuantity(product.name) }}</div>
+                      <button type="button" class="btn btn-secondary border rounded-0" (click)="addProductToOrder(product.name)">+</button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      }
+      @else {
+        <div class="container">
+          <div class="row row-gap-2 column-gap-2 text-center justify-content-between">
+            @for( product of productList; track $index ) {
+              <!-- CELL OF GRID -->
+              @if ( !product.external ) {
+                <button class="col-3 bg-gray-100 border">
+                  <img class="img-fluid object-fit-cover my-2" [src]="product.img" [alt]="product.alt">
+                  <h6>{{ product.name }}</h6>
+                </button>
+              }
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- PRODOTTI ESTERNI -->
+    <div class="col">
+      <h2>Prodotti esterni</h2>
+      @if ( displayMode() === 'list' ) {
+        <table class="table table-responsive table-hover align-middle">
+          <thead>
+            <tr class="table-secondary sticky-top">
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Prezzo</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            @for ( product of productList; track $index ) {
+              @if ( product.external && product.external ) {
+                <tr>
+                  <th scope="row">{{ $index }}</th>
+                  <td>{{ product.name }}</td>
+                  <td>
+                    <input type="text" />
+                    <button>Add</button>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      }
+      @else {
+        <div class="container">
+          <div class="row row-gap-2 column-gap-2 text-center justify-content-between ">
+            @for( product of productList; track $index ) {
+              <!-- CELL OF GRID -->
+              @if ( product.external ) {
+                <button class="col-3 bg-gray-100 border">
+                  <img class="img-fluid object-fit-cover my-2" [src]="product.img" [alt]="product.alt">
+                  <h6>{{ product.name }}</h6>
+                </button>
+              }
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- CASSA -->
+    <div class="col bg-secondary text-end">
+      <h2 class="my-4">Riepilogo</h2> <!-- sticky-top !!!!!! -->
+      @if ( order.products.length === 0 ) {
+        <h3>Ordine vuoto</h3>
+      }
+      @else {
+        <table class="table table-responsive">
+          <tbody>
+            @for( product of order.products; track $index ) {
+              <tr>
+                <th scope="row">{{ product.name }}</th>
+                <td scope="col">{{ product.price }}</td>
+                <td scope="col">x{{ product.quantity }}</td>
+                <td scope="col">{{ (product.price * product.quantity) | number: '1.2-2' }} €</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <h3>Totale: {{ order.total | number: '1.2-2' }} €</h3>
+      }
+      <button class="btn btn-success mt-2 w-100" (click)="submit()">Salva</button>
+    </div>
+  </div>
+</div>

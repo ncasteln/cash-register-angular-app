@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpStatusCode } from '@angular/common/http';
-import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { ProductsToolbarComponent } from '../products-toolbar/products-toolbar.component';
 import { IProduct } from '../models';
 import { catchError, retry, throwError } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { catchError, retry, throwError } from 'rxjs';
   imports: [
     FormsModule,  /* [(ngModel)] */
     ReactiveFormsModule,
-    ToolbarComponent
+    ProductsToolbarComponent
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'

@@ -1,5 +1,5 @@
 <div class="container py-5">
-  <toolbar (toggleDisplayModeChild)="toggleDisplayModeParent($event)" (resetDatabase)="resetDatabase()" />
+  <products-toolbar (toggleDisplayModeChild)="toggleDisplayModeParent($event)" (resetDatabase)="resetDatabase()" />
 
   <!-- MODAL CREATE PRODUCT -->
   <div class="modal fade" id="createProduct" tabindex="-1" aria-labelledby="createProductLabel" aria-hidden="true">
@@ -35,24 +35,24 @@
     </div>
   </div>
 
-    <!-- MODAL UPDATE IMAGE PRODUCT -->
-    <div class="modal fade" id="uploadImage" tabindex="-1" aria-labelledby="uploadImageLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="uploadImageLabel">Upload new image</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <!-- FORM -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-primary border" data-bs-dismiss="modal">Upload</button>
-            </div>
+  <!-- MODAL UPDATE IMAGE PRODUCT -->
+  <div class="modal fade" id="uploadImage" tabindex="-1" aria-labelledby="uploadImageLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="uploadImageLabel">Upload new image</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- FORM -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary border" data-bs-dismiss="modal">Upload</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
   <div class="row column-gap-5">
     <!-- PRODOTTI INTERNI -->

@@ -1,99 +1,101 @@
-import { Component, computed, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../service/products.service';
-import { IOrder, ICurrentOrder, IProduct } from '../models';
-import { DecimalPipe, formatDate } from '@angular/common';
-import { TranslateDatePipe } from '../pipes/translate-date.pipe';
+import { IDay, IOrder, IProduct } from '../models';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { DecimalPipe, KeyValuePipe } from '@angular/common';
 
 @Component({
-  selector: 'cash-register',
+  selector: 'app-cash-register',
   standalone: true,
   imports: [
-    TranslateDatePipe,
+    ReactiveFormsModule,
+    KeyValuePipe,
+    FormsModule,
     DecimalPipe
   ],
   templateUrl: './cash-register.component.html',
   styleUrl: './cash-register.component.scss'
 })
 export class CashRegisterComponent implements OnInit {
-  displayMode = signal<'list'|'grid'>('list');
-  productList: IProduct[] = [];
-  currentOrder: ICurrentOrder[] = [];
-  dateToDisplay: string | null = null;
-  id_date: string | null = null;
-  fullDate: string | null = null;
-
   constructor( private _productService: ProductsService ) {}
+
+  productList: IProduct[] = [];
+  orderForm: IOrder[] = [];
+  currentOrder: IOrder[] = [];
+  displayMode: 'grid' | 'list' = 'grid';
 
   ngOnInit(): void {
     this._productService.getAll().subscribe(res => {
-      this.productList = res.sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });
+      this.productList = res.sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });;
+      this.createEmptyOrderForm();
     });
-
-    /* DATE */
-    const today = Date.now();
-    this.fullDate = formatDate(today, 'fullDate', 'en-US');
-    this.id_date = formatDate(today, 'dd-MM-yyyy', 'en-US');
-
-    /* CREATE DATE ENTRY IN MONGODB */
   }
 
-  checkQuantity( name: string ) {
-    const product: ICurrentOrder | undefined = this.order.products.find(item => item.name === name);
-    if (product === undefined)
-      return ('0');
-    return (product.quantity)
+  createEmptyOrderForm() {
+    this.productList.forEach(item => {
+      const { name, price } = item;
+      item.external
+        ? this.orderForm.push({ name, price: 0, weight: -1 }) //-1 means will be instered only the price, for ext prod
+        : this.orderForm.push({ name, price, weight: 0 })
+    })
   }
 
-  addProductToOrder( name: string ) {
-    /* Product exist */
-    const productIndex = this.productList.findIndex(product => product.name === name)
-    if (productIndex === -1)
-      return (console.error('product not in the list'));
-
-    /* Product already in current cash-register */
-    const currentProduct: ICurrentOrder | undefined = this.order.products.find(item => item.name === name);
-    if (currentProduct === undefined)
-      this.order.products.push({ ...this.productList[productIndex], quantity: 1 });
-    else
-      currentProduct.quantity += 1;
-
-    /* Update total */
-    this.order.total += this.productList[productIndex].price;
-  }
-
-  removeProductFromOrder( name: string ) {
-    /* Product exist */
-    const productIndex = this.productList.findIndex(product => product.name === name)
-    if (productIndex === -1)
-      return (console.error('product not in the list'));
-
-    /* Product already in current cash-register */
-    const currentProduct: ICurrentOrder | undefined = this.order.products.find(item => item.name === name);
-    if (currentProduct === undefined)
+  addToOrder( i: number ) {
+    if (this.orderForm[i].weight === 0) // sanitize input
       return ;
-    if (currentProduct.quantity > 0) {
-      currentProduct.quantity -= 1;
-      this.order.total -= currentProduct.price;
-    }
 
-    /* Remove from bill */
-    if (currentProduct.quantity === 0)
-      this.order.products.splice(this.order.products.indexOf(currentProduct), 1);
+    const { name, price, weight } = this.orderForm[i];
+    this.currentOrder.push({ name, price, weight });
+
+    /* RESET ORDER FORM */
+    if (this.orderForm[i].weight === -1)
+      this.orderForm[i].price = 0;
+    else
+      this.orderForm[i].weight = 0;
   }
 
-  order: IOrder = {
-    _id: 't749t8hnv39',
-    cassa: true,
-    products: [
-      { name: 'spinaci', price: 1, quantity: 1, img:'', alt: '', disabled: false, external: false },
-      { name: 'broccoli', price: 1, quantity: 1, img:'', alt: '', disabled: false, external: false },
-      { name: 'carrot', price: 1, quantity: 1, img:'', alt: '', disabled: false, external: false },
-      { name: 'cheese', price: 1, quantity: 1, img:'', alt: '', disabled: false, external: true },
-    ],
-    total: 3
+  removeFromOrder( i: number ) {
+    this.currentOrder.splice(i, 1);
   }
 
-  submit() {
-    console.log("Submitted")
+  onSubmit() {
+    console.log("* SUBMIT:");
   }
 }
+
+/*
+export interface IDay {
+  date: string,             // unique ID !!!
+  weekOfTheYear: number,
+  harvest: {
+    products: IProduct[],
+    totHarvestKg: number,
+    totHarvestCash: number
+  },
+  sales: {
+    orders: IOrder[],
+    totSalesKg: number,
+    totSalesCash: number
+  }
+  totDayKg: number,
+  totDayCash: number
+}
+*/
+
+
+/*
+  createForm(): FormGroup {
+    const form = new FormGroup({});
+    this.productList.forEach(item => {
+      form.addControl(item.name, new FormControl<number>(0));
+    });
+    return (form);
+  }
+  getOrderFormControl( name: string ) {
+    return (this.orderForm.get(name) as FormControl);
+  }
+  getOrderFormValue() {
+    return (this.orderForm.value);
+  }
+
+*/

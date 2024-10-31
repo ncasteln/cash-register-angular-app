@@ -1,3 +1,4 @@
+/* PRODUCTS */
 export interface IProduct {
   name: string,
   price: number,
@@ -7,13 +8,30 @@ export interface IProduct {
   external: boolean
 }
 
-export interface ICurrentOrder extends IProduct {
-  quantity: number
+export interface IOrder {
+  name: string,
+  price: number,
+  weight: number
 }
 
-export interface IOrder {
-  _id: string,
-  cassa: boolean,
-  products: ICurrentOrder[],
-  total: number
+/* CASH REGISTER */
+export interface IHarvest {
+  products: IProduct[],
+  totKg: number,
+  totCash: number
+}
+
+export interface ISales {
+  orders: IOrder[],
+  totKg: number,
+  totCash: number
+}
+
+export interface IDay {
+  date: string,             // unique ID !!!
+  weekOfTheYear: number,
+  harvest: IHarvest,
+  sales: ISales,
+  // totDayKg: number,
+  // totDayCash: number
 }

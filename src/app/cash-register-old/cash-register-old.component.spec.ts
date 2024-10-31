@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToolbarComponent } from './toolbar.component';
+import { CashRegisterOldComponent } from './cash-register-old.component';
 
-describe('ToolbarComponent', () => {
-  let component: ToolbarComponent;
-  let fixture: ComponentFixture<ToolbarComponent>;
+describe('CashRegisterOldComponent', () => {
+  let component: CashRegisterOldComponent;
+  let fixture: ComponentFixture<CashRegisterOldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ToolbarComponent]
+      imports: [CashRegisterOldComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ToolbarComponent);
+    fixture = TestBed.createComponent(CashRegisterOldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
