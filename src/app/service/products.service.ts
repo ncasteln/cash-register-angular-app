@@ -40,6 +40,10 @@ export class ProductsService {
         { observe: 'response' }));
   }
 
+  uploadImg( oldProduct: IProduct ) {
+
+  }
+
   disable( product: IProduct ) {
     return (
       this.http.put<IProduct>(

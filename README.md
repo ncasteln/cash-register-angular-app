@@ -1,5 +1,14 @@
 # CashRegisterAngularApp
 
+## To do:
+1) FRONTEND
+  - Simplify products component by creating at least a component for list/grid, and a reusable modal
+  - Create modal for upload image (a btn for each product)
+2) BACKEND
+  - Create logic for upload image (into account: duplicates)
+
+3) DEPLOY
+
 ## Backend
 ```
 backend/

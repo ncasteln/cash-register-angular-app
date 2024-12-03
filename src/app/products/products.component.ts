@@ -127,8 +127,15 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  onFileInput( e: any) {
-    console.log("UPLOAD")
+  /* UPLOAD IMG */
+  uploadImage( i: number ) {
+    // if (this.productList[i].disabled)
+    //   return ;
+    // this._productsService.uploadImg(this.productList[i]).subscribe(res => {
+    //   if (this.showAlert('UPDATE', res.status, HttpStatusCode.Ok) == 0)
+    //     this.getProducts();
+    // }
+
   }
 
   /* RESET */
