@@ -1,20 +1,15 @@
-<nav class="navbar navbar-expand-sm bg-yellow-600">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Selvetto</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <ul class="navbar-nav">
-        <li><a routerLink="cash-register" class="nav-link" aria-current="page">Cassa</a></li>
-        <li><a routerLink="harvest" class="nav-link">Raccolto cassette</a></li>
-        <li><a routerLink="products" class="nav-link">Listino prodotti</a></li>
-        <li><a routerLink="history" class="nav-link">Storico</a></li>
-        <li><a routerLink="report" class="nav-link">Report</a></li>
-      </ul>
-    </div>
-    <div>
-      {{ fullDate | translateDate: 'tdpipe-not-defined' }}
-    </div>
+<nav class="fixed top-0 left-0 w-full flex justify-between items-center p-5 gap-10 bg-yellow-400 z-50">
+  <a class="flex-shrink-0" href="/">Selvetto</a>
+
+  <ul class="flex flex-1 gap-5">
+    <li><a routerLink="cash-register">Cassa</a></li>
+    <li><a routerLink="harvest">Raccolto cassette</a></li>
+    <li><a routerLink="products">Listino prodotti</a></li>
+    <li><a routerLink="history">Storico</a></li>
+    <li><a routerLink="report">Report</a></li>
+  </ul>
+
+  <div class="flex-shrink-0">
+    {{ fullDate | translateDate: 'tdpipe-not-defined' }}
   </div>
 </nav>

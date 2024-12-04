@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CashRegisterOldComponent } from './cash-register-old.component';
+import { DynamicTableComponent } from './dynamic-table.component';
 
-describe('CashRegisterOldComponent', () => {
-  let component: CashRegisterOldComponent;
-  let fixture: ComponentFixture<CashRegisterOldComponent>;
+describe('DynamicTableComponent', () => {
+  let component: DynamicTableComponent;
+  let fixture: ComponentFixture<DynamicTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CashRegisterOldComponent]
+      imports: [DynamicTableComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CashRegisterOldComponent);
+    fixture = TestBed.createComponent(DynamicTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

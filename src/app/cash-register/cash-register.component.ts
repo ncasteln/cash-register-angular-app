@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../service/products.service';
-import { IDay, IOrder, IProduct } from '../models';
+import { IDay, IOrder, IProduct, TDisplayMode } from '../models';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { DecimalPipe, KeyValuePipe } from '@angular/common';
+import { CashRegisterToolbarComponent } from './cash-register-toolbar/cash-register-toolbar.component';
+import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
 
 @Component({
   selector: 'app-cash-register',
@@ -11,24 +13,31 @@ import { DecimalPipe, KeyValuePipe } from '@angular/common';
     ReactiveFormsModule,
     KeyValuePipe,
     FormsModule,
-    DecimalPipe
+    DecimalPipe,
+    CashRegisterToolbarComponent,
+    DynamicTableComponent
   ],
   templateUrl: './cash-register.component.html',
   styleUrl: './cash-register.component.scss'
 })
 export class CashRegisterComponent implements OnInit {
+
   constructor( private _productService: ProductsService ) {}
 
   productList: IProduct[] = [];
   orderForm: IOrder[] = [];
   currentOrder: IOrder[] = [];
-  displayMode: 'grid' | 'list' = 'grid';
+  displayMode: TDisplayMode = 'list';
 
   ngOnInit(): void {
     this._productService.getAll().subscribe(res => {
       this.productList = res.sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });;
       this.createEmptyOrderForm();
     });
+  }
+
+  toggleDisplayMode( newMode: TDisplayMode ) {
+    this.displayMode = newMode;
   }
 
   createEmptyOrderForm() {

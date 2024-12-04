@@ -1,0 +1,13 @@
+<h2>{{ title }}</h2>
+<table class="table-auto bg-slate-100">
+  <thead>
+    <tr>
+      @for ( item of headers; track $index ) {
+        <th>{{ item }}</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    <ng-content></ng-content>
+  </tbody>
+</table>

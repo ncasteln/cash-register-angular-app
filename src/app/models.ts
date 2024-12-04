@@ -1,3 +1,5 @@
+export type TDisplayMode = 'grid' | 'list';
+
 /* PRODUCTS */
 export interface IProduct {
   name: string,

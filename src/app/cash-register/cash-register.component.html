@@ -1,72 +1,48 @@
-<div class="container py-5">
-  <!-- TOOLBAR -->
-  <div class="row align-items-center">
-    <div class="col">
-      <h1>Cassa</h1>
-    </div>
-    <div class="col text-end">
-      <div class="btn-group" role="group" aria-label="Change display mode">
-        <button (click)="displayMode = 'list'" class="btn btn-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></svg>
-        </button>
-        <button (click)="displayMode = 'grid'" class="btn btn-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-3x3" viewBox="0 0 16 16"><path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5zM1.5 1a.5.5 0 0 0-.5.5V5h4V1zM5 6H1v4h4zm1 4h4V6H6zm-1 1H1v3.5a.5.5 0 0 0 .5.5H5zm1 0v4h4v-4zm5 0v4h3.5a.5.5 0 0 0 .5-.5V11zm0-1h4V6h-4zm0-5h4V1.5a.5.5 0 0 0-.5-.5H11zm-1 0V1H6v4z"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
+<div class="py-16 px-16"> <!-- container ??? -->
+  <cash-register-toolbar
+    (onSelectionChange)="toggleDisplayMode($event)">
+  </cash-register-toolbar>
 
   <form (ngSubmit)="onSubmit()">
-    <div class="row">
+    <div class="flex">
       <!-- PRODOTTI INTERNI -->
-      <div class="col">
-        <h2>Prodotti interni</h2>
-        <table class="table table-responsive table-hover">
-          <thead>
-            <tr class="table-secondary sticky-top">
-              <th scope="col">Nome</th>
-              <th scope="col">€ / Kg</th>
-              <th scope="col">Kg</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            @for ( product of productList; track $index ) {
-              @if ( !product.external ) {
-                <tr>
-                  <td>{{ product.name }}</td>
-                  <td>{{ product.price | number: '1.2-2' }} €</td>
-                  <td>
-                    <input [(ngModel)]="orderForm[$index].weight" name="weight"
-                      type="text" class="form-control" id="product.name'-input'">
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-primary" (click)="addToOrder($index)">Add</button>
-                  </td>
-                </tr>
-              }
+      <div class="border-2 border-red-500">
+        <dynamic-table title="Prodotti interni" [headers]="['Nome', 'Prezzo', 'Kg', 'Action']">
+          @for ( product of productList; track $index ) {
+            @if ( !product.external ) {
+              <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price | number: '1.2-2' }} €</td>
+                <td>
+                  <input [(ngModel)]="orderForm[$index].weight" name="weight"
+                    type="text" class="form-control" id="product.name'-input'">
+                </td>
+                <td>
+                  <button type="button" class="btn btn-primary" (click)="addToOrder($index)">Add</button>
+                </td>
+              </tr>
             }
-          </tbody>
-        </table>
+          }
+        </dynamic-table>
       </div>
 
       <!-- PRODOTTI ESTERNI -->
-      <div class="col">
+      <div class="border-2 border-red-500">
         <h2>Rivendita</h2>
-        <table class="table table-responsive table-hover">
+        <table class="table-auto">
           <thead>
-            <tr class="table-secondary sticky-top">
-              <th scope="col">#</th>
-              <th scope="col">Nome</th>
-              <th scope="col">€</th>
-              <th scope="col"></th>
+            <tr>
+              <th>#</th>
+              <th>Nome</th>
+              <th>€</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             @for ( product of productList; track $index ) {
               @if ( product.external ) {
                 <tr>
-                  <th scope="row">{{ $index }}</th>
+                  <th>{{ $index }}</th>
                   <td>{{ product.name }}</td>
                   <td>
                     <input [(ngModel)]="orderForm[$index].price" name="price"
@@ -83,14 +59,14 @@
       </div>
 
       <!-- RIEPILOGO -->
-      <div class="col bg-primary text-gray-100 text-end p-4">
-        <h2 class="text-decoration-underline mb-3">Riepilogo</h2>
+      <div class="border-2 border-red-500">
+        <h2>Riepilogo</h2>
         @if ( currentOrder.length === 0 ) {
-          <h3 class="display-5">Ordine vuoto</h3>
+          <h3>Ordine vuoto</h3>
         }
         @for ( product of currentOrder; track $index ) {
-          <div class="row sticky-top py-4 px-2">
-            <div class="col">{{ product.name }}</div>
+          <div>
+            <div>{{ product.name }}</div>
             <!-- @if ( product.weight === -1 ) {
               <div class="col">{{ product.price | number: '1.2-2' }} €</div>
             }
