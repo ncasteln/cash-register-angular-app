@@ -1,0 +1,9 @@
+<div class="flex flex-wrap gap-5">
+  @for ( product of productList; track $index ) {
+    <div class="w-32 border-slate-500 border-2">
+      <img [src]="product.img" [alt]="product.alt">
+      <h2>{{ product.name }}</h2>
+      <input  class="w-full" name="weight" type="text" id="product.name'-input'">
+    </div>
+  }
+</div>

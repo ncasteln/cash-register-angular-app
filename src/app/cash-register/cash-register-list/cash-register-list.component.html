@@ -1,0 +1,39 @@
+<div class="flex gap-5">
+
+  <!-- PRODOTTI INTERNI -->
+  <dynamic-table title="Prodotti interni" [headers]="['Nome', 'Prezzo', 'Kg', 'Action']">
+    @for ( product of productList; track $index ) {
+      @if ( !product.external ) {
+        <tr class="hover:bg-gray-100">
+          <td class="p-2 border-b-2 border-b-gray-300">{{ product.name }}</td>
+          <td class="p-2 border-b-2 border-b-gray-300">{{ product.price | number: '1.2-2' }} €</td>
+          <td class="p-2 border-b-2 border-b-gray-300">
+            <!-- [(ngModel)]="orderForm[$index].weight" -->
+            <input  class="w-full" name="weight" type="text" id="product.name'-input'">
+          </td>
+          <td class="p-2 border-b-2 border-b-gray-300">
+            <button type="button" class="bg-green-500 text-white p-2 w-full" (click)="addToOrder.emit(product)">Add</button>
+          </td>
+        </tr>
+      }
+    }
+  </dynamic-table>
+
+  <!-- PRODOTTI ESTERNI -->
+  <dynamic-table title="Rivendita" [headers]="['Nome', 'Prezzo', 'Action']">
+    @for ( product of productList; track $index ) {
+      @if ( product.external ) {
+        <tr class="hover:bg-gray-100">
+          <td class="p-2 border-b-2 border-b-gray-300">{{ product.name }}</td>
+          <td class="p-2 border-b-2 border-b-gray-300">
+            <!-- [(ngModel)]="orderForm[$index].weight" -->
+            <input  class="w-full" name="weight" type="text" id="product.name'-input'">
+          </td>
+          <td class="p-2 border-b-2 border-b-gray-300">
+            <button type="button" class="bg-green-500 text-white p-2 w-full" (click)="addToOrder.emit(product)">Add</button>
+          </td>
+        </tr>
+      }
+    }
+  </dynamic-table>
+</div>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../service/products.service';
-import { IDay, IOrder, IProduct, TDisplayMode } from '../models';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { IOrder, IProduct, TDisplayMode } from '../models';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DecimalPipe, KeyValuePipe } from '@angular/common';
 import { CashRegisterToolbarComponent } from './cash-register-toolbar/cash-register-toolbar.component';
-import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
+import { CashRegisterGridComponent } from './cash-register-grid/cash-register-grid.component';
+import { CashRegisterListComponent } from './cash-register-list/cash-register-list.component';
 
 @Component({
   selector: 'app-cash-register',
@@ -15,19 +16,36 @@ import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component'
     FormsModule,
     DecimalPipe,
     CashRegisterToolbarComponent,
-    DynamicTableComponent
+    CashRegisterGridComponent,
+    CashRegisterListComponent
   ],
   templateUrl: './cash-register.component.html',
   styleUrl: './cash-register.component.scss'
 })
 export class CashRegisterComponent implements OnInit {
-
-  constructor( private _productService: ProductsService ) {}
-
   productList: IProduct[] = [];
   orderForm: IOrder[] = [];
-  currentOrder: IOrder[] = [];
-  displayMode: TDisplayMode = 'list';
+  currentOrder: IOrder[] = [
+    { name: "nico", price: 3, weight: 3 },
+    { name: "ok", price: 3, weight: 3 },
+    { name: "shit", price: 12, weight: 4 },
+    { name: "pklp", price: 3, weight: 3 },
+    { name: "ertyui", price: 1, weight: 6 },
+    { name: "nico", price: 3, weight: 3 },
+    { name: "ok", price: 3, weight: 3 },
+    { name: "shit", price: 12, weight: 4 },
+    { name: "pklp", price: 3, weight: 3 },
+    { name: "ertyui", price: 1, weight: 6 },
+    { name: "nico", price: 3, weight: 3 },
+    { name: "ok", price: 3, weight: 3 },
+    { name: "shit", price: 12, weight: 4 },
+    { name: "pklp", price: 3, weight: 3 },
+    { name: "ertyui", price: 1, weight: 6 },
+
+  ];
+  displayMode: TDisplayMode = 'grid';
+
+  constructor( private _productService: ProductsService ) {}
 
   ngOnInit(): void {
     this._productService.getAll().subscribe(res => {
@@ -49,18 +67,18 @@ export class CashRegisterComponent implements OnInit {
     })
   }
 
-  addToOrder( i: number ) {
-    if (this.orderForm[i].weight === 0) // sanitize input
-      return ;
+  onAddToOrder( p: IProduct ) {
+    // if (this.orderForm[i].weight === 0) // sanitize input
+    //   return ;
 
-    const { name, price, weight } = this.orderForm[i];
-    this.currentOrder.push({ name, price, weight });
+    // const { name, price, weight } = this.orderForm[i];
+    // this.currentOrder.push({ name, price, weight });
 
-    /* RESET ORDER FORM */
-    if (this.orderForm[i].weight === -1)
-      this.orderForm[i].price = 0;
-    else
-      this.orderForm[i].weight = 0;
+    // /* RESET ORDER FORM */
+    // if (this.orderForm[i].weight === -1)
+    //   this.orderForm[i].price = 0;
+    // else
+    //   this.orderForm[i].weight = 0;
   }
 
   removeFromOrder( i: number ) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateDatePipe } from '../pipes/translate-date.pipe';
 import { formatDate } from '@angular/common';
 
@@ -8,6 +8,7 @@ import { formatDate } from '@angular/common';
   standalone: true,
   imports: [
     RouterLink,
+    RouterLinkActive,
     TranslateDatePipe
   ],
   templateUrl: './nav.component.html',

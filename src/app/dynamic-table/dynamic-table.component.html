@@ -1,9 +1,9 @@
-<h2>{{ title }}</h2>
-<table class="table-auto bg-slate-100">
+<h2 class="text-3xl mb-5">{{ title }}</h2>
+<table class="table-fixed bg-gray-200">
   <thead>
-    <tr>
+    <tr class="border-b-2 border-gray-500 ">
       @for ( item of headers; track $index ) {
-        <th>{{ item }}</th>
+        <th class="p-5">{{ item }}</th>
       }
     </tr>
   </thead>
