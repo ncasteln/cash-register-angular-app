@@ -1,9 +1,31 @@
-<div class="flex flex-wrap gap-5">
+<h2 class="text-3xl mb-5">Prodotti interni</h2>
+<div class="flex flex-wrap gap-5 text-center">
   @for ( product of productList; track $index ) {
-    <div class="w-32 border-slate-500 border-2">
-      <img [src]="product.img" [alt]="product.alt">
-      <h2>{{ product.name }}</h2>
-      <input  class="w-full" name="weight" type="text" id="product.name'-input'">
-    </div>
+    @if ( !product.external ) {
+      <div class="w-32 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between">
+        <img [src]="product.img" [alt]="product.alt">
+        <div class="w-full p-2 gap-2 flex flex-col">
+          <h2>{{ product.name }}</h2>
+          <input class="w-full" name="weight" type="text" id="product.name'-input'" />
+          <button type="button" class="bg-green-500 hover:bg-green-400 text-white p-2 w-full">Add</button> <!-- (click)="addToOrder.emit(product)" -->
+        </div>
+      </div>
+    }
+  }
+</div>
+
+<h2 class="text-3xl my-5">Prodotti esterni</h2>
+<div class="flex flex-wrap gap-5 text-center">
+  @for ( product of productList; track $index ) {
+    @if ( product.external ) {
+      <div class="w-32 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between">
+        <img [src]="product.img" [alt]="product.alt">
+        <div class="w-full p-2 gap-2 flex flex-col">
+          <h2>{{ product.name }}</h2>
+          <input class="w-full" name="weight" type="text" id="product.name'-input'" />
+          <button type="button" class="bg-green-500 hover:bg-green-400 text-white p-2 w-full">Add</button> <!-- (click)="addToOrder.emit(product)" -->
+        </div>
+      </div>
+    }
   }
 </div>
