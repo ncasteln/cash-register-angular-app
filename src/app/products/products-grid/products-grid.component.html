@@ -1,0 +1,31 @@
+<h2 class="text-3xl mb-5">Prodotti interni</h2>
+<div class="flex flex-wrap justify-between gap-5 text-center">
+  @for ( product of productList; track $index ) {
+    @if ( !product.external ) {
+      <div class="w-48 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between shadow-sm">
+        <img [src]="product.img" [alt]="product.alt">
+        <div class="w-full p-2 gap-2 flex flex-col">
+          <h2>Nome: {{ product.name }}</h2>
+          <h3>Prezzo: {{ product.price | number: '1.2-2' }} €</h3>
+          <product-actions class="flex" />
+        </div>
+      </div>
+    }
+  }
+</div>
+
+<h2 class="text-3xl my-5">Prodotti esterni</h2>
+<div class="flex flex-wrap justify-between gap-5 text-center">
+  @for ( product of productList; track $index ) {
+    @if ( product.external ) {
+      <div class="w-48 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between shadow-sm">
+        <img [src]="product.img" [alt]="product.alt">
+        <div class="w-full p-2 gap-2 flex flex-col">
+          <h2>{{ product.name }}</h2>
+          <h3>Prezzo: {{ product.price | number: '1.2-2' }} €</h3>
+          <product-actions class="flex" />
+        </div>
+      </div>
+    }
+  }
+</div>

@@ -1,12 +1,10 @@
 <div class="py-16 px-16">
-  <cash-register-toolbar
-    (onSelectionChange)="toggleDisplayMode($event)">
-  </cash-register-toolbar>
+  <cash-register-toolbar (onSelectionChange)="toggleDisplayMode($event)" />
 
   <div class="flex gap-5">
     <div class="w-2/3">
       <form (ngSubmit)="onSubmit()">
-      @if ( displayMode === 'list') {
+      @if ( displayMode() === 'list') {
         <cash-register-list
           [productList]="productList"
           (addToOrder)="onAddToOrder($event)" />

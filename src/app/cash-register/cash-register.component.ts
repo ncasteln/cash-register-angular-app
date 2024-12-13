@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
 import { IOrder, IProduct, TDisplayMode } from '../models';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -43,7 +43,9 @@ export class CashRegisterComponent implements OnInit {
     { name: "ertyui", price: 1, weight: 6 },
 
   ];
-  displayMode: TDisplayMode = 'grid';
+
+  /* View */
+  displayMode = signal<TDisplayMode>('grid');
 
   constructor( private _productService: ProductsService ) {}
 
@@ -55,7 +57,7 @@ export class CashRegisterComponent implements OnInit {
   }
 
   toggleDisplayMode( newMode: TDisplayMode ) {
-    this.displayMode = newMode;
+    this.displayMode.set(newMode);
   }
 
   createEmptyOrderForm() {

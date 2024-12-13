@@ -11,9 +11,9 @@ import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
   }
 })
 export class ProductsToolbarComponent {
-  @Output() toggleDisplayModeChild = new EventEmitter<'list' | 'grid'>();
+  @Output() onSelectionChange = new EventEmitter<'list' | 'grid'>();
   @Output() resetDatabase = new EventEmitter();
 
-  emitDisplayMode( view: 'list' | 'grid') { this.toggleDisplayModeChild.emit(view); }
-  emitResetDatabase() { this.resetDatabase.emit(); }
+  onClickView( view: 'list' | 'grid') { this.onSelectionChange.emit(view); }
+  onClickReset() { this.resetDatabase.emit(); }
 }

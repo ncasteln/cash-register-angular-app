@@ -3,8 +3,12 @@ import { ProductsService } from '../service/products.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpStatusCode } from '@angular/common/http';
 import { ProductsToolbarComponent } from './products-toolbar/products-toolbar.component';
-import { IProduct } from '../models';
+import { IProduct, TDisplayMode } from '../models';
 import { catchError, retry, throwError } from 'rxjs';
+import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
+import { DecimalPipe } from '@angular/common';
+import { ProductsGridComponent } from './products-grid/products-grid.component';
+import { ProductsListComponent } from './products-list/products-list.component';
 
 @Component({
   selector: 'app-products',
@@ -12,7 +16,9 @@ import { catchError, retry, throwError } from 'rxjs';
   imports: [
     FormsModule,  /* [(ngModel)] */
     ReactiveFormsModule,
-    ProductsToolbarComponent
+    ProductsToolbarComponent,
+    ProductsGridComponent,
+    ProductsListComponent
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
@@ -31,8 +37,12 @@ export class ProductsComponent implements OnInit {
 
   /* Signals */
   isEditMode = signal(-1);
-  displayMode = 'grid';
-  toggleDisplayModeParent( event: 'list' | 'grid' ) { this.displayMode = event; }
+
+  /* View */
+  displayMode = signal<TDisplayMode>('list');
+  toggleDisplayMode( newMode: TDisplayMode ) {
+    this.displayMode.set(newMode);
+  }
 
   constructor( private _productsService: ProductsService ) {
     this.postForm = new FormGroup({
