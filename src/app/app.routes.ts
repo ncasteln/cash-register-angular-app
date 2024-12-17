@@ -11,8 +11,16 @@ export const routes: Routes = [
   { path: '', redirectTo: '/cash-register', pathMatch: 'full' },
   { path: 'cash-register', component: CashRegisterComponent },
   { path: 'harvest', component: HarvestComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'products/:name', component: ProductDetailsComponent },
+  {
+    path: 'products',
+    title: 'Products',
+    component: ProductsComponent
+  },
+  {
+    path: 'product-details/:name',
+    title: 'Product details',
+    component: ProductDetailsComponent
+  },
   { path: 'report', component: ReportComponent },
   { path: 'history', component: HistoryComponent },
   { path: '**', component: NotFoundComponent }

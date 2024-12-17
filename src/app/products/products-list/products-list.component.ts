@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { DynamicTableComponent } from '../../dynamic-table/dynamic-table.component';
 import { DecimalPipe } from '@angular/common';
 import { IProduct } from '../../models';
 import { ProductActionsComponent } from '../product-actions/product-actions.component';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'products-list',
@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
   imports: [
     DynamicTableComponent,
     DecimalPipe,
-    ProductActionsComponent
+    ProductActionsComponent,
+    RouterLink,
   ],
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.scss'
@@ -19,12 +20,9 @@ import { Router } from '@angular/router';
 export class ProductsListComponent implements OnInit {
   @Input() productList: IProduct[] = [];
 
-  constructor( private router: Router ) {}
+  constructor( ) {}
   ngOnInit(): void {
 
   }
 
-  navigateToDetails( p: IProduct ) {
-    this.router.navigate(['/products', p.name])
-  }
 }

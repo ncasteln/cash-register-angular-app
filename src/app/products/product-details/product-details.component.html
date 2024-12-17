@@ -1,1 +1,20 @@
-<p>product-details works!</p>
+<div class="p-16">
+  <h1 class="py-5 text-4xl">Dettagli prodotto</h1>
+  <div class="flex h-[350px]">
+    <div class="border-2 w-1/2">
+      <img class="w-full h-full object-contain" [src]="product.img" [alt]="product.alt">
+    </div>
+
+    <div class="border-2 w-1/2">
+      <ul class="flex flex-col h-full ">
+        <!-- Trasform all those fileds in input, because here arrives to modify -->
+        <li class="text-2xl">Nome: <b>{{ product.name }}</b></li>
+        <li class="text-2xl">Prezzo: <b>{{ product.price }} €</b></li>
+        <div class="flex gap-5 p-5 mt-auto">
+          <button type="button" class="bg-green-500 hover:hover:bg-green-400 text-white p-2 w-full">Salva le modifiche</button>
+          <button type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full">Annulla</button>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>
