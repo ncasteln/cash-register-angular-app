@@ -1,9 +1,13 @@
-<button type="button" class="bg-gray-500 hover:hover:bg-gray-400 text-white p-2 w-full">
-  Disabilita
+<button (click)="disable()" type="button"
+  class="text-white p-2 w-full"
+  [ngClass]="product.disabled
+    ? 'bg-gray-500 hover:bg-gray-400'
+    : 'bg-green-500 hover:bg-green-400'">
+      {{ product.disabled ? 'Attiva' : 'Disattiva' }}
 </button>
 <button type="button" class="bg-yellow-500 hover:hover:bg-yellow-400 text-white p-2 w-full">
-  Modifica
+  <a [routerLink]="['/product-details', product.name]">Modifica</a>
 </button>
-<button type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full">
+<button (click)="delete()" type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full">
   Rimuovi
 </button>

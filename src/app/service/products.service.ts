@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { IProduct } from '../models';
+import { inject, Injectable } from '@angular/core';
+import { IProduct, IProductResponse } from '../models';
+import { catchError, tap, throwError } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +29,13 @@ export class ProductsService {
 
   delete( product: IProduct ) {
     return (
-      this.http.delete<IProduct>(
-        this.url + "/delete/" + product.name,
-        { observe: 'response' }));
+      this.http
+      .delete<IProductResponse>(`${this.url}/delete/${product.name}`, { observe: 'response' })
+      .pipe(
+        tap(this.handleSuccess('Delete', product)),
+        catchError(this.handleError('Delete', product))
+      )
+    )
   }
 
   update( oldProduct: IProduct, newProduct: IProduct ) {
@@ -46,11 +52,27 @@ export class ProductsService {
 
   disable( product: IProduct ) {
     return (
-      this.http.put<IProduct>(
-        this.url + "/update/disable/" + product.name,
-        { observe: 'response' }
+      this.http
+      .put<IProductResponse>(`${this.url}/update/disable/${product.name}`, { observe: 'response' })
+      .pipe(
+        tap(this.handleSuccess('Enable/disable', product)),
+        catchError(this.handleError('Enable/disable', product))
       )
     )
+  }
+
+  private handleError( op: string, product: IProduct ) {
+    return (error: any) => {
+      console.error(`* ${op} failed: ${error.message}`);
+      return throwError(() => new Error(`Operation '${op}' failed for ID ${product.name}`));
+    };
+  }
+
+  private handleSuccess( op: string, product: IProduct ) {
+    return () => {
+      console.log(`* ${op} success: ${product.name}`);
+      // return throwError(() => new Error(`Operation '${op}' failed for ID ${product.name}`));
+    };
   }
 
   reset() {

@@ -1,4 +1,4 @@
-export type TDisplayMode = 'grid' | 'list';
+export type TDisplayMode = 'grid' | 'table';
 
 /* PRODUCTS */
 export interface IProduct {
@@ -8,6 +8,12 @@ export interface IProduct {
   alt: string,
   disabled: boolean,
   external: boolean
+}
+
+export interface IProductResponse {
+  msg: string,
+  oldProduct: IProduct,
+  newProduct: IProduct
 }
 
 export interface IOrder {

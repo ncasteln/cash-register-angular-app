@@ -1,3 +1,27 @@
+<div class="py-16 px-16">
+  <!-- TOOLBAR -->
+  <div class="flex justify-between items-center py-5">
+    <h1 class="text-4xl">Storico ordini</h1>
+  </div>
+
+  @for ( order of history_2; track $index ) {
+    <dynamic-table title="Storico ordini" [headers]="['Index', 'Cassa', 'Prodotti', 'Totale']">
+      <!-- @for ( item of order | keyvalue; track $index ) {
+        <tr class="hover:bg-gray-100">
+          <th>{{ $index }}</th>
+          <td class="p-2 border-b-2 border-b-gray-300">{{ item }}</td>
+          <td class="p-2 border-b-2 border-b-gray-300">{{ item }} €</td>
+          <td class="p-2 border-b-2 border-b-gray-300">
+            {{ 'ok' }}
+          </td>
+        </tr>
+      } -->
+    </dynamic-table>
+  }
+</div>
+
+
+<!--
 <div class="container py-5">
   <h1>Storico</h1>
   @if ( (history | keyvalue)?.length === 0 ) {
@@ -43,3 +67,4 @@
     }
   }
 </div>
+-->

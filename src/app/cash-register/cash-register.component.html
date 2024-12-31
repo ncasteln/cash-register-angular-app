@@ -4,7 +4,7 @@
   <div class="flex gap-5">
     <div class="w-2/3">
       <form (ngSubmit)="onSubmit()">
-      @if ( displayMode() === 'list') {
+      @if ( displayMode() === 'table') {
         <cash-register-list
           [productList]="productList"
           (addToOrder)="onAddToOrder($event)" />

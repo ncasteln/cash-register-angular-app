@@ -2,13 +2,9 @@
   <products-toolbar
     (onSelectionChange)="toggleDisplayMode($event)"
     (resetDatabase)="resetDatabase()" />
-
-  <form> <!-- (ngSubmit)="onSubmit()" -->
-    @if ( displayMode() === 'list') {
-      <products-list [productList]="productList"/>
-    }
-    @else {
-      <products-grid [productList]="productList" />
-    }
-  </form>
+  <!-- <form> (ngSubmit)="onSubmit()" -->
+  <products-layout
+    [productList]="productList"
+    [layout]="displayMode()" />
+  <!-- </form> -->
 </div>

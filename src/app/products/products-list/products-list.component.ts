@@ -1,4 +1,4 @@
-import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { Component, input, Input, NgModule, OnInit } from '@angular/core';
 import { DynamicTableComponent } from '../../dynamic-table/dynamic-table.component';
 import { DecimalPipe } from '@angular/common';
 import { IProduct } from '../../models';

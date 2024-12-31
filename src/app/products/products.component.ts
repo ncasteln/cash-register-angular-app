@@ -4,11 +4,13 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { HttpStatusCode } from '@angular/common/http';
 import { ProductsToolbarComponent } from './products-toolbar/products-toolbar.component';
 import { IProduct, TDisplayMode } from '../models';
-import { catchError, retry, throwError } from 'rxjs';
+import { catchError, Observable, retry, tap, throwError } from 'rxjs';
 import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
 import { DecimalPipe } from '@angular/common';
 import { ProductsGridComponent } from './products-grid/products-grid.component';
 import { ProductsListComponent } from './products-list/products-list.component';
+import { ProductsLayoutComponent } from '../products-layout/products-layout.component';
+import { ProductActionsService } from '../service/product-actions.service';
 
 @Component({
   selector: 'app-products',
@@ -18,13 +20,14 @@ import { ProductsListComponent } from './products-list/products-list.component';
     ReactiveFormsModule,
     ProductsToolbarComponent,
     ProductsGridComponent,
-    ProductsListComponent
+    ProductsListComponent,
+    ProductsLayoutComponent
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {
-  productList: IProduct[] = [];
+  productList: IProduct[] = []; // substitute with signal?
   oldProduct: IProduct = {
     name: '',
     price: -1,
@@ -39,22 +42,41 @@ export class ProductsComponent implements OnInit {
   isEditMode = signal(-1);
 
   /* View */
-  displayMode = signal<TDisplayMode>('list');
+  displayMode = signal<TDisplayMode>('table');
   toggleDisplayMode( newMode: TDisplayMode ) {
     this.displayMode.set(newMode);
   }
 
-  constructor( private _productsService: ProductsService ) {
+  lastAction: string[] = [];
+
+  constructor(
+    private _productsService: ProductsService,
+    private _productsActions: ProductActionsService
+  ) {
     this.postForm = new FormGroup({
       name: new FormControl(''),
       price: new FormControl(''),
       external: new FormControl(false)
       /* Shoul complete with other fields ??? */
     })
+
   }
 
   ngOnInit(): void {
     this.getProducts();
+
+    this._productsActions.selectedAction$.pipe(
+      tap(action => console.log(action))
+    ).subscribe(action => {
+      if (action[0] === 'delete') {
+        console.log("DELETING!")
+        const arr = this.productList.filter(p => p.name === action[1])
+        this._productsService.delete(arr[0]).subscribe(v => {
+          console.log(v)
+          this.getProducts();
+        })
+      }
+    })
   }
 
   /* GET ALL */
@@ -121,10 +143,10 @@ export class ProductsComponent implements OnInit {
   }
 
   disableProduct( index: number ) {
-    this._productsService.disable(this.productList[index]).subscribe(res => {
+    // this._productsService.disable(this.productList[index]).subscribe(res => {
       // if (this.showAlert('UPDATE', res.status, HttpStatusCode.Ok) == 0)
-        this.getProducts();
-    });
+        // this.getProducts();
+    // });
   }
 
   /* DELETE */

@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'dynamic-table',
@@ -7,8 +7,6 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewChild, View
   imports: [
     NgTemplateOutlet
   ],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dynamic-table.component.html',
   styleUrl: './dynamic-table.component.scss'
 })

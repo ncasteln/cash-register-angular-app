@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IProduct } from '../../models';
 import { ProductActionsComponent } from '../product-actions/product-actions.component';
 import { DecimalPipe, NgClass } from '@angular/common';
@@ -10,8 +10,6 @@ import { DecimalPipe, NgClass } from '@angular/common';
     ProductActionsComponent,
     DecimalPipe
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
   templateUrl: './products-grid.component.html',
   styleUrl: './products-grid.component.scss'
 })

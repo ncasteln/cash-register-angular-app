@@ -2,12 +2,12 @@
   <dynamic-table title="Prodotti interni" [headers]="['Index', 'Nome', 'Prezzo', 'Actions']">
     @for ( product of productList; track $index ) {
       @if ( !product.external ) {
-        <tr class="hover:bg-gray-100" [routerLink]="['/product-details', product.name]"> <!-- [routerLink]="'products/'product.name" -->
+        <tr class="hover:bg-gray-100">
           <th>{{ $index }}</th>
           <td class="p-2 border-b-2 border-b-gray-300">{{ product.name }}</td>
           <td class="p-2 border-b-2 border-b-gray-300">{{ product.price | number: '1.2-2' }} €</td>
           <td class="p-2 border-b-2 border-b-gray-300">
-            <product-actions class="flex" />
+            <product-actions class="flex" [product]="product" />
           </td>
         </tr>
       }
@@ -16,12 +16,12 @@
   <dynamic-table title="Prodotti esterni" [headers]="['Index', 'Nome', 'Prezzo', 'Actions']">
     @for ( product of productList; track $index ) {
       @if ( product.external ) {
-        <tr class="hover:bg-gray-100" [routerLink]="['/product-details', product.name]">
+        <tr class="hover:bg-gray-100">
           <th>{{ $index }}</th>
           <td class="p-2 border-b-2 border-b-gray-300">{{ product.name }}</td>
           <td class="p-2 border-b-2 border-b-gray-300">{{ product.price | number: '1.2-2' }} €</td>
           <td class="p-2 border-b-2 border-b-gray-300">
-            <product-actions class="flex" />
+            <product-actions class="flex" [product]="product" />
           </td>
         </tr>
       }

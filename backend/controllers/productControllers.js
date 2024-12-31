@@ -67,7 +67,14 @@ exports.disableProduct = async (req, res) => {
       throw Error("* Product doesn't exists");
     product.disabled = !product.disabled;
     await product.save();
-    res.status(200).json({ msg: `* Product ${product.disabled ? 'DISABLED' : 'ENABLED'} successfully` });
+    /*
+    Make reflecting the json returned with the interface of response in the frontend
+    otherwise they could be different results!npm run
+    */
+    res.status(200).json({
+      newProduct: product,
+      msg: `* Product ${product.disabled ? 'DISABLED' : 'ENABLED'} successfully`
+    })
   } catch (e) {
     console.error(e);
     res.status(500).json({ msg: "* Internal server error" });
