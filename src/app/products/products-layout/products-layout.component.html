@@ -1,0 +1,65 @@
+@if ( layout === 'table' ) {
+  <div class="flex gap-5 justify-between">
+    <dynamic-table title="Prodotti interni" [headers]="['Index', 'Nome', 'Prezzo', 'Actions']">
+      @for ( product of products; track $index ) {
+        @if ( !product.external ) {
+          <tr class="hover:bg-gray-100">
+            <th>{{ $index }}</th>
+            <td class="p-2 border-b-2 border-b-gray-300">{{ product.name }}</td>
+            <td class="p-2 border-b-2 border-b-gray-300">{{ product.price | number: '1.2-2' }} €</td>
+            <td class="p-2 border-b-2 border-b-gray-300">
+              <product-actions class="flex" [product]="product" />
+            </td>
+          </tr>
+        }
+      }
+    </dynamic-table>
+    <dynamic-table title="Prodotti esterni" [headers]="['Index', 'Nome', 'Prezzo', 'Actions']">
+      @for ( product of products; track $index ) {
+        @if ( product.external ) {
+          <tr class="hover:bg-gray-100">
+            <th>{{ $index }}</th>
+            <td class="p-2 border-b-2 border-b-gray-300">{{ product.name }}</td>
+            <td class="p-2 border-b-2 border-b-gray-300">{{ product.price | number: '1.2-2' }} €</td>
+            <td class="p-2 border-b-2 border-b-gray-300">
+              <product-actions class="flex" [product]="product" />
+            </td>
+          </tr>
+        }
+      }
+    </dynamic-table>
+  </div>
+}
+@else {
+  <h2 class="text-3xl mb-5">Prodotti interni</h2>
+  <div class="flex flex-wrap justify-start gap-5 text-center">
+    @for ( product of products; track $index ) {
+      @if ( !product.external ) {
+        <div class="w-48 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between shadow-sm">
+          <img [src]="product.img" [alt]="product.alt">
+          <div class="w-full p-2 gap-2 flex flex-col">
+            <h2>Nome: {{ product.name }}</h2>
+            <h3>Prezzo: {{ product.price | number: '1.2-2' }} €</h3>
+          </div>
+          <product-actions class="flex flex-wrap" [product]="product" />
+        </div>
+      }
+    }
+  </div>
+
+  <h2 class="text-3xl my-5">Prodotti esterni</h2>
+  <div class="flex flex-wrap justify-start gap-5 text-center">
+    @for ( product of products; track $index ) {
+      @if ( product.external ) {
+        <div class="w-48 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between shadow-sm">
+          <img [src]="product.img" [alt]="product.alt">
+          <div class="w-full p-2 gap-2 flex flex-col">
+            <h2>{{ product.name }}</h2>
+            <h3>Prezzo: {{ product.price | number: '1.2-2' }} €</h3>
+            <product-actions class="flex flex-wrap" [product]="product" />
+          </div>
+        </div>
+      }
+    }
+  </div>
+}

@@ -13,8 +13,10 @@ exports.getProducts = async(req, res) => {
   try {
     console.log("* productControllers: GET ALL");
     const result = await Product.find({});
-    if (result)
+    if (result) {
+      console.log(result[0])
       res.status(200).json(result);
+    }
     else
       res.status(400).json({ msg: "* Products not found" });
   } catch (e) {

@@ -3,14 +3,10 @@ import { ProductsService } from '../service/products.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpStatusCode } from '@angular/common/http';
 import { ProductsToolbarComponent } from './products-toolbar/products-toolbar.component';
-import { IProduct, TDisplayMode } from '../models';
-import { catchError, Observable, retry, tap, throwError } from 'rxjs';
-import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
-import { DecimalPipe } from '@angular/common';
-import { ProductsGridComponent } from './products-grid/products-grid.component';
-import { ProductsListComponent } from './products-list/products-list.component';
-import { ProductsLayoutComponent } from '../products-layout/products-layout.component';
+import { IProduct, TLayoutMode } from '../models';
+import { catchError, retry, tap, throwError } from 'rxjs';
 import { ProductActionsService } from '../service/product-actions.service';
+import { ProductsLayoutComponent } from './products-layout/products-layout.component';
 
 @Component({
   selector: 'app-products',
@@ -19,15 +15,13 @@ import { ProductActionsService } from '../service/product-actions.service';
     FormsModule,  /* [(ngModel)] */
     ReactiveFormsModule,
     ProductsToolbarComponent,
-    ProductsGridComponent,
-    ProductsListComponent,
     ProductsLayoutComponent
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {
-  productList: IProduct[] = []; // substitute with signal?
+  products: IProduct[] = []; // substitute with signal?
   oldProduct: IProduct = {
     name: '',
     price: -1,
@@ -42,9 +36,9 @@ export class ProductsComponent implements OnInit {
   isEditMode = signal(-1);
 
   /* View */
-  displayMode = signal<TDisplayMode>('table');
-  toggleDisplayMode( newMode: TDisplayMode ) {
-    this.displayMode.set(newMode);
+  layoutMode = signal<TLayoutMode>('table');
+  toggleLayoutMode( newMode: TLayoutMode ) {
+    this.layoutMode.set(newMode);
   }
 
   lastAction: string[] = [];
@@ -65,24 +59,25 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.getProducts();
 
+
     this._productsActions.selectedAction$.pipe(
       tap(action => console.log(action))
     ).subscribe(action => {
       if (action[0] === 'delete') {
-        console.log("DELETING!")
-        const arr = this.productList.filter(p => p.name === action[1])
+        const arr = this.products.filter(p => p.name === action[1])
         this._productsService.delete(arr[0]).subscribe(v => {
           console.log(v)
-          this.getProducts();
         })
       }
+      this.getProducts();
     })
+
   }
 
   /* GET ALL */
   getProducts() {
     this._productsService.getAll().subscribe(res => {
-      this.productList = res.sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });
+      this.products = res.sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });
     });
   }
 
@@ -112,24 +107,24 @@ export class ProductsComponent implements OnInit {
 
   /* UPDATE */
   onEdit( index: number ) {
-    if (this.productList[index].disabled)
+    if (this.products[index].disabled)
       return ;
     this.isEditMode.set(index);
-    this.oldProduct.name = this.productList[index].name;
-    this.oldProduct.price = this.productList[index].price;
-    this.oldProduct.img = this.productList[index].img;
-    this.oldProduct.alt = this.productList[index].alt;
+    this.oldProduct.name = this.products[index].name;
+    this.oldProduct.price = this.products[index].price;
+    this.oldProduct.img = this.products[index].img;
+    this.oldProduct.alt = this.products[index].alt;
   }
   onSave( index: number ) {
     this.isEditMode.set(-1);
-    this.updateProduct(this.productList[index]);
+    this.updateProduct(this.products[index]);
   }
   onCancel( index: number ) {
     this.isEditMode.set(-1);
-    this.productList[index].name = this.oldProduct.name;
-    this.productList[index].price = this.oldProduct.price;
-    this.productList[index].img = this.oldProduct.img;
-    this.productList[index].alt = this.oldProduct.alt;
+    this.products[index].name = this.oldProduct.name;
+    this.products[index].price = this.oldProduct.price;
+    this.products[index].img = this.oldProduct.img;
+    this.products[index].alt = this.oldProduct.alt;
     this.oldProduct.name = '';
     this.oldProduct.price = -1;
     this.oldProduct.img = '';
@@ -143,7 +138,7 @@ export class ProductsComponent implements OnInit {
   }
 
   disableProduct( index: number ) {
-    // this._productsService.disable(this.productList[index]).subscribe(res => {
+    // this._productsService.disable(this.products[index]).subscribe(res => {
       // if (this.showAlert('UPDATE', res.status, HttpStatusCode.Ok) == 0)
         // this.getProducts();
     // });
@@ -151,9 +146,9 @@ export class ProductsComponent implements OnInit {
 
   /* DELETE */
   deleteProduct( index: number ) {
-    if (this.productList[index].disabled)
+    if (this.products[index].disabled)
       return ;
-    this._productsService.delete(this.productList[index]).subscribe(res => {
+    this._productsService.delete(this.products[index]).subscribe(res => {
       if (this.showAlert('DELETE', res.status, HttpStatusCode.Ok) == 0)
         this.getProducts();
     });
@@ -161,9 +156,9 @@ export class ProductsComponent implements OnInit {
 
   /* UPLOAD IMG */
   uploadImage( i: number ) {
-    // if (this.productList[i].disabled)
+    // if (this.products[i].disabled)
     //   return ;
-    // this._productsService.uploadImg(this.productList[i]).subscribe(res => {
+    // this._productsService.uploadImg(this.products[i]).subscribe(res => {
     //   if (this.showAlert('UPDATE', res.status, HttpStatusCode.Ok) == 0)
     //     this.getProducts();
     // }

@@ -14,5 +14,5 @@ import { DecimalPipe, NgClass } from '@angular/common';
   styleUrl: './products-grid.component.scss'
 })
 export class ProductsGridComponent {
-  @Input() productList: IProduct[] = [];
+  @Input() products: IProduct[] = [];
 }

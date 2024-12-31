@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
-import { IOrder, IProduct, TDisplayMode } from '../models';
+import { IOrder, IProduct, TLayoutMode } from '../models';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DecimalPipe, KeyValuePipe } from '@angular/common';
 import { CashRegisterToolbarComponent } from './cash-register-toolbar/cash-register-toolbar.component';
@@ -45,7 +45,7 @@ export class CashRegisterComponent implements OnInit {
   ];
 
   /* View */
-  displayMode = signal<TDisplayMode>('grid');
+  layoutMode = signal<TLayoutMode>('grid');
 
   constructor( private _productService: ProductsService ) {}
 
@@ -56,8 +56,8 @@ export class CashRegisterComponent implements OnInit {
     });
   }
 
-  toggleDisplayMode( newMode: TDisplayMode ) {
-    this.displayMode.set(newMode);
+  toggleDisplayMode( newMode: TLayoutMode ) {
+    this.layoutMode.set(newMode);
   }
 
   createEmptyOrderForm() {

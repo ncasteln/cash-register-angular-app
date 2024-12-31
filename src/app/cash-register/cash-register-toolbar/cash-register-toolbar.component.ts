@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { TDisplayMode } from '../../models';
+import { TLayoutMode } from '../../models';
 
 @Component({
   selector: 'cash-register-toolbar',
@@ -9,9 +9,9 @@ import { TDisplayMode } from '../../models';
   styleUrl: './cash-register-toolbar.component.scss'
 })
 export class CashRegisterToolbarComponent {
-  @Output() onSelectionChange = new EventEmitter<TDisplayMode>()
+  @Output() onSelectionChange = new EventEmitter<TLayoutMode>()
 
-  toggleDisplayMode( mode: TDisplayMode ) {
+  toggleDisplayMode( mode: TLayoutMode ) {
     this.onSelectionChange.emit(mode)
   }
 }
