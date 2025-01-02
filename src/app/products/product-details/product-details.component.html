@@ -2,14 +2,17 @@
   <h1 class="py-5 text-4xl">Dettagli prodotto</h1>
   <div class="flex h-[350px]">
     <div class="border-2 w-1/2">
-      <img class="w-full h-full object-contain" [src]="product.img" [alt]="product.alt">
+      <img class="w-full h-full object-contain" [src]="product.img" [alt]="product.description">
     </div>
 
     <div class="border-2 w-1/2 p-5">
-      <ul class="flex flex-col h-full ">
+      <ul class="flex flex-col h-full text-2xl">
         <!-- Trasform all those fileds in input, because here arrives to modify -->
-        <li class="text-2xl">Nome: <b>{{ product.name }}</b></li>
-        <li class="text-2xl">Prezzo: <b>{{ product.price }} €</b></li>
+        <li>Nome: <b>{{ product.name }}</b></li>
+        <li>Prezzo: <b>{{ product.price }} €</b></li>
+        <li>Descrizione: <b>{{ product.description }}</b></li>
+        <li>Stato: <b>{{ product.disabled ? 'Assente' : 'Presente'}}</b></li>
+        <li>Categoria: <b>{{ product.external ? 'Esterno' : 'Interno'}}</b></li>
         <div class="flex gap-5 mt-auto">
           <button type="button" class="bg-green-500 hover:hover:bg-green-400 text-white p-2 w-full" (click)="save()">Salva le modifiche</button>
           <button type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full" (click)="cancel()">Annulla</button>

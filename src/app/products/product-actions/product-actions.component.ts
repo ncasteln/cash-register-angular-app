@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IProduct } from '../../models';
+import { IProduct, Product } from '../../models';
 import { Router, RouterLink } from '@angular/router';
 import { ProductsService } from '../../service/products.service';
 import { NgClass } from '@angular/common';
@@ -18,14 +18,7 @@ import { ProductActionsService } from '../../service/product-actions.service';
 export class ProductActionsComponent implements OnInit {
   // @Output() onDelete = new EventEmitter<IProduct>()
 
-  @Input() product: IProduct = {
-    name: '',
-    price: -1,
-    img: '',
-    alt: '',
-    disabled: true,
-    external: true
-  };
+  @Input() product: IProduct = new Product();
 
   constructor( private _productActions: ProductActionsService ) {}
 

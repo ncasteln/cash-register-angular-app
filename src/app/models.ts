@@ -1,12 +1,22 @@
 export type TLayoutMode = 'grid' | 'table';
 
 /* PRODUCTS */
+export class Product implements IProduct {
+  _id = '';
+  name = '';
+  price = -1;
+  img = '';
+  description = '';
+  disabled = false;
+  external = false;
+}
+
 export interface IProduct {
-  // _id: string,
+  _id: string,
   name: string,
   price: number,
   img: string,
-  alt: string,
+  description: string,
   disabled: boolean,
   external: boolean
 }
@@ -17,6 +27,7 @@ export interface IProductResponse {
   newProduct: IProduct
 }
 
+/* ORDERS */
 export interface IOrder {
   name: string,
   price: number,

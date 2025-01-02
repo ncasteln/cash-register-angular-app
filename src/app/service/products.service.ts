@@ -15,9 +15,9 @@ export class ProductsService {
     return (this.http.get<IProduct[]>(this.url));
   }
 
-  // getProductById( id: string ) {
-  //   return (this.http.get<IProduct>(this.url + "/" + id))
-  // }
+  getProductById( _id: string ) {
+    return (this.http.get<IProductResponse>(`${this.url}/${_id}`))
+  }
 
   create( productForm: IProduct ) {
     return (

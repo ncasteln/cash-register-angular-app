@@ -1,18 +1,19 @@
-// const express = require('express');
-// const cors = require('cors');
-
 import express from 'express';
 import cors from 'cors';
+import { config } from 'dotenv'
+import productsRouter from './routes/productRoutes';
+import connectToDb from './database/dbConnection'
 
 const app = express();
-require('dotenv').config();
+
+config();
 
 /* Variables */
 const PORT = process.env.PORT;
 const ANGULAR_URI = process.env.ANGULAR_URI;
 
 /* MongoDB */
-require('./database/dbConnection');
+connectToDb();
 
 /* Cors */
 app.use(cors({ origin: ANGULAR_URI, }))
@@ -21,8 +22,7 @@ app.use(cors({ origin: ANGULAR_URI, }))
 app.listen(PORT, () => { console.log(`* Server running on port ${PORT}`); })
 
 /* Routes */
-const products = require('./routes/productRoutes');
-app.use('/api', products);
+app.use('/api', productsRouter);
 
-// const orders = require('./routes/ordersRoutes')
-// app.use('/api', orders);
+// const order = require('./routes/orderRoutes')
+// app.use('/api', order);
