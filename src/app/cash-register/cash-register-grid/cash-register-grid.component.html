@@ -3,7 +3,7 @@
   @for ( product of productList; track $index ) {
     @if ( !product.external ) {
       <div class="w-32 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between">
-        <img [src]="product.img" [alt]="product.alt">
+        <img [src]="product.img" [alt]="product.description">
         <div class="w-full p-2 gap-2 flex flex-col">
           <h2>{{ product.name }}</h2>
           <input class="w-full" name="weight" type="text" id="product.name'-input'" />
@@ -19,7 +19,7 @@
   @for ( product of productList; track $index ) {
     @if ( product.external ) {
       <div class="w-32 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between">
-        <img [src]="product.img" [alt]="product.alt">
+        <img [src]="product.img" [alt]="product.description">
         <div class="w-full p-2 gap-2 flex flex-col">
           <h2>{{ product.name }}</h2>
           <input class="w-full" name="weight" type="text" id="product.name'-input'" />

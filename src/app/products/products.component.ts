@@ -61,6 +61,12 @@ export class ProductsComponent implements OnInit {
           this.getProducts();
         })
       }
+      // else {
+      //   const arr = this.products.filter(p => p.name === action[0])
+      //   this._productsService.disable(arr[0]).subscribe(v => {
+      //     this.getProducts();
+      //   })
+      // }
     })
 
   }

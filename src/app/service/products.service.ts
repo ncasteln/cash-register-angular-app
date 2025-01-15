@@ -50,14 +50,14 @@ export class ProductsService {
 
   }
 
-  disable( product: IProduct ) {
+  disable( id: string ) {
     return (
       this.http
-      .put<IProductResponse>(`${this.url}/update/disable/${product.name}`, { observe: 'response' })
-      .pipe(
-        tap(this.handleSuccess('Enable/disable', product)),
-        catchError(this.handleError('Enable/disable', product))
-      )
+      .put<IProductResponse>(`${this.url}/update/disable/${id}`, { observe: 'response' })
+      // .pipe(
+      //   tap(this.handleSuccess('Enable/disable', id)),
+      //   catchError(this.handleError('Enable/disable', id))
+      // )
     )
   }
 

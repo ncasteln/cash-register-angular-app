@@ -8,7 +8,7 @@ import { CashRegisterGridComponent } from './cash-register-grid/cash-register-gr
 import { CashRegisterListComponent } from './cash-register-list/cash-register-list.component';
 
 @Component({
-  selector: 'app-cash-register',
+  selector: 'cash-register',
   standalone: true,
   imports: [
     ReactiveFormsModule,

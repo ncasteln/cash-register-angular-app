@@ -36,7 +36,7 @@
     @for ( product of products; track $index ) {
       @if ( !product.external ) {
         <div class="w-48 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between shadow-sm">
-          <img [src]="product.img" [alt]="product.alt">
+          <img [src]="product.img" [alt]="product.description">
           <div class="w-full p-2 gap-2 flex flex-col">
             <h2>Nome: {{ product.name }}</h2>
             <h3>Prezzo: {{ product.price | number: '1.2-2' }} €</h3>
@@ -52,7 +52,7 @@
     @for ( product of products; track $index ) {
       @if ( product.external ) {
         <div class="w-48 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between shadow-sm">
-          <img [src]="product.img" [alt]="product.alt">
+          <img [src]="product.img" [alt]="product.description">
           <div class="w-full p-2 gap-2 flex flex-col">
             <h2>{{ product.name }}</h2>
             <h3>Prezzo: {{ product.price | number: '1.2-2' }} €</h3>
