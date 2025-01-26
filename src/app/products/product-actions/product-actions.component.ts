@@ -15,22 +15,18 @@ import { ProductActionsService } from '../../service/product-actions.service';
   templateUrl: './product-actions.component.html',
   styleUrl: './product-actions.component.scss'
 })
-export class ProductActionsComponent implements OnInit {
-  // @Output() onDelete = new EventEmitter<IProduct>()
-
+export class ProductActionsComponent {
   @Input() product: IProduct = new Product();
 
-  constructor( private _productActions: ProductActionsService ) {}
-
-  ngOnInit(): void {
-    /* Substitute with getByID ? */
-  }
+  constructor( private _productsService: ProductsService ) {}
 
   disable() {
-    this._productActions.select('disable', this.product.name);
+    this._productsService.action('disable', this.product);
   }
 
   delete() {
-    this._productActions.select('delete', this.product.name);
+    this._productsService.action('delete', this.product);
   }
+
+
 }

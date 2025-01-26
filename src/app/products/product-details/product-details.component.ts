@@ -1,87 +1,97 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { IProduct, Product } from '../../models';
-import { ProductActionsComponent } from '../product-actions/product-actions.component';
 import { ProductsService } from '../../service/products.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { map, switchMap, tap } from 'rxjs';
+import { KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'product-details',
   standalone: true,
   imports: [
-    ProductActionsComponent
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatHint,
+    KeyValuePipe
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })
 export class ProductDetailsComponent implements OnInit {
-  product: IProduct = new Product();
-  productForm = new FormGroup({ // type it ! how can i do it ?
-    _id: new FormControl(''),
-    name: new FormControl(''),
-    price: new FormControl(-1),
-    description: new FormControl(''),
-    img: new FormControl(''),
-    external: new FormControl(false),
-    disabled: new FormControl(false),
-  })
+  productForm!: FormGroup;
+  products: IProduct[] = [];
+  product: IProduct | undefined;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private productsService: ProductsService
+    private _formBuilder: FormBuilder,
+    private _productsService: ProductsService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.productsService.getProductById(params['_id']).subscribe(p => {
-        this.product = p.newProduct;
-      });
+    this._productsService.getProducts()
+    .pipe(
+      map(products => {
+        const productId = this._activatedRoute.snapshot.paramMap.get('_id');
+        const product = products.find(p => p._id === productId);
+        if (product) {
+          this.product = product;
+          this.generateForm();
+        }
+        return products;
+      })
+    )
+    .subscribe(products => {
+      this.products = products;
     });
+
   }
 
-  // /* UPDATE */
-  // onEdit( index: number ) {
-  //   if (this.products[index].disabled)
-  //     return ;
-  //   this.isEditMode.set(index);
-  //   this.oldProduct.name = this.products[index].name;
-  //   this.oldProduct.price = this.products[index].price;
-  //   this.oldProduct.img = this.products[index].img;
-  //   this.oldProduct.description = this.products[index].description;
-  // }
-  // onSave( index: number ) {
-  //   this.isEditMode.set(-1);
-  //   this.updateProduct(this.products[index]);
-  // }
-  // onCancel( index: number ) {
-  //   this.isEditMode.set(-1);
-  //   this.products[index].name = this.oldProduct.name;
-  //   this.products[index].price = this.oldProduct.price;
-  //   this.products[index].img = this.oldProduct.img;
-  //   this.products[index].description = this.oldProduct.description;
-  //   this.oldProduct.name = '';
-  //   this.oldProduct.price = -1;
-  //   this.oldProduct.img = '';
-  //   this.oldProduct.description = '';
-  // }
-
-  /* UPLOAD IMG */
-  uploadImage( i: number ) {
-    // if (this.products[i].disabled)
-    //   return ;
-    // this._productsService.uploadImg(this.products[i]).subscribe(res => {
-    //   if (this.showAlert('UPDATE', res.status, HttpStatusCode.Ok) == 0)
-    //     this.getProducts();
-    // }
+  generateForm() {
+    /* Add validation:
+      - name: no dups, no only whitespaces
+      Transform input:
+      - Trim every white space start/end
+      - name to CamelCase
+    */
+    if (this.product) {
+      this.productForm = this._formBuilder.group({
+        name: new FormControl(this.product.name, [ Validators.required ]),
+        price: new FormControl(this.product.price, [ Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/) ]),
+        external: new FormControl(this.product.external, [ Validators.required ]),
+        disabled: new FormControl(this.product.disabled),
+      })
+    }
+    else {
+      this.productForm = this._formBuilder.group({
+        name: new FormControl(null, [ Validators.required ]),
+        price: new FormControl(null, [ Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/) ]),
+        external: new FormControl(false, [ Validators.required ]),
+        disabled: new FormControl(false),
+      })
+    }
   }
 
   save() {
-    /* POST for one product */
+    const updateProduct: IProduct = this.productForm.value;
+  }
+
+  create() {
+    const newProduct: IProduct = this.productForm.value;
+    this._productsService.create(newProduct).subscribe(res => {
+      this._router.navigate(['/products'])
+    })
   }
 
   cancel() {
-    /* Clear the form of update */
-    this.router.navigate(['/products']);
+    this._router.navigate(['/products']);
   }
 }

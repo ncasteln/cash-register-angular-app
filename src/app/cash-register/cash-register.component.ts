@@ -50,10 +50,10 @@ export class CashRegisterComponent implements OnInit {
   constructor( private _productService: ProductsService ) {}
 
   ngOnInit(): void {
-    this._productService.getAll().subscribe(res => {
-      this.productList = res.sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });;
-      this.createEmptyOrderForm();
-    });
+    // this._productService.getAll().subscribe(res => {
+    //   this.productList = res.sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });;
+    //   this.createEmptyOrderForm();
+    // });
   }
 
   toggleDisplayMode( newMode: TLayoutMode ) {

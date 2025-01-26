@@ -12,12 +12,11 @@ import {
   deleteProducts,
   disableProduct,
   resetProducts,
-  getProductById} from '../controllers/productControllers'
+  getProductById } from '../controllers/productControllers'
 
 const productsRouter = Router();
 
 /* Post parsing */
-// const bodyParser = require('body-parser');
 import bodyParser from 'body-parser'
 const jsonParser = bodyParser.json();
 

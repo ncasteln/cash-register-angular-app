@@ -6,7 +6,7 @@ import { HistoryComponent } from './history/history.component';
 import { HarvestComponent } from './harvest/harvest.component';
 import { CashRegisterComponent } from './cash-register/cash-register.component';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
-import { CreateProductComponent } from './products/create-product/create-product.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/cash-register', pathMatch: 'full' },
@@ -24,7 +24,8 @@ export const routes: Routes = [
   },
   {
     path: 'create-product',
-    component: CreateProductComponent
+    title: 'Create product',
+    component: ProductDetailsComponent
   },
   { path: 'report', component: ReportComponent },
   { path: 'history', component: HistoryComponent },

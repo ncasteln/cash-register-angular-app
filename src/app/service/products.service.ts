@@ -1,18 +1,29 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IProduct, IProductResponse } from '../models';
-import { catchError, tap, throwError } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { BehaviorSubject, catchError, map, Subject, tap, throwError } from 'rxjs';
+
+interface IAction {
+  action: string,
+  product: IProduct
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
   readonly url = 'http://localhost:3000/api/products'
+  private _action = new Subject<IAction>();
+  public action$ = this._action.asObservable();
+
   constructor( private http: HttpClient ) {}
 
-  getAll() {
+  getProducts() {
     return (this.http.get<IProduct[]>(this.url));
+  }
+
+  action( action: string, product: IProduct ) {
+    this._action.next({ action, product });
   }
 
   getProductById( _id: string ) {
@@ -20,22 +31,17 @@ export class ProductsService {
   }
 
   create( productForm: IProduct ) {
+    const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' })
+
     return (
-      this.http.post<IProduct>(
-        this.url,
-        productForm,
-        { observe: 'response' }));
+      this.http.post<IProduct>(this.url, productForm, {
+        headers: headers,
+        observe: 'response'
+      }));
   }
 
   delete( product: IProduct ) {
-    return (
-      this.http
-      .delete<IProductResponse>(`${this.url}/delete/${product.name}`, { observe: 'response' })
-      .pipe(
-        tap(this.handleSuccess('Delete', product)),
-        catchError(this.handleError('Delete', product))
-      )
-    )
+    return (this.http.delete<IProductResponse>(`${this.url}/delete/${product.name}`, { observe: 'response' }))
   }
 
   update( oldProduct: IProduct, newProduct: IProduct ) {
@@ -50,14 +56,13 @@ export class ProductsService {
 
   }
 
-  disable( id: string ) {
+  disable( product: IProduct ) {
     return (
       this.http
-      .put<IProductResponse>(`${this.url}/update/disable/${id}`, { observe: 'response' })
-      // .pipe(
-      //   tap(this.handleSuccess('Enable/disable', id)),
-      //   catchError(this.handleError('Enable/disable', id))
-      // )
+      .put(
+        `${this.url}/update/disable/${product.name}`,
+        { observe: 'response' }
+      )
     )
   }
 

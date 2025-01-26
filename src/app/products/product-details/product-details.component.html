@@ -1,23 +1,53 @@
 <div class="p-16">
-  <h1 class="py-5 text-4xl">Dettagli prodotto</h1>
-  <div class="flex h-[350px]">
-    <div class="border-2 w-1/2">
-      <img class="w-full h-full object-contain" [src]="product.img" [alt]="product.description">
-    </div>
-
-    <div class="border-2 w-1/2 p-5">
-      <ul class="flex flex-col h-full text-2xl">
-        <!-- Trasform all those fileds in input, because here arrives to modify -->
-        <li>Nome: <b>{{ product.name }}</b></li>
-        <li>Prezzo: <b>{{ product.price }} €</b></li>
-        <li>Descrizione: <b>{{ product.description }}</b></li>
-        <li>Stato: <b>{{ product.disabled ? 'Assente' : 'Presente'}}</b></li>
-        <li>Categoria: <b>{{ product.external ? 'Esterno' : 'Interno'}}</b></li>
-        <div class="flex gap-5 mt-auto">
-          <button type="button" class="bg-green-500 hover:hover:bg-green-400 text-white p-2 w-full" (click)="save()">Salva le modifiche</button>
-          <button type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full" (click)="cancel()">Annulla</button>
+  @if (product) {
+    <h1 class="py-5 text-4xl">Modifica prodotto</h1>
+    <form class="flex flex-col gap-16" [formGroup]="productForm" > <!-- (ngSubmit)="save() -->
+      <div class="flex gap-5">
+        <div class="w-1/2 flex flex-col justify-between gap-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Nome: </mat-label>
+            <input matInput type="text" formControlName="name" />
+            <mat-hint>Niente nomi doppi fra i prodotti</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Prezzo: </mat-label>
+            <input matInput type="text" id="price" formControlName="price" />
+            <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
+          </mat-form-field>
+          <mat-checkbox matCheckbox formControlName="disabled">Disabilita</mat-checkbox>
+          <mat-checkbox matCheckbox formControlName="external">Prodotto esterno</mat-checkbox>
         </div>
-      </ul>
-    </div>
-  </div>
+      </div>
+      <div class="flex w-1/2 gap-5">
+        <!-- Add if dirty -->
+        <button type="submit" class="bg-green-500 hover:hover:bg-green-400 text-white p-2 w-full">Salva le modifiche</button>
+        <button type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full" (click)="cancel()">Annulla</button>
+      </div>
+    </form>
+  }
+  @else {
+    <h1 class="py-5 text-4xl">Creazione prodotto</h1>
+    <form class="flex flex-col gap-16" [formGroup]="productForm" (ngSubmit)="create()" >
+      <div class="flex gap-5">
+        <div class="w-1/2 flex flex-col gap-5 justify-between">
+          <mat-form-field appearance="outline">
+            <mat-label>Nome: </mat-label>
+            <input matInput type="text" formControlName="name" />
+            <mat-hint>Niente nomi doppi fra i prodotti</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Prezzo: </mat-label>
+            <input matInput type="text" id="price" formControlName="price" />
+            <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
+          </mat-form-field>
+          <mat-checkbox matCheckbox formControlName="disabled">Disabilita</mat-checkbox>
+          <mat-checkbox matCheckbox formControlName="external">Prodotto esterno</mat-checkbox>
+        </div>
+      </div>
+      <div class="flex w-1/2 gap-5">
+        <button type="submit" class="bg-green-500 hover:hover:bg-green-400 text-white p-2 w-full">Crea il prodotto</button>
+        <button type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full" (click)="cancel()">Annulla</button>
+      </div>
+    </form>
+  }
 </div>

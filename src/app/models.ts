@@ -5,20 +5,36 @@ export class Product implements IProduct {
   _id = '';
   name = '';
   price = -1;
-  img = '';
-  description = '';
+  img = new Image();
   disabled = false;
   external = false;
+}
+
+export class Image implements IImage {
+  lastModified = '';
+  lastModifiedDate = '';
+  name = '';
+  size = -1;
+  type = '';
+  webkitRelativePath = '';
 }
 
 export interface IProduct {
   _id: string,
   name: string,
   price: number,
-  img: string,
-  description: string,
+  img: IImage,
   disabled: boolean,
   external: boolean
+}
+
+export interface IImage {
+  lastModified: string;
+  lastModifiedDate: string;
+  name: string
+  size: number;
+  type: string;
+  webkitRelativePath: string;
 }
 
 export interface IProductResponse {

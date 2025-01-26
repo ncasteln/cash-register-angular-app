@@ -1,12 +1,11 @@
-const { nameValidation } = require('../middleware/productMiddleware');
+// const { nameValidation } = require('../middleware/productMiddleware');
 
 // const Product = require('../models/productModels');
 // const fs = require('fs').promises;
-// const resetFile = require('../reset.json');
-
-// import { fstat } from 'fs';
+import resetJson from '../reset.json'
+import { promises as fs } from 'fs';
+import path, { dirname } from 'path';
 import { productModel } from '../models/productModels'
-// import resetFile from '../reset.json'
 
 /* SANITIZE
   - No question marks
@@ -50,10 +49,16 @@ export const getProductById = async(req: any, res: any) => {
 
 export const postProducts = async(req : any, res: any) => {
   try {
-    const { name, price, img, description, external } = req.body;
-    const newProduct = new productModel({ name: name.toLowerCase(), price, img, description, external });
+    console.log("* Products.POST: ", req.params);
+    const { name, price, external, disabled } = req.body;
+    const newProduct = new productModel({
+      name,
+      price,
+      img: '',
+      external,
+      disabled
+    });
     await newProduct.save();
-    console.log(newProduct)
     res.status(201).json({ msg: "* Product CREATED successfully"});
   } catch (e) {
     console.error(e);
@@ -70,11 +75,11 @@ export const updateProducts = async(req : any, res: any) => {
       throw Error("* Product doesn't exists");
 
     /* Updates */
-    const { name: newName, price, img, description } = req.body;
+    const { name: newName, price, img } = req.body;
 
     const result = await productModel.findOneAndUpdate(
       { name: oldName },
-      { name: newName, price, img, description },
+      { name: newName, price, img },
       { new: true }
     )
     res.status(200).json({ msg: "* Product UPDATED successfully" });
@@ -86,47 +91,46 @@ export const updateProducts = async(req : any, res: any) => {
 
 export const disableProduct = async (req : any, res: any) => {
   try {
-    console.log("* productControllers: DISABLE ");
+    console.log("* DISABLE: ", req.params.name);
     const product = await productModel.findOne({ name: req.params.name })
     if (!product)
       throw Error("* Product doesn't exists");
     product.disabled = !product.disabled;
     await product.save();
-    /*
-    Make reflecting the json returned with the interface of response in the frontend
-    otherwise they could be different results!npm run
-    */
     res.status(200).json({
-      newProduct: product,
-      msg: `* Product ${product.disabled ? 'DISABLED' : 'ENABLED'} successfully`
+      msg: `* ${product.name} ${product.disabled ? 'disabled' : 'enabled'} successfully`,
+      newProduct: product
     })
   } catch (e) {
     console.error(e);
-    res.status(500).json({ msg: "* Internal server error" });
+    res.status(500).json({ msg: e });
   }
 }
 
 export const deleteProducts = async(req : any, res: any) => {
   try {
-    console.log("* DELETE params: ", req.params);
-    const isFound = await productModel.findOneAndDelete({ name: req.params.name });
-    if (!isFound)
+    console.log("* DELETE: ", req.params.name);
+    const product = await productModel.findOneAndDelete({ name: req.params.name });
+    if (!product)
       throw Error("* Product doesn't exists");
-    res.status(200).json({ msg: "* Product DELETED successfully" });
+    res.status(200).json({
+      msg: `* ${product.name} deleted successfully`,
+      oldProduct: product
+    });
   } catch (e) {
     console.error(e);
-    res.status(500).json({ msg: "* Internal server error" });
+    res.status(500).json({ msg: e });
   }
 }
 
 export const resetProducts = async (req : any, res: any) => {
-  // try {
-  //   console.log("* RESET");
-  //   await productModel.deleteMany();
-  //   await productModel.insertMany(resetFile);
-  //   res.status(200).json({ msg: "* Database reset success" });
-  // } catch (e) {
-  //   console.error(e);
-  //   res.status(500).json({ msg: "* Internal server error" });
-  // }
+  try {
+    console.log("* RESET");
+    await productModel.deleteMany();
+    await productModel.insertMany(resetJson);
+    res.status(200).json({ msg: "* Database reset success" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: "* Internal server error" });
+  }
 }

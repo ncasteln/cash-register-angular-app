@@ -1,10 +1,12 @@
 @if ( layout === 'table' ) {
   <div class="flex gap-5 justify-between">
-    <dynamic-table title="Prodotti interni" [headers]="['Index', 'Nome', 'Prezzo', 'Actions']">
+    <dynamic-table title="Prodotti interni" [headers]="['Image', 'Nome', 'Prezzo', 'Actions']">
       @for ( product of products; track $index ) {
         @if ( !product.external ) {
           <tr class="hover:bg-gray-100">
-            <th>{{ $index }}</th>
+            <td>
+              <img class="cursor-pointer w-16" [src]="product.img" [alt]="product.name">
+            </td>
             <td class="p-2 border-b-2 border-b-gray-300">{{ product.name }}</td>
             <td class="p-2 border-b-2 border-b-gray-300">{{ product.price | number: '1.2-2' }} €</td>
             <td class="p-2 border-b-2 border-b-gray-300">
@@ -14,11 +16,13 @@
         }
       }
     </dynamic-table>
-    <dynamic-table title="Prodotti esterni" [headers]="['Index', 'Nome', 'Prezzo', 'Actions']">
+    <dynamic-table title="Prodotti esterni" [headers]="['Image', 'Nome', 'Prezzo', 'Actions']">
       @for ( product of products; track $index ) {
         @if ( product.external ) {
           <tr class="hover:bg-gray-100">
-            <th>{{ $index }}</th>
+            <td>
+              <img class="cursor-pointer w-16" [src]="product.img" [alt]="product.name">
+            </td>
             <td class="p-2 border-b-2 border-b-gray-300">{{ product.name }}</td>
             <td class="p-2 border-b-2 border-b-gray-300">{{ product.price | number: '1.2-2' }} €</td>
             <td class="p-2 border-b-2 border-b-gray-300">
@@ -36,7 +40,7 @@
     @for ( product of products; track $index ) {
       @if ( !product.external ) {
         <div class="w-48 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between shadow-sm">
-          <img [src]="product.img" [alt]="product.description">
+          <img [src]="product.img" [alt]="product.name">
           <div class="w-full p-2 gap-2 flex flex-col">
             <h2>Nome: {{ product.name }}</h2>
             <h3>Prezzo: {{ product.price | number: '1.2-2' }} €</h3>
@@ -52,7 +56,7 @@
     @for ( product of products; track $index ) {
       @if ( product.external ) {
         <div class="w-48 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between shadow-sm">
-          <img [src]="product.img" [alt]="product.description">
+          <img [src]="product.img" [alt]="product.name">
           <div class="w-full p-2 gap-2 flex flex-col">
             <h2>{{ product.name }}</h2>
             <h3>Prezzo: {{ product.price | number: '1.2-2' }} €</h3>
