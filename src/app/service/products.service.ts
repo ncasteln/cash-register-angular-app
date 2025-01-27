@@ -31,53 +31,42 @@ export class ProductsService {
   }
 
   create( productForm: IProduct ) {
-    const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' })
-
     return (
       this.http.post<IProduct>(this.url, productForm, {
-        headers: headers,
         observe: 'response'
       }));
   }
 
   delete( product: IProduct ) {
-    return (this.http.delete<IProductResponse>(`${this.url}/delete/${product.name}`, { observe: 'response' }))
+    return (this.http.delete<IProductResponse>(
+      `${this.url}/delete/${product._id}`,
+      { observe: 'response' }))
   }
 
   update( oldProduct: IProduct, newProduct: IProduct ) {
     return (
       this.http.put<IProduct>(
-        this.url + "/update/" + oldProduct.name,
+        `${this.url}/update/${oldProduct._id}`,
         newProduct,
         { observe: 'response' }));
   }
 
-  uploadImg( oldProduct: IProduct ) {
-
+  uploadImage( formData: FormData ) {
+    return (
+      this.http.post<IProduct>(
+        `${this.url}/upload`,
+        formData, // as body
+        { observe: 'response' }));
   }
 
   disable( product: IProduct ) {
     return (
       this.http
       .put(
-        `${this.url}/update/disable/${product.name}`,
+        `${this.url}/update/disable/${product._id}`,
         { observe: 'response' }
       )
     )
-  }
-
-  private handleError( op: string, product: IProduct ) {
-    return (error: any) => {
-      console.error(`* ${op} failed: ${error.message}`);
-      return throwError(() => new Error(`Operation '${op}' failed for ID ${product.name}`));
-    };
-  }
-
-  private handleSuccess( op: string, product: IProduct ) {
-    return () => {
-      console.log(`* ${op} success: ${product.name}`);
-      // return throwError(() => new Error(`Operation '${op}' failed for ID ${product.name}`));
-    };
   }
 
   reset() {

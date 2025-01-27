@@ -11,10 +11,13 @@ import {
   updateProducts,
   deleteProducts,
   disableProduct,
+  uploadProductImage,
   resetProducts,
   getProductById } from '../controllers/productControllers'
 
 const productsRouter = Router();
+
+import multer from 'multer';
 
 /* Post parsing */
 import bodyParser from 'body-parser'
@@ -33,16 +36,18 @@ productsRouter.post('/products', jsonParser,
   postProducts);
 
 /* UPDATE */
-productsRouter.put('/products/update/:name', jsonParser,
+productsRouter.put('/products/update/:id', jsonParser,
   // productMiddleware.nameValidation,
   // productMiddleware.priceValidation,
   // productMiddleware.imgValidation,
   updateProducts);
 
-productsRouter.put('/products/update/disable/:name', jsonParser, disableProduct);
+productsRouter.put('/products/update/disable/:id', jsonParser, disableProduct);
+
+productsRouter.post('/products/upload', multer().single('upload_image'), jsonParser, uploadProductImage);
 
 /* DELETE */
-productsRouter.delete('/products/delete/:name', jsonParser, deleteProducts);
+productsRouter.delete('/products/delete/:id', jsonParser, deleteProducts);
 
 /* RESET DB */
 productsRouter.delete('/products/reset', resetProducts);

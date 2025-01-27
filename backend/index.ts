@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { config } from 'dotenv'
 import productsRouter from './routes/productRoutes';
-import connectToDb from './database/dbConnection'
+import connectToDb from './database/dbConnection';
 
 const app = express();
 
