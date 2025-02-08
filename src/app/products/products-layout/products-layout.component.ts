@@ -20,6 +20,7 @@ import { FormControl, FormGroup, FormsModule } from '@angular/forms';
   styleUrl: './products-layout.component.scss'
 })
 export class ProductsLayoutComponent {
+  readonly uploadsPath = 'http://localhost:3000/api/products/uploads/'
   @Input() products: IProduct[] = [];
   @Input() layout: TLayoutMode = 'table';
 

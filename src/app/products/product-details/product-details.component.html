@@ -3,7 +3,10 @@
     @if (product) {
       <h1 class="py-5 text-4xl">Modifica prodotto</h1>
       <div class="flex gap-20">
-        <form class="w-1/2 flex flex-col gap-16" [formGroup]="productForm" (ngSubmit)="save()">
+        <form class="w-1/2 flex flex-col gap-16"
+          [formGroup]="productForm"
+          (ngSubmit)="save()"
+          enctype="multipart/form-data">
           <div class="flex flex-col justify-between gap-5">
             <mat-form-field appearance="outline">
               <mat-label>Nome: </mat-label>
@@ -14,6 +17,13 @@
               <mat-label>Prezzo: </mat-label>
               <input matInput type="text" id="price" formControlName="price" />
               <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Immagine</mat-label>
+              <ngx-mat-file-input
+                formControlName="img"
+                accept=".png, .jpg, .jpeg" >
+              </ngx-mat-file-input>
             </mat-form-field>
             <mat-checkbox matCheckbox formControlName="disabled">Disabilita</mat-checkbox>
             <mat-checkbox matCheckbox formControlName="external">Prodotto esterno</mat-checkbox>
@@ -28,23 +38,7 @@
             <button type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full" (click)="cancel()">Annulla</button>
           </div>
         </form>
-
-        <!-- Image upload -->
-        <form class="w-1/2 flex flex-col justify-between" [formGroup]="imageForm" (ngSubmit)="uploadImage()" enctype="multipart/form-data">
-          <mat-form-field class="w-full" appearance="outline">
-            <mat-label>Immagine</mat-label>
-            <ngx-mat-file-input
-              formControlName="img"
-              accept=".png, .jpg, .jpeg" >
-            </ngx-mat-file-input>
-          </mat-form-field>
-          <button
-            type="submit"
-            class="text-white p-2 w-full"
-            [ngClass]="(!imageForm.dirty) ? 'bg-green-300' : 'bg-green-500 hover:hover:bg-green-400'"
-            [disabled]="!imageForm.dirty">Carica immagine
-          </button>
-        </form>
+        <img class="w-1/2 object-contain" [src]="product.img" alt="">
       </div>
     }
     @else {

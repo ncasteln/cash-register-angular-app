@@ -10,7 +10,7 @@
   {
     "name": "carrot",
     "price": 12,
-    "img": "assets/carote.jpg",
+    "img": "assets/img-not-found.png",
     "alt": "Crisp orange root vegetable",
     "disabled": true,
     "external": false
@@ -18,7 +18,7 @@
   {
     "name": "broccoli",
     "price": 15,
-    "img": "assets/broccoli.jpg",
+    "img": "assets/img-not-found.png",
     "alt": "Tight green flower buds",
     "disabled": false,
     "external": false
@@ -26,7 +26,7 @@
   {
     "name": "spinach",
     "price": 11,
-    "img": "assets/spinaci.jpg",
+    "img": "assets/img-not-found.png",
     "alt": "Dark leafy green vegetable",
     "disabled": true,
     "external": false

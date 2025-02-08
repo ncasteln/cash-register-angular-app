@@ -46,6 +46,7 @@ export class ProductDetailsComponent implements OnInit {
         const productId = this._activatedRoute.snapshot.paramMap.get('_id');
         const product = products.find(p => p._id === productId);
         if (product) {
+          console.log(product)
           this.product = product;
         }
         return products;
@@ -74,12 +75,6 @@ export class ProductDetailsComponent implements OnInit {
         id: new FormControl(this.product._id),
         img: new FormControl(this.product.img),
       })
-
-      /* Image form */
-      this.imageForm = new FormGroup({
-        id: new FormControl(this.product._id),
-        img: new FormControl(this.product.img)
-      })
     }
     else {
       this.productForm = new FormGroup({
@@ -93,10 +88,18 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   save() {
-    const updatedProduct: IProduct = this.productForm.value;
+    const formData = new FormData();
+
+    const fileForm: File = this.productForm.get('img')?.value;
+    formData.append('img', fileForm);
+    formData.append('name', this.productForm.get('name')?.value)
+    formData.append('price', this.productForm.get('price')?.value)
+    formData.append('external', this.productForm.get('external')?.value)
+    formData.append('disabled', this.productForm.get('disabled')?.value)
 
     if (this.product) {
-      this._productsService.update(this.product, updatedProduct).subscribe(p => {
+      this._productsService.update(this.product._id, formData).subscribe(p => {
+        /* Wait some seconds and route */
         this._router.navigate(['/products']);
       })
     }
@@ -112,16 +115,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   uploadImage() {
-    const imageFile: File = this.imageForm.value;
-    const formData = new FormData();
-    if (!this.product)
-      return;
-    formData.append('id', this.product?._id);
-    formData.append('name', 'upload_image');
-    formData.append('file', imageFile);
-    this._productsService.uploadImage(formData).subscribe(res => {
-      console.log(res)
-    })
+    console.log(this.imageForm.value)
   }
 
   cancel() {

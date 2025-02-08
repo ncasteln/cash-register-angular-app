@@ -43,20 +43,12 @@ export class ProductsService {
       { observe: 'response' }))
   }
 
-  update( oldProduct: IProduct, newProduct: IProduct ) {
+  update( _id: string, formData: FormData ) {
     return (
       this.http.put<IProduct>(
-        `${this.url}/update/${oldProduct._id}`,
-        newProduct,
-        { observe: 'response' }));
-  }
-
-  uploadImage( formData: FormData ) {
-    return (
-      this.http.post<IProduct>(
-        `${this.url}/upload`,
-        formData, // as body
-        { observe: 'response' }));
+        `${this.url}/update/${_id}`,
+        formData
+        ));
   }
 
   disable( product: IProduct ) {

@@ -6,6 +6,7 @@ import resetJson from '../reset.json'
 import { promises as fs } from 'fs';
 import path, { dirname } from 'path';
 import { productModel } from '../models/productModels'
+import { Response } from 'express';
 
 /* SANITIZE
   - No question marks
@@ -22,6 +23,20 @@ export const getProducts = async(req: any, res: any) => {
     }
     else
       res.status(400).json({ msg: "* Products not found" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: "* Internal server error" });
+  }
+}
+
+export const getImage = async(req: any, res: Response) => {
+  try {
+    console.log("* Products.GET");
+    const result = await productModel.findOne({ img: req.params.id });
+    if (!result)
+      throw Error("not found")
+    const options = { root: './' }
+    res.sendFile('uploads/' + result.img, options)
   } catch (e) {
     console.error(e);
     res.status(500).json({ msg: "* Internal server error" });
@@ -68,23 +83,26 @@ export const postProducts = async(req: any, res: any) => {
 
 export const updateProducts = async(req: any, res: any) => {
   try {
-    console.log("* Products.UPDATE: ", req.params);
+    console.log("* Products.UPDATE: ", req.params, req.body)
+    let { name, price, img, external, disabled } = req.body;
 
-    const id = req.params.id;
-    const isFound = await productModel.findById(id);
-    console.log(isFound)
-    if (!isFound)
-      throw Error("* Product doesn't exists");
+    if (req.file)
+      img = req.file.filename;
 
-    /* Updates */
-    const { name: newName, price, img, external, disabled } = req.body;
-
-    const result = await productModel.findOneAndUpdate(
-      { _id: id },
-      { name: newName, price, img, external, disabled, },
+    const newProduct = await productModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { name,
+        price,
+        img,
+        external,
+        disabled },
       { new: true }
     )
-    res.status(200).json({ msg: "* Product UPDATED successfully" });
+
+    res.status(200).json({
+      newProduct,
+      msg: "* Product UPDATED successfully"
+    });
   } catch (e) {
     console.error(e);
     res.status(500).json({ msg: "* Internal server error" });
@@ -113,10 +131,9 @@ export const disableProduct = async (req: any, res: any) => {
 
 export const uploadProductImage = async (req: any, res: any) => {
   try {
-    console.log("* Products.UPLOAD params: ", req.params);
-    console.log("* Products.UPLOAD body: ", req.body);
-    console.log("* Products.UPLOAD files: ", req.files);
-    console.log("* Products.UPLOAD up_image: ", req.upload_image);
+    // console.log("* Products.UPLOAD params: ", req.params);
+    // console.log("* Products.UPLOAD body: ", req.body);
+    // console.log("* Products.UPLOAD file: ", req.file);
 
 
     // const id = req.params.id;
