@@ -28,6 +28,8 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
   styleUrl: './product-details.component.scss'
 })
 export class ProductDetailsComponent implements OnInit {
+  readonly uploadsPath = 'http://localhost:3000/api/products/uploads/';
+
   productForm!: FormGroup;
   imageForm!: FormGroup;
   products: IProduct[] = [];
@@ -46,7 +48,7 @@ export class ProductDetailsComponent implements OnInit {
         const productId = this._activatedRoute.snapshot.paramMap.get('_id');
         const product = products.find(p => p._id === productId);
         if (product) {
-          console.log(product)
+          // console.log(product)
           this.product = product;
         }
         return products;
@@ -73,7 +75,7 @@ export class ProductDetailsComponent implements OnInit {
         external: new FormControl(this.product.external, [ Validators.required ]),
         disabled: new FormControl(this.product.disabled),
         id: new FormControl(this.product._id),
-        img: new FormControl(this.product.img),
+        imageFile: new FormControl(this.product.img),
       })
     }
     else {
@@ -82,6 +84,7 @@ export class ProductDetailsComponent implements OnInit {
         price: new FormControl(null, [ Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/) ]),
         external: new FormControl(false, [ Validators.required ]),
         disabled: new FormControl(false, [ Validators.required ]),
+        imageFile: new FormControl(null)
       })
     }
 
@@ -89,9 +92,9 @@ export class ProductDetailsComponent implements OnInit {
 
   save() {
     const formData = new FormData();
+    const imageFile: File = this.productForm.get('imageFile')?.value;
 
-    const fileForm: File = this.productForm.get('img')?.value;
-    formData.append('img', fileForm);
+    formData.append('imageFile', imageFile);
     formData.append('name', this.productForm.get('name')?.value)
     formData.append('price', this.productForm.get('price')?.value)
     formData.append('external', this.productForm.get('external')?.value)
@@ -103,19 +106,11 @@ export class ProductDetailsComponent implements OnInit {
         this._router.navigate(['/products']);
       })
     }
-  }
-
-  create() {
-    const newProduct: IProduct = this.productForm.value;
-    if (!this.productForm.valid)
-      return ;
-    this._productsService.create(newProduct).subscribe(res => {
-      this._router.navigate(['/products'])
-    })
-  }
-
-  uploadImage() {
-    console.log(this.imageForm.value)
+    else {
+      this._productsService.create(formData).subscribe(res => {
+        this._router.navigate(['/products'])
+      })
+    }
   }
 
   cancel() {

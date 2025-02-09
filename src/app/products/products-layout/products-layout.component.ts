@@ -1,10 +1,10 @@
-import { Component, ElementRef, Input, input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { IProduct, TLayoutMode } from '../../models';
 import { DynamicTableComponent } from '../../dynamic-table/dynamic-table.component';
 import { ProductActionsComponent } from '../product-actions/product-actions.component';
 import { RouterLink } from '@angular/router';
-import { FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'products-layout',
@@ -23,6 +23,7 @@ export class ProductsLayoutComponent {
   readonly uploadsPath = 'http://localhost:3000/api/products/uploads/'
   @Input() products: IProduct[] = [];
   @Input() layout: TLayoutMode = 'table';
+  @Output() delete = new EventEmitter<string>();
 
   constructor() {}
 }

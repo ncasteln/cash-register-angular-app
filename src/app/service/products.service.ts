@@ -30,32 +30,31 @@ export class ProductsService {
     return (this.http.get<IProductResponse>(`${this.url}/${_id}`))
   }
 
-  create( productForm: IProduct ) {
+  create( productForm: FormData ) {
     return (
-      this.http.post<IProduct>(this.url, productForm, {
+      this.http.post<IProduct>(`${this.url}/create/`, productForm, {
         observe: 'response'
       }));
   }
 
-  delete( product: IProduct ) {
+  delete( _id: string ) {
     return (this.http.delete<IProductResponse>(
-      `${this.url}/delete/${product._id}`,
+      `${this.url}/delete/${_id}`,
       { observe: 'response' }))
   }
 
-  update( _id: string, formData: FormData ) {
+  update( _id: string, productForm: FormData ) {
     return (
       this.http.put<IProduct>(
         `${this.url}/update/${_id}`,
-        formData
+        productForm
         ));
   }
 
-  disable( product: IProduct ) {
+  disable( _id: string ) {
     return (
-      this.http
-      .put(
-        `${this.url}/update/disable/${product._id}`,
+      this.http.put<IProductResponse>(
+        `${this.url}/update/disable/${_id}`,
         { observe: 'response' }
       )
     )

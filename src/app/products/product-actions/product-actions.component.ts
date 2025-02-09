@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IProduct, Product } from '../../models';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ProductsService } from '../../service/products.service';
 import { NgClass } from '@angular/common';
-import { ProductActionsService } from '../../service/product-actions.service';
 
 @Component({
   selector: 'product-actions',
@@ -17,16 +16,17 @@ import { ProductActionsService } from '../../service/product-actions.service';
 })
 export class ProductActionsComponent {
   @Input() product: IProduct = new Product();
+  @Output() delete = new EventEmitter<string>();
 
   constructor( private _productsService: ProductsService ) {}
 
-  disable() {
-    this._productsService.action('disable', this.product);
+  onDisable() {
+    this._productsService.disable(this.product._id).subscribe(res => {
+      this.product.disabled = res.newProduct.disabled;
+    })
   }
 
-  delete() {
-    this._productsService.action('delete', this.product);
+  onDelete() {
+    this.delete.emit(this.product._id)
   }
-
-
 }

@@ -3,7 +3,7 @@ import { DynamicTableComponent } from '../../dynamic-table/dynamic-table.compone
 import { DecimalPipe } from '@angular/common';
 import { IProduct } from '../../models';
 import { ProductActionsComponent } from '../product-actions/product-actions.component';
-import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'products-table',

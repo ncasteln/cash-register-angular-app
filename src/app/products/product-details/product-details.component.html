@@ -2,7 +2,7 @@
   <div class="p-16">
     @if (product) {
       <h1 class="py-5 text-4xl">Modifica prodotto</h1>
-      <div class="flex gap-20">
+      <div class="flex justify-between gap-20">
         <form class="w-1/2 flex flex-col gap-16"
           [formGroup]="productForm"
           (ngSubmit)="save()"
@@ -21,7 +21,7 @@
             <mat-form-field class="w-full" appearance="outline">
               <mat-label>Immagine</mat-label>
               <ngx-mat-file-input
-                formControlName="img"
+                formControlName="imageFile"
                 accept=".png, .jpg, .jpeg" >
               </ngx-mat-file-input>
             </mat-form-field>
@@ -38,12 +38,17 @@
             <button type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full" (click)="cancel()">Annulla</button>
           </div>
         </form>
-        <img class="w-1/2 object-contain" [src]="product.img" alt="">
+        <div class="w-1/2 flex justify-center">
+          <img class="h-96 border-[1px] border-gray-400 rounded" [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" alt="">
+        </div>
       </div>
     }
     @else {
       <h1 class="py-5 text-4xl">Creazione prodotto</h1>
-      <form class="flex flex-col gap-16" [formGroup]="productForm" (ngSubmit)="create()" >
+      <form class="flex flex-col gap-16"
+        [formGroup]="productForm"
+        (ngSubmit)="save()"
+        enctype="multipart/form-data">
         <div class="flex gap-5">
           <div class="w-1/2 flex flex-col gap-5 justify-between">
             <mat-form-field appearance="outline">
@@ -55,6 +60,13 @@
               <mat-label>Prezzo: </mat-label>
               <input matInput type="text" id="price" formControlName="price" />
               <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+            <mat-label>Immagine</mat-label>
+              <ngx-mat-file-input
+                formControlName="imageFile"
+                accept=".png, .jpg, .jpeg" >
+              </ngx-mat-file-input>
             </mat-form-field>
             <mat-checkbox matCheckbox formControlName="disabled">Disabilita</mat-checkbox>
             <mat-checkbox matCheckbox formControlName="external">Prodotto esterno</mat-checkbox>

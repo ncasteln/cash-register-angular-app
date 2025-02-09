@@ -1,10 +1,4 @@
-// const { nameValidation } = require('../middleware/productMiddleware');
-
-// const Product = require('../models/productModels');
-// const fs = require('fs').promises;
 import resetJson from '../reset.json'
-import { promises as fs } from 'fs';
-import path, { dirname } from 'path';
 import { productModel } from '../models/productModels'
 import { Response } from 'express';
 
@@ -64,12 +58,16 @@ export const getProductById = async(req: any, res: any) => {
 
 export const postProducts = async(req: any, res: any) => {
   try {
-    console.log("* Products.POST: ", req.params);
-    const { name, price, external, disabled } = req.body;
+    console.log("* Products.POST: ", req.params, req.body);
+    let { name, price, img, external, disabled } = req.body;
+
+    if (req.file)
+      img = req.file.filename;
+
     const newProduct = new productModel({
       name,
       price,
-      img: '',
+      img,
       external,
       disabled
     });
@@ -121,30 +119,6 @@ export const disableProduct = async (req: any, res: any) => {
     res.status(200).json({
       msg: `* ${product.name} ${product.disabled ? 'disabled' : 'enabled'} successfully`,
       newProduct: product
-    })
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ msg: e });
-  }
-}
-
-
-export const uploadProductImage = async (req: any, res: any) => {
-  try {
-    // console.log("* Products.UPLOAD params: ", req.params);
-    // console.log("* Products.UPLOAD body: ", req.body);
-    // console.log("* Products.UPLOAD file: ", req.file);
-
-
-    // const id = req.params.id;
-    // const product = await productModel.findById(id)
-    // if (!product)
-    //   throw Error("* Product doesn't exists");
-    // product.disabled = !product.disabled;
-    // await product.save();
-    res.status(200).json({
-      // msg: `* ${product.name} ${product.disabled ? 'disabled' : 'enabled'} successfully`,
-      // newProduct: product
     })
   } catch (e) {
     console.error(e);

@@ -2,7 +2,7 @@
   {
     "name": "cassetta",
     "price": 20.00,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Cassetta mista",
     "disabled": false,
     "external": false
@@ -10,7 +10,7 @@
   {
     "name": "carrot",
     "price": 12,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Crisp orange root vegetable",
     "disabled": true,
     "external": false
@@ -18,7 +18,7 @@
   {
     "name": "broccoli",
     "price": 15,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Tight green flower buds",
     "disabled": false,
     "external": false
@@ -26,7 +26,7 @@
   {
     "name": "spinach",
     "price": 11,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Dark leafy green vegetable",
     "disabled": true,
     "external": false
@@ -34,7 +34,7 @@
   {
     "name": "lettuce",
     "price": 14,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Green leafy salad ingredient",
     "disabled": true,
     "external": false
@@ -42,7 +42,7 @@
   {
     "name": "potato",
     "price": 13,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Brown starchy tuber",
     "disabled": false,
     "external": false
@@ -50,7 +50,7 @@
   {
     "name": "tomato",
     "price": 16,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Round red fruit often eaten raw",
     "disabled": false,
     "external": false
@@ -58,7 +58,7 @@
   {
     "name": "pepper",
     "price": 18,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Colorful sweet or hot variety",
     "disabled": false,
     "external": false
@@ -66,7 +66,7 @@
   {
     "name": "cucumber",
     "price": 19,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Sliced green salad ingredient",
     "disabled": false,
     "external": false
@@ -74,7 +74,7 @@
   {
     "name": "formaggino capra",
     "price": 20,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Long summer squash vegetable",
     "disabled": false,
     "external": true
@@ -82,7 +82,7 @@
   {
     "name": "yogurt capra",
     "price": 21,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Purple glossy nightshade plant",
     "disabled": false,
     "external": true
@@ -90,7 +90,7 @@
   {
     "name": "pane Bagaggera",
     "price": 10,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "White, yellow, or red bulbous vegetable",
     "disabled": false,
     "external": true
@@ -98,7 +98,7 @@
   {
     "name": "biscotti",
     "price": 12,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Small pungent bulbs used for flavoring",
     "disabled": false,
     "external": true
@@ -106,7 +106,7 @@
   {
     "name": "Mushroom",
     "price": 13,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Fleshy spore-bearing organism",
     "disabled": false,
     "external": false
@@ -114,7 +114,7 @@
   {
     "name": "Celery",
     "price": 11,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Crunchy stalk vegetable",
     "disabled": false,
     "external": false
@@ -122,7 +122,7 @@
   {
     "name": "Radish",
     "price": 10,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Spicy root vegetable",
     "disabled": false,
     "external": false
@@ -130,7 +130,7 @@
   {
     "name": "Beetroot",
     "price": 14,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Sweet earthy root vegetable",
     "disabled": false,
     "external": false
@@ -138,7 +138,7 @@
   {
     "name": "Turnip",
     "price": 11,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "White or purple root vegetable",
     "disabled": false,
     "external": false
@@ -146,7 +146,7 @@
   {
     "name": "Swiss Chard",
     "price": 12,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Leafy green vegetable with colorful stems",
     "disabled": false,
     "external": false
@@ -154,7 +154,7 @@
   {
     "name": "Asparagus",
     "price": 15,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Delicate spear-shaped vegetable",
     "disabled": false,
     "external": false
@@ -162,7 +162,7 @@
   {
     "name": "Artichoke",
     "price": 16,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Thistle-like flower bud vegetable",
     "disabled": false,
     "external": false
@@ -170,7 +170,7 @@
   {
     "name": "Leek",
     "price": 11,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "White stem vegetable similar to onion",
     "disabled": false,
     "external": false
@@ -178,7 +178,7 @@
   {
     "name": "Rhubarb",
     "price": 10,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Tart stalk vegetable often paired with strawberries",
     "disabled": false,
     "external": false
@@ -186,7 +186,7 @@
   {
     "name": "Okra",
     "price": 13,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Green pod vegetable often used in soups",
     "disabled": false,
     "external": false
@@ -194,7 +194,7 @@
   {
     "name": "Parsnip",
     "price": 12,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Sweet white root vegetable",
     "disabled": false,
     "external": false
@@ -202,7 +202,7 @@
   {
     "name": "Pumpkin",
     "price": 14,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Orange squash fruit",
     "disabled": false,
     "external": false
@@ -210,7 +210,7 @@
   {
     "name": "Squash",
     "price": 15,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Summer or winter variety of gourd vegetables",
     "disabled": false,
     "external": false
@@ -218,7 +218,7 @@
   {
     "name": "corn",
     "price": 16,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Golden kernels on cob vegetable",
     "disabled": false,
     "external": false
@@ -226,7 +226,7 @@
   {
     "name": "Green Beans",
     "price": 13,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Long, thin, edible pods",
     "disabled": false,
     "external": false
@@ -234,7 +234,7 @@
   {
     "name": "Peas",
     "price": 12,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Small round legumes often eaten fresh",
     "disabled": false,
     "external": false
@@ -242,7 +242,7 @@
   {
     "name": "Cauliflower",
     "price": 14,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "White flower buds vegetable",
     "disabled": false,
     "external": false
@@ -250,7 +250,7 @@
   {
     "name": "Brussels Sprouts",
     "price": 15,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Small cabbage-like buds vegetable",
     "disabled": false,
     "external": false
@@ -258,7 +258,7 @@
   {
     "name": "Kale",
     "price": 16,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Dark leafy green superfood",
     "disabled": false,
     "external": false
@@ -266,7 +266,7 @@
   {
     "name": "collard Greens",
     "price": 17,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Nutritious leafy green vegetable",
     "disabled": false,
     "external": false
@@ -274,7 +274,7 @@
   {
     "name": "mustard Greens",
     "price": 18,
-    "img": "assets/img-not-found.png",
+    "img": "",
     "alt": "Bitter leafy green vegetable",
     "disabled": false,
     "external": false

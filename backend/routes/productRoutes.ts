@@ -8,31 +8,30 @@ import {
   resetProducts,
   getProductById,
   getImage } from '../controllers/productControllers'
-
-const productsRouter = Router();
-
 import multer from 'multer';
 import { imageStorage } from '../storage/imageStorage';
 
+const productsRouter = Router();
+
+/* Upload images */
 const imageUpload = multer({ storage: imageStorage })
 
 /* GET */
 productsRouter.get('/products', getProducts);
-productsRouter.get('/products/:id', /* jsonParser, */ getProductById);
-productsRouter.get('/products/uploads/:id', /* jsonParser, */ getImage);
+productsRouter.get('/products/:id', getProductById);
+productsRouter.get('/products/uploads/:id', getImage);
 
 /* POST */
-productsRouter.post('/products', /* jsonParser, */ postProducts);
+productsRouter.post('/products/create', imageUpload.single('imageFile'), postProducts);
 
 /* UPDATE */
-productsRouter.put('/products/update/:id', imageUpload.single('img'), /* jsonParser, */ updateProducts);
-productsRouter.put('/products/update/disable/:id', /* jsonParser, */ disableProduct);
+productsRouter.put('/products/update/:id', imageUpload.single('imageFile'), updateProducts);
+productsRouter.put('/products/update/disable/:id', disableProduct);
 
 /* DELETE */
-productsRouter.delete('/products/delete/:id', /* jsonParser, */ deleteProducts);
+productsRouter.delete('/products/delete/:id', deleteProducts);
 
 /* RESET DB */
 productsRouter.delete('/products/reset', resetProducts);
 
-// module.exports = router;
 export default productsRouter;

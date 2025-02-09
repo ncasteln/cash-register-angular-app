@@ -5,7 +5,7 @@ export class Product implements IProduct {
   _id = '';
   name = '';
   price = -1;
-  img = new Image();
+  img = '';//new Image();
   disabled = false;
   external = false;
 }
@@ -23,7 +23,7 @@ export interface IProduct {
   _id: string,
   name: string,
   price: number,
-  img: IImage,
+  img: string,
   disabled: boolean,
   external: boolean
 }

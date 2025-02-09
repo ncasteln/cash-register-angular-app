@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IProduct } from '../../models';
 import { ProductActionsComponent } from '../product-actions/product-actions.component';
-import { DecimalPipe, NgClass } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'products-grid',

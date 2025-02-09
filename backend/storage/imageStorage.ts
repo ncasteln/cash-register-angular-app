@@ -6,10 +6,6 @@ export const imageStorage = multer.diskStorage({
     cb(null, 'uploads/')
   },
   filename: async function (req, file, cb) {
-    const product = await productModel.findOne({ _id: req.params.id })
-    if (!product)
-      throw Error("Product not found")
-    const ext = file.originalname.slice(file.originalname.lastIndexOf('.'));
-    cb(null, product.name + ext)
+    cb(null, file.originalname)
   }
 })
