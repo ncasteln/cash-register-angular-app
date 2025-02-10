@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, NgClass } from '@angular/common';
 import { IProduct, TLayoutMode } from '../../models';
 import { DynamicTableComponent } from '../../dynamic-table/dynamic-table.component';
 import { ProductActionsComponent } from '../product-actions/product-actions.component';
@@ -14,7 +14,8 @@ import { FormsModule } from '@angular/forms';
     DecimalPipe,
     ProductActionsComponent,
     RouterLink,
-    FormsModule
+    FormsModule,
+    NgClass
   ],
   templateUrl: './products-layout.component.html',
   styleUrl: './products-layout.component.scss'

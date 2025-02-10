@@ -1,8 +1,8 @@
 <button (click)="onDisable()" type="button"
   class="text-white p-2 w-full"
   [ngClass]="product.disabled
-    ? 'bg-gray-500 hover:bg-gray-400'
-    : 'bg-green-500 hover:bg-green-400'">
+    ? 'bg-green-500 hover:bg-green-400'
+    : 'bg-gray-500 hover:bg-gray-400'">
       {{ product.disabled ? 'Attiva' : 'Disattiva' }}
 </button>
 <button [routerLink]="['/product-details', product._id]"

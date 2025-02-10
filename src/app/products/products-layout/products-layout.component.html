@@ -3,13 +3,13 @@
     <dynamic-table title="Prodotti interni" [headers]="['Image', 'Nome', 'Prezzo', 'Actions']">
       @for ( product of products; track $index ) {
         @if ( !product.external ) {
-          <tr class="hover:bg-gray-100">
-            <td>
+          <tr class="hover:bg-yellow-100">
+            <td [ngClass]="{ 'opacity-50': product.disabled }">
               <img class="cursor-pointer w-16" [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" [alt]="product.name">
             </td>
-            <td class="p-2 border-b-2 border-b-gray-300">{{ product.name }}</td>
-            <td class="p-2 border-b-2 border-b-gray-300">{{ product.price | number: '1.2-2' }} €</td>
-            <td class="p-2 border-b-2 border-b-gray-300">
+            <td [ngClass]="{ 'opacity-50': product.disabled }" class="p-2 border-b-2 border-yellow-300">{{ product.name }}</td>
+            <td [ngClass]="{ 'opacity-50': product.disabled }" class="p-2 border-b-2 border-yellow-300">{{ product.price | number: '1.2-2' }} €</td>
+            <td class="p-2 border-b-2 border-yellow-300">
               <product-actions (delete)="delete.emit(product._id)" class="flex" [product]="product" />
             </td>
           </tr>
@@ -19,13 +19,13 @@
     <dynamic-table title="Prodotti esterni" [headers]="['Image', 'Nome', 'Prezzo', 'Actions']">
       @for ( product of products; track $index ) {
         @if ( product.external ) {
-          <tr class="hover:bg-gray-100">
-            <td>
+          <tr class="hover:bg-yellow-100">
+            <td [ngClass]="{ 'opacity-50': product.disabled }">
               <img class="cursor-pointer w-16" [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" [alt]="product.name">
             </td>
-            <td class="p-2 border-b-2 border-b-gray-300">{{ product.name }}</td>
-            <td class="p-2 border-b-2 border-b-gray-300">{{ product.price | number: '1.2-2' }} €</td>
-            <td class="p-2 border-b-2 border-b-gray-300">
+            <td [ngClass]="{ 'opacity-50': product.disabled }" class="p-2 border-b-2 border-yellow-300">{{ product.name }}</td>
+            <td [ngClass]="{ 'opacity-50': product.disabled }" class="p-2 border-b-2 border-yellow-300">{{ product.price | number: '1.2-2' }} €</td>
+            <td class="p-2 border-b-2 border-yellow-300">
               <product-actions (delete)="delete.emit(product._id)" class="flex" [product]="product" />
             </td>
           </tr>
@@ -36,16 +36,18 @@
 }
 @else {
   <h2 class="text-3xl mb-5">Prodotti interni</h2>
-  <div class="flex flex-wrap justify-start gap-5 text-center">
+  <div class="flex flex-wrap justify-start gap-5 text-center mb-5">
     @for ( product of products; track $index ) {
       @if ( !product.external ) {
-        <div class="w-48 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between shadow-sm">
-          <img [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" [alt]="product.name">
-          <div class="w-full p-2 gap-2 flex flex-col">
-            <h2>Nome: {{ product.name }}</h2>
-            <h3>Prezzo: {{ product.price | number: '1.2-2' }} €</h3>
+        <div class="shadow-md shadow-yellow-600 bg-yellow-200 hover:bg-yellow-100 flex flex-col justify-between">
+          <img [ngClass]="{ 'opacity-50': product.disabled }" class="max-w-56 object-contain" [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" [alt]="product.name">
+          <div class="w-full">
+            <div [ngClass]="{ 'opacity-50': product.disabled }" class="my-5 flex flex-col justify-start">
+              <span><b>Nome: </b>{{ product.name }}</span>
+              <span><b>Prezzo: </b>{{ product.price | number: '1.2-2' }} €</span>
+            </div>
+            <product-actions (delete)="delete.emit(product._id)" class="flex flex-grow" [product]="product" />
           </div>
-          <product-actions (delete)="delete.emit(product._id)" class="flex flex-wrap" [product]="product" />
         </div>
       }
     }
@@ -55,12 +57,14 @@
   <div class="flex flex-wrap justify-start gap-5 text-center">
     @for ( product of products; track $index ) {
       @if ( product.external ) {
-        <div class="w-48 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between shadow-sm">
-          <img [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" [alt]="product.name">
-          <div class="w-full p-2 gap-2 flex flex-col">
-            <h2>{{ product.name }}</h2>
-            <h3>Prezzo: {{ product.price | number: '1.2-2' }} €</h3>
-            <product-actions (delete)="delete.emit(product._id)" class="flex flex-wrap" [product]="product" />
+        <div class="shadow-md shadow-yellow-600 bg-yellow-200 hover:bg-yellow-100 flex flex-col justify-between">
+          <img [ngClass]="{ 'opacity-50': product.disabled }" class="max-w-56 object-contain" [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" [alt]="product.name">
+          <div class="w-full">
+            <div [ngClass]="{ 'opacity-50': product.disabled }" class="my-5 flex flex-col justify-start">
+              <span><b>Nome: </b>{{ product.name }}</span>
+              <span><b>Prezzo: </b>{{ product.price | number: '1.2-2' }} €</span>
+            </div>
+            <product-actions (delete)="delete.emit(product._id)" class="flex flex-grow" [product]="product" />
           </div>
         </div>
       }
