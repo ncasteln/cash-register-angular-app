@@ -1,0 +1,72 @@
+<div class="flex flex-col gap-5">
+
+  <!-- PRODOTTI INTERNI -->
+  <dynamic-table title="Prodotti interni" [headers]="['Img', 'Nome', 'Prezzo', 'Kg', 'Sconto', 'Action']">
+    @for ( product of products; track $index ) {
+      @if ( !product.external ) {
+        <tr class="hover:bg-yellow-100">
+          <td class="p-2 border-b-2 border-b-yellow-300">
+            <img class="w-16" [src]="product?.img ? uploadsPath+product?.img : 'assets/img-not-found.png'" alt="product.name">
+          </td>
+          <td class="p-2 border-b-2 border-b-yellow-300">{{ product.name }}</td>
+
+          <!-- Price -->
+          <td class="p-2 border-b-2 border-b-yellow-300">
+            @if (product.price) {
+              {{ product.price | number: '1.2-2' }} €
+            }
+            @else {
+              <input  class="w-full" name="weight" type="text" id="product.name'-input'">
+            }
+          </td>
+
+          <!-- Weight -->
+          <td class="p-2 border-b-2 border-b-yellow-300">
+            @if (product.weight) {
+              {{ product.weight | number: '1.2-2' }} €
+            }
+            @else {
+              <input  class="w-full" name="weight" type="text" id="product.name'-input'">
+            }
+          </td>
+
+          <!-- Discount -->
+          <td class="p-2 border-b-2 border-b-yellow-300">
+            <mat-form-field>
+              <mat-label>Sconto</mat-label>
+              <mat-select>
+                <mat-option value="0">0</mat-option>
+                <mat-option value="4">4 %</mat-option>
+                <mat-option value="10">10 %</mat-option>
+                <mat-option value="20">20 %</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+
+          <!-- Action -->
+          <td class="p-2 border-b-2 border-b-gray-300">
+            <button type="button" class="bg-green-500 hover:hover:bg-green-400 text-white p-2 w-full" (click)="addToOrder.emit(product)">Add</button>
+          </td>
+        </tr>
+      }
+    }
+  </dynamic-table>
+
+  <!-- PRODOTTI ESTERNI -->
+  <dynamic-table title="Rivendita" [headers]="['Nome', 'Prezzo', 'Action']">
+    @for ( product of products; track $index ) {
+      @if ( product.external ) {
+        <tr class="hover:bg-gray-100">
+          <td class="p-2 border-b-2 border-b-gray-300">{{ product.name }}</td>
+          <td class="p-2 border-b-2 border-b-gray-300">
+            <!-- [(ngModel)]="orderForm[$index].weight" -->
+            <input  class="w-full" name="weight" type="text" id="product.name'-input'">
+          </td>
+          <td class="p-2 border-b-2 border-b-gray-300">
+            <button type="button" class="bg-green-500 hover:hover:bg-green-400 text-white p-2 w-full" (click)="addToOrder.emit(product)">Add</button>
+          </td>
+        </tr>
+      }
+    }
+  </dynamic-table>
+</div>

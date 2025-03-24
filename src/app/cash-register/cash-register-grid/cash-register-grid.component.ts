@@ -9,7 +9,7 @@ import { IProduct } from '../../models';
   styleUrl: './cash-register-grid.component.scss'
 })
 export class CashRegisterGridComponent {
-  @Input() productList: IProduct[] = [];
+  @Input() products: IProduct[] = [];
 
   @Output() addToOrder = new EventEmitter();
 }

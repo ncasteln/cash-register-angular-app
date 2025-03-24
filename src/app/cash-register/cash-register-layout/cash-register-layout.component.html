@@ -1,0 +1,97 @@
+@if ( layout === 'table') {
+  <!----------------------------------- TABLE -------------------------------->
+  <div class="flex flex-col">
+    @for ( product of products; track $index ) {
+      <cash-register-item
+        [product]="product"
+        (addToOrder)="onAddToOrder($event)" />
+    }
+  </div>
+}
+@else {
+  <!----------------------------------- GRID -------------------------------->
+  <h2 class="text-3xl mb-5">Prodotti interni</h2>
+  <div class="flex flex-wrap gap-5 text-center">
+    @for ( product of products; track $index ) {
+      @if ( !product.external ) {
+        <div class="w-32 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between">
+          <img [src]="product.img" [alt]="product.name">
+          <div class="w-full p-2 gap-2 flex flex-col">
+            <h2>{{ product.name }}</h2>
+            <input class="w-full" name="weight" type="text" id="product.name'-input'" />
+            <button type="button" class="bg-green-500 hover:bg-green-400 text-white p-2 w-full">Add</button> <!-- (click)="onAddToOrder(product)" -->
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <h2 class="text-3xl my-5">Prodotti esterni</h2>
+  <div class="flex flex-wrap gap-5 text-center">
+    @for ( product of products; track $index ) {
+      @if ( product.external ) {
+        <div class="w-32 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between">
+          <img [src]="product.img" [alt]="product.name">
+          <div class="w-full p-2 gap-2 flex flex-col">
+            <h2>{{ product.name }}</h2>
+            <input class="w-full" name="weight" type="text" id="product.name'-input'" />
+            <button type="button" class="bg-green-500 hover:bg-green-400 text-white p-2 w-full">Add</button> <!-- (click)="onAddToOrder(product)" -->
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+}
+
+
+<!--
+
+    <dynamic-table title="Prodotti interni" [headers]="['Img', 'Nome', 'Prezzo', 'Kg', 'Sconto', 'Action']">
+      @for ( product of products; track $index ) {
+        @if ( !product.external ) {
+          <tr class="hover:bg-yellow-100">
+            <td class="p-2 border-b-2 border-b-yellow-300">
+              <img class="w-16" [src]="product?.img ? uploadsPath+product?.img : 'assets/img-not-found.png'" alt="product.name">
+            </td>
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ product.name }}</td>
+
+            <td class="p-2 border-b-2 border-b-yellow-300">
+              @if (product.price) {
+                {{ product.price | number: '1.2-2' }} €
+              }
+              @else {
+                <input  class="w-full" name="weight" type="text" id="product.name'-input'">
+              }
+            </td>
+
+            <td class="p-2 border-b-2 border-b-yellow-300">
+              @if (product.weight) {
+                {{ product.weight | number: '1.2-2' }} €
+              }
+              @else {
+                <input  class="w-full" name="weight" type="text" id="product.name'-input'">
+              }
+            </td>
+
+            <td class="p-2 border-b-2 border-b-yellow-300">
+              <mat-form-field>
+                <mat-label>Sconto</mat-label>
+                <mat-select>
+                  <mat-option value="0">0</mat-option>
+                  <mat-option value="4">4 %</mat-option>
+                  <mat-option value="10">10 %</mat-option>
+                  <mat-option value="20">20 %</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+            <td class="p-2 border-b-2 border-b-gray-300">
+              <button type="button" class="bg-green-500 hover:hover:bg-green-400 text-white p-2 w-full" (click)="onAddToOrder(product)">Add</button>
+            </td>
+          </tr>
+        }
+      }
+    </dynamic-table>
+
+-->

@@ -1,25 +1,30 @@
 <div class="py-16 px-16">
   <cash-register-toolbar (onSelectionChange)="toggleDisplayMode($event)" />
 
-  <div class="flex gap-5">
+  <div class="flex justify-between gap-5">
     <div class="w-2/3">
       <form (ngSubmit)="onSubmit()">
-      <!-- @if ( layoutMode() === 'table') {
-        <cash-register-list
-          [productList]="productList"
+        <cash-register-layout
+          [layout]="layoutMode()"
+          [products]="products"
           (addToOrder)="onAddToOrder($event)" />
-      }
-      @else {
-        <cash-register-grid
-          [productList]="productList"
-          (addToOrder)="onAddToOrder($event)" />
-      } -->
       </form>
     </div>
 
     <!-- RIEPILOGO -->
-    <div class="w-1/3 max-h-[600px] overflow-auto text-end bg-yellow-200 sticky top-20 self-start">
-      <h2 class="text-3xl p-3 mb-3 border-b-2 border-gray-400 border-dashed">Riepilogo</h2>
+    <div class="max-h-[600px] overflow-auto text-end bg-yellow-200 sticky top-20 self-start p-5">
+      <dynamic-table title="Riepilogo" [headers]="['Nome', 'Sconto', 'Subtotal', 'Iva']">
+        @for( p of currentOrder; track $index) {
+          <tr class="hover:bg-yellow-100">
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ p.name }}</td>
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ p.discount }}</td>
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ p.subtotal }}</td>
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ p.tax }}</td>
+          </tr>
+        }
+      </dynamic-table>
+
+      <!-- <h2 class="text-3xl p-3 mb-3 border-b-2 border-gray-400 border-dashed">Riepilogo</h2>
       @if ( currentOrder.length === 0 ) {
         <h3 class="text-3xl p-3 py-5">Ordine vuoto</h3>
       }
@@ -32,7 +37,7 @@
             <button type="button" class="bg-red-600 text-white p-2" (click)="removeFromOrder($index)">Remove</button>
           </div>
         </div>
-      }
+      } -->
     </div>
   </div>
 </div>

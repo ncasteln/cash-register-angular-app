@@ -1,11 +1,13 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
-import { IOrder, IProduct, TLayoutMode } from '../models';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IUnit, IProduct, TLayoutMode } from '../models';
+import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DecimalPipe, KeyValuePipe } from '@angular/common';
 import { CashRegisterToolbarComponent } from './cash-register-toolbar/cash-register-toolbar.component';
 import { CashRegisterGridComponent } from './cash-register-grid/cash-register-grid.component';
-import { CashRegisterListComponent } from './cash-register-list/cash-register-list.component';
+import { CashRegisterTableComponent } from './cash-register-table/cash-register-table.component';
+import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
+import { CashRegisterLayoutComponent } from './cash-register-layout/cash-register-layout.component';
 
 @Component({
   selector: 'cash-register',
@@ -17,61 +19,63 @@ import { CashRegisterListComponent } from './cash-register-list/cash-register-li
     DecimalPipe,
     CashRegisterToolbarComponent,
     CashRegisterGridComponent,
-    CashRegisterListComponent
+    CashRegisterTableComponent,
+    DynamicTableComponent,
+    CashRegisterLayoutComponent
   ],
   templateUrl: './cash-register.component.html',
   styleUrl: './cash-register.component.scss'
 })
 export class CashRegisterComponent implements OnInit {
-  productList: IProduct[] = [];
-  orderForm: IOrder[] = [];
-  currentOrder: IOrder[] = [
-    { name: "nico", price: 3, weight: 3 },
-    { name: "ok", price: 3, weight: 3 },
-    { name: "shit", price: 12, weight: 4 },
-    { name: "pklp", price: 3, weight: 3 },
-    { name: "ertyui", price: 1, weight: 6 },
-    { name: "nico", price: 3, weight: 3 },
-    { name: "ok", price: 3, weight: 3 },
-    { name: "shit", price: 12, weight: 4 },
-    { name: "pklp", price: 3, weight: 3 },
-    { name: "ertyui", price: 1, weight: 6 },
-    { name: "nico", price: 3, weight: 3 },
-    { name: "ok", price: 3, weight: 3 },
-    { name: "shit", price: 12, weight: 4 },
-    { name: "pklp", price: 3, weight: 3 },
-    { name: "ertyui", price: 1, weight: 6 },
+  products: IProduct[] = [];
+  units: IUnit[] = [];
 
-  ];
+  orderForm: IUnit[] = [];
+  currentOrder: IUnit[] = [];
+  currentOrderForm!: FormGroup;
 
   /* View */
-  layoutMode = signal<TLayoutMode>('grid');
+  layoutMode = signal<TLayoutMode>('table');
 
   constructor( private _productService: ProductsService ) {}
 
   ngOnInit(): void {
-    // this._productService.getAll().subscribe(res => {
-    //   this.productList = res.sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });;
-    //   this.createEmptyOrderForm();
-    // });
+    this._productService.getProducts().subscribe(res => {
+      this.products = res.filter(p => !p.disabled).sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });
+      this.generateForm();
+    });
   }
 
   toggleDisplayMode( newMode: TLayoutMode ) {
     this.layoutMode.set(newMode);
   }
 
-  createEmptyOrderForm() {
-    this.productList.forEach(item => {
-      const { name, price } = item;
-      item.external
-        ? this.orderForm.push({ name, price: 0, weight: -1 }) //-1 means will be instered only the price, for ext prod
-        : this.orderForm.push({ name, price, weight: 0 })
-    })
+  generateForm() {
+    // this.products.forEach(item => {
+    //   const { name, price } = item;
+    //   item.external
+    //     ? this.orderForm.push({ name, price: 0, weight: -1 }) //-1 means will be instered only the price, for ext prod
+    //     : this.orderForm.push({ name, price, weight: 0 })
+    // })
   }
 
-  onAddToOrder( p: IProduct ) {
-    // if (this.orderForm[i].weight === 0) // sanitize input
-    //   return ;
+  onAddToOrder( unit: IUnit ) {
+    console.log(unit)
+
+    //hERE
+    this.currentOrder.push(unit)
+
+    // const { name, price, weight, external, tax } = p;
+
+    // this.currentOrder.push({
+    //   name,
+    //   price,
+    //   weight,
+    //   external,
+    //   tax,
+    //   discount: 0,
+    //   subtotal: 0
+    // })
 
     // const { name, price, weight } = this.orderForm[i];
     // this.currentOrder.push({ name, price, weight });
@@ -89,6 +93,7 @@ export class CashRegisterComponent implements OnInit {
 
   onSubmit() {
     console.log("* SUBMIT:");
+    console.log(this.currentOrder)
   }
 }
 
@@ -102,7 +107,7 @@ export interface IDay {
     totHarvestCash: number
   },
   sales: {
-    orders: IOrder[],
+    orders: IUnit[],
     totSalesKg: number,
     totSalesCash: number
   }
@@ -115,7 +120,7 @@ export interface IDay {
 /*
   createForm(): FormGroup {
     const form = new FormGroup({});
-    this.productList.forEach(item => {
+    this.products.forEach(item => {
       form.addControl(item.name, new FormControl<number>(0));
     });
     return (form);

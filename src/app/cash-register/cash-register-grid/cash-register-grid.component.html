@@ -1,6 +1,6 @@
 <h2 class="text-3xl mb-5">Prodotti interni</h2>
 <div class="flex flex-wrap gap-5 text-center">
-  @for ( product of productList; track $index ) {
+  @for ( product of products; track $index ) {
     @if ( !product.external ) {
       <div class="w-32 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between">
         <img [src]="product.img" [alt]="product.name">
@@ -16,7 +16,7 @@
 
 <h2 class="text-3xl my-5">Prodotti esterni</h2>
 <div class="flex flex-wrap gap-5 text-center">
-  @for ( product of productList; track $index ) {
+  @for ( product of products; track $index ) {
     @if ( product.external ) {
       <div class="w-32 bg-gray-200 hover:bg-gray-100 flex flex-col justify-between">
         <img [src]="product.img" [alt]="product.name">
