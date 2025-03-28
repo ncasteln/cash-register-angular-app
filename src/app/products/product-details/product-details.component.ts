@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { IProduct } from '../../models';
+import { AmountType, IProduct } from '../../models';
 import { ProductsService } from '../../service/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
@@ -10,6 +10,8 @@ import { map } from 'rxjs';
 import { KeyValuePipe, NgClass } from '@angular/common';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { TrimDirective } from '../../directives/trim.directive';
+import { MatRadioModule } from '@angular/material/radio';
+import { DisableControlDirective } from '../../directives/disable-control.directive';
 
 function duplicateValidator( products: IProduct[] ): ValidatorFn {
   const productNames = products.map(p => p.name.trim());
@@ -41,7 +43,9 @@ const trimValidator = (control: AbstractControl): ValidationErrors | null => {
     KeyValuePipe,
     NgClass,
     NgxMatFileInputModule,
-    TrimDirective
+    TrimDirective,
+    MatRadioModule,
+    DisableControlDirective
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
@@ -76,6 +80,7 @@ export class ProductDetailsComponent implements OnInit {
       this.generateForms();
     });
 
+
   }
 
   generateForms() {
@@ -88,15 +93,23 @@ export class ProductDetailsComponent implements OnInit {
     */
     this.productForm = new FormGroup({
       name: new FormControl(this.product?.name ?? null, [ Validators.required, trimValidator, duplicateValidator(this.products) ]),
-      price: new FormControl(this.product?.price ?? null, [ Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/) ]),
+
+      priceType: new FormControl(AmountType.fixed, [ Validators.required ]),
+      price: new FormControl(this.product?.price ?? null, [ Validators.pattern(/^\d+(\.\d{1,2})?$/) ]),
+
+      weightType: new FormControl(AmountType.dynamic, [ Validators.required ]),
+      weight: new FormControl(this.product?.weight ?? null, [ Validators.pattern(/^\d+(\.\d{1,2})?$/) ]),
+
       external: new FormControl(this.product?.external ?? false, [ Validators.required ]),
-      disabled: new FormControl(this.product?.disabled ?? false),
+      disabled: new FormControl(this.product?.disabled ?? false, [ Validators.required ]),
       id: new FormControl(this.product?._id ?? null),
       imageFile: new FormControl(this.product?.img ?? null),
+      tax: new FormControl(this.product?.tax ?? null)
     })
   }
 
   save() {
+    console.log(this.productForm)
     const formData = new FormData();
     const imageFile: File = this.productForm.get('imageFile')?.value;
 
@@ -106,9 +119,14 @@ export class ProductDetailsComponent implements OnInit {
     formData.append('name', trimmedName)
 
     formData.append('price', this.productForm.get('price')?.value)
-
     formData.append('external', this.productForm.get('external')?.value)
     formData.append('disabled', this.productForm.get('disabled')?.value)
+
+    // new added
+    formData.append('weight', this.productForm.get('weight')?.value)
+    formData.append('tax', this.productForm.get('tax')?.value)
+    formData.append('priceType', this.productForm.get('priceType')?.value);
+    formData.append('weightType', this.productForm.get('weightType')?.value);
 
     if (this.product) {
       this._productsService.update(this.product._id, formData).subscribe(p => {

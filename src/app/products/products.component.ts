@@ -26,7 +26,7 @@ export class ProductsComponent implements OnInit {
   products: IProduct[] = [];
 
   /* View */
-  layoutMode = signal<TLayoutMode>('grid');
+  layoutMode = signal<TLayoutMode>('table');
   toggleLayoutMode( newMode: TLayoutMode ) {
     this.layoutMode.set(newMode);
   }

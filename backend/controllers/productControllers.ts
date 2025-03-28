@@ -12,9 +12,8 @@ export const getProducts = async(req: any, res: any) => {
   try {
     console.log("* Products.GET");
     const result = await productModel.find({});
-    if (result) {
+    if (result)
       res.status(200).json(result);
-    }
     else
       res.status(400).json({ msg: "* Products not found" });
   } catch (e) {
@@ -59,17 +58,23 @@ export const getProductById = async(req: any, res: any) => {
 export const postProducts = async(req: any, res: any) => {
   try {
     console.log("* Products.POST: ", req.params, req.body);
-    let { name, price, img, external, disabled } = req.body;
+    let { name, price, img, external, disabled, tax, weight, priceType, weightType } = req.body;
+
+    console.log(req.body)
 
     if (req.file)
       img = req.file.filename;
 
     const newProduct = new productModel({
       name,
-      price,
+      price: price === "null" ? null : price,
       img,
       external,
-      disabled
+      disabled,
+      tax: tax === "null" ? null : tax,
+      weight: weight === "null" ? null : weight,
+      weightType,
+      priceType
     });
     await newProduct.save();
     res.status(201).json({ msg: "* Product CREATED successfully"});
@@ -82,7 +87,7 @@ export const postProducts = async(req: any, res: any) => {
 export const updateProducts = async(req: any, res: any) => {
   try {
     console.log("* Products.UPDATE: ", req.params, req.body)
-    let { name, price, img, external, disabled } = req.body;
+    let { name, price, img, external, disabled, tax, weight, weightType, priceType } = req.body;
 
     if (req.file)
       img = req.file.filename;
@@ -90,10 +95,15 @@ export const updateProducts = async(req: any, res: any) => {
     const newProduct = await productModel.findOneAndUpdate(
       { _id: req.params.id },
       { name,
-        price,
+        price: price === "null" ? null : price,
         img,
         external,
-        disabled },
+        disabled,
+        tax: tax === "null" ? null : tax,
+        weight: weight === "null" ? null : weight,
+        weightType,
+        priceType
+      },
       { new: true }
     )
 

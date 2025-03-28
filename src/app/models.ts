@@ -5,9 +5,13 @@ export class Product implements IProduct {
   _id = '';
   name = '';
   price = -1;
+  priceType = AmountType.fixed;
   img = '';//new Image();
   disabled = false;
   external = false;
+  tax = -1;
+  weight = -1;
+  weightType = AmountType.dynamic;
 }
 
 export class Image implements IImage {
@@ -23,9 +27,13 @@ export interface IProduct {
   _id: string,
   name: string,
   price: number,
+  priceType: AmountType,
   img: string,
   disabled: boolean,
-  external: boolean
+  external: boolean,
+  tax: number,
+  weight: number
+  weightType: AmountType,
 }
 
 export interface IImage {
@@ -44,30 +52,14 @@ export interface IProductResponse {
 }
 
 /* ORDERS */
-export interface IOrder {
-  name: string,
-  price: number,
-  weight: number
+export interface IUnit extends IProduct {
+  discount: number,
+  subtotal: number,
+  quantity: number
 }
 
-/* CASH REGISTER */
-export interface IHarvest {
-  products: IProduct[],
-  totKg: number,
-  totCash: number
-}
-
-export interface ISales {
-  orders: IOrder[],
-  totKg: number,
-  totCash: number
-}
-
-export interface IDay {
-  date: string,             // unique ID !!!
-  weekOfTheYear: number,
-  harvest: IHarvest,
-  sales: ISales,
-  // totDayKg: number,
-  // totDayCash: number
+/* PRODUCT TYPE */
+export enum AmountType {
+  fixed,
+  dynamic
 }

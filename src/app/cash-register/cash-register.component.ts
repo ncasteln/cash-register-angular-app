@@ -29,6 +29,7 @@ import { CashRegisterLayoutComponent } from './cash-register-layout/cash-registe
 export class CashRegisterComponent implements OnInit {
   products: IProduct[] = [];
   units: IUnit[] = [];
+  total = signal(0);
 
   orderForm: IUnit[] = [];
   currentOrder: IUnit[] = [];
@@ -60,35 +61,49 @@ export class CashRegisterComponent implements OnInit {
   }
 
   onAddToOrder( unit: IUnit ) {
+    /*  DOMANDA per JAck/Nic: cosa succede se aggiungo ad es.
+        1.00kg cipolle 0% sconto
+        1.00kg cipolle 30% sconto
+        il totale sarà 1.70kg ma lo sconto differente;
+        Salvo dati completi, oppure solo un boolean, oppure altro?
+    */
+
     console.log(unit)
+    const purchasedUnit = this.currentOrder.find(u => u._id === unit._id);
+    if (purchasedUnit) {
+      if (unit.weightType === 0)
+        purchasedUnit.quantity += 1;
+      const subtotal = this.setDiscount(unit.weight*unit.price, unit.discount)
+      purchasedUnit.subtotal += subtotal;
+      this.total.update(t => t + subtotal)
+    }
+    else {
+      if (unit.weightType === 0)
+        unit.quantity = 1;
+      if (unit.weightType === 1 && unit.priceType === 1) {
+        unit.subtotal = this.setDiscount(unit.price, unit.discount);
+      }
+      else {
+        unit.subtotal = this.setDiscount(unit.weight*unit.price, unit.discount);
+      }
+      this.total.update(t => t + unit.subtotal)
+      this.currentOrder.push(unit)
+    }
+  }
 
-    //hERE
-    this.currentOrder.push(unit)
+  setDiscount( subtotal: number, discount: number ) {
+    if (discount)
+      return (subtotal-((subtotal*discount)/100))
+    return (subtotal)
+  }
 
-    // const { name, price, weight, external, tax } = p;
-
-    // this.currentOrder.push({
-    //   name,
-    //   price,
-    //   weight,
-    //   external,
-    //   tax,
-    //   discount: 0,
-    //   subtotal: 0
-    // })
-
-    // const { name, price, weight } = this.orderForm[i];
-    // this.currentOrder.push({ name, price, weight });
-
-    // /* RESET ORDER FORM */
-    // if (this.orderForm[i].weight === -1)
-    //   this.orderForm[i].price = 0;
-    // else
-    //   this.orderForm[i].weight = 0;
+  setSubtotal( unit: IUnit ) {
+    return (unit.price * unit.weight)
   }
 
   removeFromOrder( i: number ) {
     this.currentOrder.splice(i, 1);
+    // update the total
   }
 
   onSubmit() {
@@ -96,40 +111,3 @@ export class CashRegisterComponent implements OnInit {
     console.log(this.currentOrder)
   }
 }
-
-/*
-export interface IDay {
-  date: string,             // unique ID !!!
-  weekOfTheYear: number,
-  harvest: {
-    products: IProduct[],
-    totHarvestKg: number,
-    totHarvestCash: number
-  },
-  sales: {
-    orders: IUnit[],
-    totSalesKg: number,
-    totSalesCash: number
-  }
-  totDayKg: number,
-  totDayCash: number
-}
-*/
-
-
-/*
-  createForm(): FormGroup {
-    const form = new FormGroup({});
-    this.products.forEach(item => {
-      form.addControl(item.name, new FormControl<number>(0));
-    });
-    return (form);
-  }
-  getOrderFormControl( name: string ) {
-    return (this.orderForm.get(name) as FormControl);
-  }
-  getOrderFormValue() {
-    return (this.orderForm.value);
-  }
-
-*/

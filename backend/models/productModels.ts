@@ -9,12 +9,22 @@ const imageSchema = new mongoose.Schema({
   webkitRelativePath: String
 })
 
+export enum AmountType {
+  fixed,
+  dynamic
+}
+
 const productSchema = new mongoose.Schema({
   name: String,
-  price: Number,
+  price: { type: Number, required: false },
+  priceType: Number,
   img: String,
   disabled: Boolean,
-  external: Boolean
+  external: Boolean,
+  // new
+  tax: { type: Number, required: false },
+  weight: { type: Number, required: false },
+  weightType: Number
 });
 
 /* .model(schemaName, schema, nameOfTheCollection) */

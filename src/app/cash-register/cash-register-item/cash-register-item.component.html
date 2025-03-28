@@ -1,46 +1,59 @@
-<div class="grid grid-cols-6 gap-5 items-center hover:bg-yellow-100 border-2 border-yellow-100">
-  <div class="border-2">
-    <img class="w-16" [src]="product?.img ? uploadsPath+product?.img : 'assets/img-not-found.png'" alt="product.name">
+<div class="grid grid-cols-6 gap-2 items-center text-lg hover:bg-yellow-200 bg-yellow-100 mb-2">
+  <div class="">
+    <img class="w-16 h-16" [src]="product?.img ? uploadsPath+product?.img : 'assets/img-not-found.png'" alt="product.name">
   </div>
 
-  <div>{{ product.name }}</div>
+  <div class="h-full flex items-center">{{ product.name }}</div>
 
-  <div class="border-2">
-    @if (product.price) {
+  <div class="h-full flex items-center border-2">
+    @if (product.priceType === 0) {
       {{ product.price | number: '1.2-2' }} €
     }
     @else {
-      <input [formControl]="price" class="w-full" name="weight" type="text" id="product.name'-input'">
+      <input class="w-full"
+        name="price"
+        type="text"
+        id="product.name'-input'"
+        [formControl]="price"
+        placeholder="€">
     }
   </div>
 
-  <div class="border-2">
-    @if (product.weight) {
+  <div class="h-full flex items-center border-2">
+    @if (product.weightType === 0) {
       {{ product.weight | number: '1.2-2' }} Kg
     }
     @else {
-      <input [formControl]="weight" class="w-full" name="weight" type="text" id="product.name'-input'">
+      <input class="w-full"
+        name="weight"
+        type="text"
+        id="product.name'-input'"
+        [formControl]="weight"
+        placeholder="Kg">
     }
   </div>
 
-  <div class="border-2 flex gap-2 items-center">
+  <div class="h-full flex items-center gap-3 ">
     <label for="discount">Sconto</label>
-    <select class="p-2 w-full rounded"
+    <select class="p-2 w-full rounded bg-white"
       id="discount"
       [formControl]="discount"
       [value]="discount">
-      <option value="0">0</option>
-      <option value="10">10 %</option>
-      <option value="20">20 %</option>
-      <option value="30">30 %</option>
+        <option value="0">0</option>
+        <option value="10">10 %</option>
+        <option value="20">20 %</option>
+        <option value="30">30 %</option>
     </select>
   </div>
 
-  <div class="border-2">
-    <button type="button"
-      class="bg-green-500 hover:hover:bg-green-400 text-white p-2 w-full"
+  <div class="h-full flex items-center ">
+    <button
+      [disabled]="addIsDisabled()"
+      type="button"
+      class="text-white p-2 w-full h-full"
+      [ngClass]="addIsDisabled() ? 'bg-green-300 hover:bg-green-300' : 'bg-green-500 hover:bg-green-400'"
       (click)="onAddToOrder()">
-      Add
+      Aggiungi
     </button>
   </div>
 </div>

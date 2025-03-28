@@ -1,87 +1,89 @@
 @if (productForm) {
   <div class="p-16">
-    @if (product) {
-      <h1 class="py-5 text-4xl">Modifica prodotto</h1>
-      <div class="flex justify-between gap-20">
-        <form class="w-1/2 flex flex-col gap-16"
-          [formGroup]="productForm"
-          (ngSubmit)="save()"
-          enctype="multipart/form-data">
-          <div class="flex flex-col justify-between gap-5">
-            <mat-form-field appearance="outline">
-              <mat-label>Nome: </mat-label>
-              <input matInput trim type="text" formControlName="name" />
-              <mat-hint>Niente nomi doppi fra i prodotti</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Prezzo: </mat-label>
-              <input matInput type="text" id="price" formControlName="price" />
-              <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
-            </mat-form-field>
-            <mat-form-field class="w-full" appearance="outline">
-              <mat-label>Immagine</mat-label>
-              <ngx-mat-file-input
-                formControlName="imageFile"
-                accept=".png, .jpg, .jpeg" >
-              </ngx-mat-file-input>
-            </mat-form-field>
-            <mat-checkbox matCheckbox formControlName="disabled">Disabilita</mat-checkbox>
-            <mat-checkbox matCheckbox formControlName="external">Prodotto esterno</mat-checkbox>
-          </div>
-          <div class="flex gap-5">
-            <button
-              type="submit"
-              class="text-white p-2 w-full"
-              [ngClass]="(!productForm.dirty) ? 'bg-green-300' : 'bg-green-500 hover:hover:bg-green-400'"
-              [disabled]="!(productForm.dirty)">Salva le modifiche
-            </button>
-            <button type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full" (click)="cancel()">Annulla</button>
-          </div>
-        </form>
-        <div class="w-1/2 flex justify-center">
-          <img class="h-96 border-[1px] border-gray-400 rounded" [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" alt="">
-        </div>
-      </div>
-    }
-    @else {
-      <h1 class="py-5 text-4xl">Creazione prodotto</h1>
-      <form class="flex flex-col gap-16"
+    <h1 class="py-5 text-4xl">
+      {{ product ? 'Modifica prodotto' : 'Creazione prodotto' }}
+    </h1>
+    <div class="flex justify-between gap-20">
+      <form class="w-1/2 flex flex-col gap-16"
         [formGroup]="productForm"
         (ngSubmit)="save()"
         enctype="multipart/form-data">
-        <div class="flex gap-5">
-          <div class="w-1/2 flex flex-col gap-5 justify-between">
-            <mat-form-field appearance="outline">
-              <mat-label>Nome: </mat-label>
-              <input matInput type="text" formControlName="name" />
-              <mat-hint>Niente nomi doppi fra i prodotti</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Prezzo: </mat-label>
-              <input matInput type="text" id="price" formControlName="price" />
-              <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
-            </mat-form-field>
-            <mat-form-field class="w-full" appearance="outline">
+        <div class="flex flex-col justify-between gap-5">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nome: </mat-label>
+            <input matInput type="text" formControlName="name" />
+            <mat-hint>Niente nomi doppi fra i prodotti</mat-hint>
+          </mat-form-field>
+
+          <mat-checkbox matCheckbox formControlName="external">Prodotto di rivendita</mat-checkbox>
+
+          <mat-radio-group formControlName="priceType">
+            <mat-label>Prezzo:</mat-label>
+            <mat-radio-button value="0">Fisso</mat-radio-button>
+            <mat-radio-button value="1">Dinamico</mat-radio-button>
+          </mat-radio-group>
+          <mat-form-field appearance="outline">
+            <mat-label>Prezzo in €</mat-label>
+            <input matInput
+              [disableControl]="productForm.value.priceType === '1'"
+              type="text"
+              id="price"
+              formControlName="price" />
+            <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
+          </mat-form-field>
+
+          <mat-radio-group formControlName="weightType">
+            <mat-label>Peso:</mat-label>
+            <mat-radio-button value="0">Fisso</mat-radio-button>
+            <mat-radio-button value="1">Dinamico</mat-radio-button>
+          </mat-radio-group>
+          <mat-form-field appearance="outline">
+            <mat-label>Peso in kg</mat-label>
+            <input matInput
+              [disableControl]="productForm.value.weightType === '1'"
+              type="text"
+              id="weight"
+              formControlName="weight" />
+            <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
+          </mat-form-field>
+
+          <!-- Check if required, change validation -->
+          <mat-form-field appearance="outline">
+            <mat-label>Iva</mat-label>
+            <input matInput
+              type="text"
+              id="tax"
+              formControlName="tax" />
+            <!-- <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint> -->
+          </mat-form-field>
+
+          <mat-form-field class="w-full" appearance="outline">
             <mat-label>Immagine</mat-label>
-              <ngx-mat-file-input
-                formControlName="imageFile"
-                accept=".png, .jpg, .jpeg" >
-              </ngx-mat-file-input>
-            </mat-form-field>
-            <mat-checkbox matCheckbox formControlName="disabled">Disabilita</mat-checkbox>
-            <mat-checkbox matCheckbox formControlName="external">Prodotto esterno</mat-checkbox>
-          </div>
+            <ngx-mat-file-input
+              formControlName="imageFile"
+              accept=".png, .jpg, .jpeg" >
+            </ngx-mat-file-input>
+          </mat-form-field>
+
+          <mat-checkbox matCheckbox formControlName="disabled">Disabilita prodotto</mat-checkbox>
+
         </div>
-        <div class="flex w-1/2 gap-5">
+        <div class="flex gap-5">
           <button
             type="submit"
             class="text-white p-2 w-full"
-            [ngClass]="(!productForm.dirty || !productForm.valid) ? 'bg-green-300' : 'bg-green-500 hover:hover:bg-green-400'"
-            [disabled]="!productForm.dirty || !productForm.valid">Crea il prodotto
+            [ngClass]="(!productForm.dirty) ? 'bg-green-300' : 'bg-green-500 hover:hover:bg-green-400'"
+            [disabled]="!(productForm.dirty)">Salva le modifiche
           </button>
           <button type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full" (click)="cancel()">Annulla</button>
         </div>
       </form>
-    }
+      @if (product) {
+        <div class="w-1/2 flex justify-center">
+          <img class="h-96 border-[1px] border-gray-400 rounded" [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" alt="">
+        </div>
+      }
+    </div>
   </div>
 }

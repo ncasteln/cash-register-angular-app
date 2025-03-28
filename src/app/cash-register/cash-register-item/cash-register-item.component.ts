@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IProduct, IUnit, Product } from '../../models';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, NgClass } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControl, FormControlDirective, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +13,8 @@ import { FormControl, FormControlDirective, FormGroup, FormsModule, ReactiveForm
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgClass
   ],
   templateUrl: './cash-register-item.component.html',
   styleUrl: './cash-register-item.component.scss'
@@ -35,13 +36,22 @@ export class CashRegisterItemComponent implements OnInit {
   onAddToOrder() {
     this.addToOrder.emit({
         ...this.product,
-        price: this.price.value ? this.price.value : this.product.price,
-        weight: this.weight.value ? this.weight.value : this.product.weight,
-        discount: this.discount.value // convert directly ?
+        price: Number(this.price.value ? this.price.value : this.product.price),
+        weight: Number(this.weight.value ? this.weight.value : this.product.weight),
+        discount: Number(this.discount.value),
+        quantity: -1
     })
 
     this.price.setValue(null)
     this.weight.setValue(null)
     this.discount.setValue(null)
+  }
+
+  addIsDisabled() {
+    if (this.product.priceType === 1 && !this.price.value)
+      return (true);
+    if (this.product.weightType === 1 && !this.weight.value)
+      return (true);
+    return (false);
   }
 }

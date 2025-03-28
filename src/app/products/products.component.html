@@ -2,8 +2,8 @@
   <products-toolbar
     (onSelectionChange)="toggleLayoutMode($event)"
     (resetDatabase)="resetDatabase()" />
-    <products-layout
-      (delete)="deleteProduct($event)"
-      [products]="products"
-      [layout]="layoutMode()" />
+  <products-layout
+    (delete)="deleteProduct($event)"
+    [products]="products"
+    [layout]="layoutMode()" />
 </div>

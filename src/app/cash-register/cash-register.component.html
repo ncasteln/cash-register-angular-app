@@ -1,8 +1,8 @@
-<div class="py-16 px-16">
+<div class="py-16 px-5">
   <cash-register-toolbar (onSelectionChange)="toggleDisplayMode($event)" />
 
   <div class="flex justify-between gap-5">
-    <div class="w-2/3">
+    <div class="">
       <form (ngSubmit)="onSubmit()">
         <cash-register-layout
           [layout]="layoutMode()"
@@ -12,32 +12,23 @@
     </div>
 
     <!-- RIEPILOGO -->
-    <div class="max-h-[600px] overflow-auto text-end bg-yellow-200 sticky top-20 self-start p-5">
-      <dynamic-table title="Riepilogo" [headers]="['Nome', 'Sconto', 'Subtotal', 'Iva']">
-        @for( p of currentOrder; track $index) {
+    <div class="text-end bg-yellow-200 sticky top-20 self-start p-5">
+      <dynamic-table title="Riepilogo" [headers]="['Nome', 'Sconto', 'Quantità', 'Subtotale', 'Iva', '']">
+        @for( unit of currentOrder; track $index) {
           <tr class="hover:bg-yellow-100">
-            <td class="p-2 border-b-2 border-b-yellow-300">{{ p.name }}</td>
-            <td class="p-2 border-b-2 border-b-yellow-300">{{ p.discount }}</td>
-            <td class="p-2 border-b-2 border-b-yellow-300">{{ p.subtotal }}</td>
-            <td class="p-2 border-b-2 border-b-yellow-300">{{ p.tax }}</td>
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.name }}</td>
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.discount ? unit.discount+'%' : '-' }}</td>
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.quantity === -1 ? '-' : unit.quantity }}</td>
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.subtotal+'€' }}</td>
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.tax+'%' }}</td>
+            <td class="p-2 border-b-2 border-b-yellow-300">
+              <button (click)="removeFromOrder($index)"
+                class="bg-red-500 border-[1px] text-white rounded-md border-white p-2">Rimuovi</button>
+            </td>
           </tr>
         }
       </dynamic-table>
-
-      <!-- <h2 class="text-3xl p-3 mb-3 border-b-2 border-gray-400 border-dashed">Riepilogo</h2>
-      @if ( currentOrder.length === 0 ) {
-        <h3 class="text-3xl p-3 py-5">Ordine vuoto</h3>
-      }
-      @for ( product of currentOrder; track $index ) {
-        <div class="flex flex-col">
-          <div class="flex justify-between items-center hover:bg-yellow-100 px-3 py-2">
-            <div class="min-w-32 text-start">{{ product.name }}</div>
-            <div>{{ product.price }} €</div>
-            <div>{{ product.weight }} Kg</div>
-            <button type="button" class="bg-red-600 text-white p-2" (click)="removeFromOrder($index)">Remove</button>
-          </div>
-        </div>
-      } -->
+      <h3>Total: {{ total() }}</h3>
     </div>
   </div>
 </div>
