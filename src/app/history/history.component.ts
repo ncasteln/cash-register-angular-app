@@ -1,6 +1,10 @@
 import { DecimalPipe, KeyValuePipe } from '@angular/common';
-import { Component } from '@angular/core';
-import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
+import { Component, OnInit } from '@angular/core';
+import { HistoryToolbarComponent } from './history-toolbar/history-toolbar.component';
+import { HistoryItemComponent } from './history-item/history-item.component';
+import { IOrder } from '../models';
+import { HttpClient } from '@angular/common/http';
+import { OrdersService } from '../service/orders.service';
 
 @Component({
   selector: 'app-history',
@@ -8,199 +12,48 @@ import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component'
   imports: [
     KeyValuePipe, /* Iter thorugh object in @for */
     DecimalPipe,
-    DynamicTableComponent
+    HistoryToolbarComponent,
+    HistoryItemComponent
   ],
   templateUrl: './history.component.html',
   styleUrl: './history.component.scss'
 })
-export class HistoryComponent {
-  constructor() {}
-
-  /* TO DECIDE HOW DO THIS: strictly related to how data is saved in Cash Register
-  */
-  history_2 = [
+export class HistoryComponent implements OnInit {
+  history: IOrder[] = [
     {
-      _id: 'f924hgt9358th4f4893h3',
-      createdAt: '01-02-1990',
-      products: [
-        { name: 'aglio', price: 10, quantity: 3 },
-        { name: 'bieta', price: 4, quantity: 1 },
-        { name: 'carota', price: 20, quantity: 5 }],
-      total: 24
-    },
-    {
-      _id: 'f924hgt9358th4f4893h3',
-      createdAt: '01-02-1990',
-      products: [
-        { name: 'aglio', price: 10, quantity: 3 },
-        { name: 'bieta', price: 4, quantity: 1 },
-        { name: 'carota', price: 20, quantity: 5 }],
-      total: 24
-    },
-    {
-      _id: 'f924hgt9358th4f4893h3',
-      createdAt: '01-02-1990',
-      products: [
-        { name: 'aglio', price: 10, quantity: 3 },
-        { name: 'bieta', price: 4, quantity: 1 },
-        { name: 'carota', price: 20, quantity: 5 }],
-      total: 24
+      _id: "IU39329FI043FI4034IJ",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      units: [
+        {
+            _id: "string",
+            name: "Cavolo a mrenda",
+            price: 12,
+            priceType: 0,
+            external: true,
+            tax: 4,
+            weight: 12.5,
+            weightType: 1,
+            discount: 20,
+            subtotal: 45,
+            quantity: 0
+        }
+      ]
     }
-  ]
+  ];
 
-  history = {
-    '01-02-1969': [
-      {
-        // _id
-        cassa: true,
-        products: [
-          { name: 'aglio', price: 10, quantity: 3 },
-          { name: 'bieta', price: 4, quantity: 1 },
-          { name: 'carota', price: 20, quantity: 5 },
-        ],
-        total: 23
-      },
-      {
-        // _id
-        cassa: true,
-        products: [],
-        total: 45
-      },
-      {
-        // _id
-        cassa: false,
-        products: [
-          { name: 'ciliege', price: 20, quantity: 9 },
-        ],
-        total: 12
-      },
-      {
-        // _id
-        cassa: true,
-        products: [
-          { name: 'aglio', price: 10, quantity: 3 },
-          { name: 'bieta', price: 4, quantity: 1 },
-          { name: 'carota', price: 20, quantity: 5 },
-        ],
-        total: 23
-      },
-      {
-        // _id
-        cassa: true,
-        products: [],
-        total: 45
-      },
-      {
-        // _id
-        cassa: false,
-        products: [
-          { name: 'ciliege', price: 20, quantity: 9 },
-        ],
-        total: 12
-      },
-      {
-        // _id
-        cassa: true,
-        products: [
-          { name: 'aglio', price: 10, quantity: 3 },
-          { name: 'bieta', price: 4, quantity: 1 },
-          { name: 'carota', price: 20, quantity: 5 },
-        ],
-        total: 23
-      },
-      {
-        // _id
-        cassa: true,
-        products: [],
-        total: 45
-      },
-      {
-        // _id
-        cassa: false,
-        products: [
-          { name: 'ciliege', price: 20, quantity: 9 },
-        ],
-        total: 12
-      },
-    ],
-    '14-12-306944444': [
-      {
-        // _id
-        cassa: true,
-        products: [
-          { name: 'aglio', price: 10, quantity: 3 },
-          { name: 'bieta', price: 4, quantity: 1 },
-          { name: 'carota', price: 20, quantity: 5 },
-        ],
-        total: 23
-      },
-      {
-        // _id
-        cassa: true,
-        products: [],
-        total: 45
-      },
-      {
-        // _id
-        cassa: false,
-        products: [
-          { name: 'ciliege', price: 20, quantity: 9 },
-        ],
-        total: 12
-      },
-    ],
-    '12313124-12-3069': [
-      {
-        // _id
-        cassa: true,
-        products: [
-          { name: 'aglio', price: 10, quantity: 3 },
-          { name: 'bieta', price: 4, quantity: 1 },
-          { name: 'carota', price: 20, quantity: 5 },
-        ],
-        total: 23
-      },
-      {
-        // _id
-        cassa: true,
-        products: [],
-        total: 45
-      },
-      {
-        // _id
-        cassa: false,
-        products: [
-          { name: 'ciliege', price: 20, quantity: 9 },
-        ],
-        total: 12
-      },
-    ],
-    '14-12-1111111111111111': [
-      {
-        // _id
-        cassa: true,
-        products: [
-          { name: 'aglio', price: 10, quantity: 3 },
-          { name: 'bieta', price: 4, quantity: 1 },
-          { name: 'carota', price: 20, quantity: 5 },
-        ],
-        total: 23
-      },
-      {
-        // _id
-        cassa: true,
-        products: [],
-        total: 45
-      },
-      {
-        // _id
-        cassa: false,
-        products: [
-          { name: 'ciliege', price: 20, quantity: 9 },
-        ],
-        total: 12
-      },
-    ]
+  constructor( private ordersService: OrdersService ) {}
+
+  ngOnInit(): void {
+    this.getOrders()
   }
 
+  getOrders() {
+    // this.ordersService.getOrders().subscribe(o => this.history = o);
+  }
+
+  onReset() {
+    // console.log("* RESET() ")
+    // this.ordersService.reset().subscribe(o => this.getOrders());
+  }
 }
