@@ -1,8 +1,9 @@
 <div class="py-16 px-5">
   <cash-register-toolbar (onSelectionChange)="toggleDisplayMode($event)" />
 
+  <!-- LIST/GRID -->
   <div class="flex justify-between gap-5">
-    <div class="">
+    <div class="w-1/2">
       <form (ngSubmit)="onSubmit()">
         <cash-register-layout
           [layout]="layoutMode()"
@@ -12,15 +13,15 @@
     </div>
 
     <!-- RIEPILOGO -->
-    <div class="text-end bg-yellow-200 sticky top-20 self-start p-5">
-      <dynamic-table title="Riepilogo" [headers]="['Nome', 'Sconto', 'Quantità', 'Subtotale', 'Iva', '']">
-        @for( unit of currentOrder; track $index) {
+    <div class="text-end text-base sticky top-20 self-start w-1/2">
+      <dynamic-table [headers]="['Nome', 'Sconto', 'Quantità', 'Subtotale', 'Iva', '']">
+        @for( unit of currentUnits; track $index) {
           <tr class="hover:bg-yellow-100">
             <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.name }}</td>
             <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.discount ? unit.discount+'%' : '-' }}</td>
             <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.quantity === -1 ? '-' : unit.quantity }}</td>
             <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.subtotal+'€' }}</td>
-            <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.tax+'%' }}</td>
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.tax ? unit.tax+'%' : '-' }}</td>
             <td class="p-2 border-b-2 border-b-yellow-300">
               <button (click)="removeFromOrder($index)"
                 class="bg-red-500 border-[1px] text-white rounded-md border-white p-2">Rimuovi</button>
@@ -28,7 +29,14 @@
           </tr>
         }
       </dynamic-table>
-      <h3>Total: {{ total() }}</h3>
+      <h3 class="text-lg p-5 border-2">Total: {{ total() }}</h3>
+      <button
+        class="text-white rounded-md p-5 w-full"
+        [ngClass]="currentUnits.length === 0 ? 'bg-gray-300' : 'bg-green-500 hover:bg-green-400'"
+        [disabled]="currentUnits.length === 0"
+        (click)="onSubmit()">
+        Salva
+      </button>
     </div>
   </div>
 </div>

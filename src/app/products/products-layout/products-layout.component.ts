@@ -5,6 +5,7 @@ import { DynamicTableComponent } from '../../dynamic-table/dynamic-table.compone
 import { ProductActionsComponent } from '../product-actions/product-actions.component';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ProductItemComponent } from '../product-item/product-item.component';
 
 @Component({
   selector: 'products-layout',
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     ProductActionsComponent,
     RouterLink,
     FormsModule,
-    NgClass
+    NgClass,
+    ProductItemComponent
   ],
   templateUrl: './products-layout.component.html',
   styleUrl: './products-layout.component.scss'

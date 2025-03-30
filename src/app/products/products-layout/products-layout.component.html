@@ -1,4 +1,39 @@
 @if ( layout === 'table' ) {
+  <div class="flex gap-5 w-full">
+    <div class="w-1/2">
+      <div class="flex flex-col">
+        <div class="text-xl">Prodotti interni attivi</div>
+        @for ( product of products; track $index ) {
+          @if (!product.external && !product.disabled) {
+            <product-item [product]="product" (delete)="delete.emit($event)" />
+          }
+        }
+        <div class="text-xl">Prodotti interni disattivati</div>
+        @for ( product of products; track $index ) {
+          @if (!product.external && product.disabled) {
+            <product-item [product]="product" (delete)="delete.emit($event)" />
+          }
+        }
+      </div>
+    </div>
+
+    <div class="w-1/2">
+      <div class="text-xl">Rivendita attivi</div>
+      @for ( product of products; track $index ) {
+        @if (product.external && !product.disabled) {
+          <product-item [product]="product" (delete)="delete.emit($event)" />
+        }
+      }
+      <div class="text-xl">Rivendita disattivati</div>
+      @for ( product of products; track $index ) {
+        @if (product.external && !product.disabled) {
+          <product-item [product]="product" (delete)="delete.emit($event)" />
+        }
+      }
+    </div>
+  </div>
+  <!--
+
   <div class="flex gap-5 justify-between">
     <dynamic-table title="Prodotti interni" [headers]="['Image', 'Nome', 'Prezzo', 'Actions']">
       @for ( product of products; track $index ) {
@@ -33,6 +68,7 @@
       }
     </dynamic-table>
   </div>
+  -->
 }
 @else {
   <h2 class="text-3xl mb-5">Prodotti interni</h2>

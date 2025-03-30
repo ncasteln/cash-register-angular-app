@@ -3,12 +3,12 @@
   [ngClass]="product.disabled
     ? 'bg-green-500 hover:bg-green-400'
     : 'bg-gray-500 hover:bg-gray-400'">
-      {{ product.disabled ? 'Attiva' : 'Disattiva' }}
+      {{ product.disabled ? 'A' : 'D' }}
 </button>
 <button [routerLink]="['/product-details', product._id]"
   type="button" class="bg-yellow-500 hover:hover:bg-yellow-400 text-white p-2 w-full">
-  Modifica
+  M
 </button>
 <button (click)="onDelete()" type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full">
-  Rimuovi
+  R
 </button>

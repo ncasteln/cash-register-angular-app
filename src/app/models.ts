@@ -52,7 +52,29 @@ export interface IProductResponse {
 }
 
 /* ORDERS */
-export interface IUnit extends IProduct {
+export class Order implements IOrder {
+  _id = '';
+  createdAt = new Date();
+  updatedAt = new Date();
+  units = [];
+}
+
+export interface IOrder {
+  _id: string,
+  units: IUnit[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IUnit {
+  _id: string,
+  name: string,
+  price: number,
+  priceType: AmountType,
+  external: boolean,
+  tax: number,
+  weight: number,
+  weightType: AmountType,
   discount: number,
   subtotal: number,
   quantity: number

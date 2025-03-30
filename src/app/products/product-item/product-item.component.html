@@ -1,12 +1,14 @@
-<div class="grid grid-cols-6 gap-2 items-center text-lg hover:bg-yellow-200 bg-yellow-100 mb-2">
-  <div class="h-16">
-    <img class="" [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" alt="product.name">
+<div class="grid grid-cols-5 gap-2 items-center text-lg hover:bg-yellow-200 bg-yellow-100 mb-2"
+  [ngClass]="{ 'opacity-50': product.disabled }">
+  <div class="border-2">
+    <img class="w-16" [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" alt="product.name">
   </div>
 
   <div class="h-full flex items-center">{{ product.name }}</div>
 
   <div class="h-full flex items-center border-2">
-    @if (product.priceType === 0) {
+    price
+    <!-- @if (product.priceType === 0) {
       {{ product.price | number: '1.2-2' }} €
     }
     @else {
@@ -16,11 +18,12 @@
         id="product.name'-input'"
         [formControl]="price"
         placeholder="€">
-    }
+    } -->
   </div>
 
   <div class="h-full flex items-center border-2">
-    @if (product.weightType === 0) {
+    weight
+    <!-- @if (product.weightType === 0) {
       {{ product.weight | number: '1.2-2' }} Kg
     }
     @else {
@@ -30,30 +33,18 @@
         id="product.name'-input'"
         [formControl]="weight"
         placeholder="Kg">
-    }
+    } -->
   </div>
 
-  <div class="h-full flex items-center gap-3 ">
-    <label for="discount">Sconto</label>
-    <select class="p-2 w-full rounded bg-white"
-      id="discount"
-      [formControl]="discount"
-      [value]="discount">
-        <option value="0">0</option>
-        <option value="10">10 %</option>
-        <option value="20">20 %</option>
-        <option value="30">30 %</option>
-    </select>
-  </div>
-
-  <div class="h-full flex items-center ">
-    <button
+  <div class="h-full">
+    <product-actions [product]="product" (delete)="delete.emit(product._id)" class="flex h-full w-full" />
+    <!-- <button
       [disabled]="addIsDisabled()"
       type="button"
       class="text-white p-2 w-full h-full"
       [ngClass]="addIsDisabled() ? 'bg-gray-300' : 'bg-green-500 hover:bg-green-400'"
       (click)="onAddToOrder()">
       Aggiungi
-    </button>
+    </button> -->
   </div>
 </div>

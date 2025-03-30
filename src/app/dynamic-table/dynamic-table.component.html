@@ -1,5 +1,7 @@
-<h2 class="text-3xl mb-5">{{ title }}</h2>
-<table class="table-fixed bg-yellow-200">
+@if (title) {
+  <h2 class="text-3xl mb-5">{{ title }}</h2>
+}
+<table class="table-fixed bg-yellow-200 border-2 w-full">
   <thead>
     <tr class="border-b-2 border-yellow-300">
       @for ( item of headers; track $index ) {

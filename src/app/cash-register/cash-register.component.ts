@@ -1,13 +1,14 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
 import { IUnit, IProduct, TLayoutMode } from '../models';
-import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DecimalPipe, KeyValuePipe } from '@angular/common';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DecimalPipe, KeyValuePipe, NgClass } from '@angular/common';
 import { CashRegisterToolbarComponent } from './cash-register-toolbar/cash-register-toolbar.component';
 import { CashRegisterGridComponent } from './cash-register-grid/cash-register-grid.component';
 import { CashRegisterTableComponent } from './cash-register-table/cash-register-table.component';
 import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
 import { CashRegisterLayoutComponent } from './cash-register-layout/cash-register-layout.component';
+import { OrdersService } from '../service/orders.service';
 
 @Component({
   selector: 'cash-register',
@@ -21,29 +22,28 @@ import { CashRegisterLayoutComponent } from './cash-register-layout/cash-registe
     CashRegisterGridComponent,
     CashRegisterTableComponent,
     DynamicTableComponent,
-    CashRegisterLayoutComponent
+    CashRegisterLayoutComponent,
+    NgClass
   ],
   templateUrl: './cash-register.component.html',
   styleUrl: './cash-register.component.scss'
 })
 export class CashRegisterComponent implements OnInit {
   products: IProduct[] = [];
-  units: IUnit[] = [];
   total = signal(0);
-
-  orderForm: IUnit[] = [];
-  currentOrder: IUnit[] = [];
-  currentOrderForm!: FormGroup;
+  currentUnits: IUnit[] = [];
 
   /* View */
   layoutMode = signal<TLayoutMode>('table');
 
-  constructor( private _productService: ProductsService ) {}
+  constructor(
+    private _productService: ProductsService,
+    private _ordersService: OrdersService
+  ) {}
 
   ngOnInit(): void {
     this._productService.getProducts().subscribe(res => {
       this.products = res.filter(p => !p.disabled).sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });
-      this.generateForm();
     });
   }
 
@@ -51,43 +51,47 @@ export class CashRegisterComponent implements OnInit {
     this.layoutMode.set(newMode);
   }
 
-  generateForm() {
-    // this.products.forEach(item => {
-    //   const { name, price } = item;
-    //   item.external
-    //     ? this.orderForm.push({ name, price: 0, weight: -1 }) //-1 means will be instered only the price, for ext prod
-    //     : this.orderForm.push({ name, price, weight: 0 })
-    // })
-  }
-
-  onAddToOrder( unit: IUnit ) {
+  onAddToOrder( newUnit: IUnit ) {
     /*  DOMANDA per JAck/Nic: cosa succede se aggiungo ad es.
+        1)
         1.00kg cipolle 0% sconto
         1.00kg cipolle 30% sconto
         il totale sarà 1.70kg ma lo sconto differente;
         Salvo dati completi, oppure solo un boolean, oppure altro?
-    */
 
-    console.log(unit)
-    const purchasedUnit = this.currentOrder.find(u => u._id === unit._id);
+        2) Esiste il caso in cui il prezzo è dinamico ma il peso no?
+    */
+    const purchasedUnit = this.currentUnits.find(u => u._id === newUnit._id);
     if (purchasedUnit) {
-      if (unit.weightType === 0)
+      if (newUnit.weightType === 0)
         purchasedUnit.quantity += 1;
-      const subtotal = this.setDiscount(unit.weight*unit.price, unit.discount)
+      purchasedUnit.weight += newUnit.weight;
+
+      let subtotal = 0;
+      if (newUnit.weightType === 1 && newUnit.priceType === 1 ||
+        newUnit.weightType === 0 && newUnit.priceType === 0
+      ) {
+        subtotal = this.setDiscount(newUnit.price, newUnit.discount);
+      } else {
+        subtotal = this.setDiscount(newUnit.weight*newUnit.price, newUnit.discount)
+      }
+
       purchasedUnit.subtotal += subtotal;
       this.total.update(t => t + subtotal)
     }
     else {
-      if (unit.weightType === 0)
-        unit.quantity = 1;
-      if (unit.weightType === 1 && unit.priceType === 1) {
-        unit.subtotal = this.setDiscount(unit.price, unit.discount);
+      if (newUnit.weightType === 0)
+        newUnit.quantity = 1;
+      if (newUnit.weightType === 1 && newUnit.priceType === 1 ||
+        newUnit.weightType === 0 && newUnit.priceType === 0
+      ) {
+        newUnit.subtotal = this.setDiscount(newUnit.price, newUnit.discount);
       }
       else {
-        unit.subtotal = this.setDiscount(unit.weight*unit.price, unit.discount);
+        newUnit.subtotal = this.setDiscount(newUnit.weight*newUnit.price, newUnit.discount);
       }
-      this.total.update(t => t + unit.subtotal)
-      this.currentOrder.push(unit)
+      this.total.update(t => t + newUnit.subtotal)
+      this.currentUnits.push(newUnit)
     }
   }
 
@@ -102,12 +106,17 @@ export class CashRegisterComponent implements OnInit {
   }
 
   removeFromOrder( i: number ) {
-    this.currentOrder.splice(i, 1);
-    // update the total
+    this.total.update(t => t - this.currentUnits[i].subtotal);
+    this.currentUnits.splice(i, 1);
   }
 
   onSubmit() {
-    console.log("* SUBMIT:");
-    console.log(this.currentOrder)
+    console.log("* onSubmit()")
+    console.log(this.currentUnits)
+    this._ordersService.create(this.currentUnits).subscribe(o => {
+      // print successful message
+      this.currentUnits = [];
+      this.total.set(0);
+    })
   }
 }

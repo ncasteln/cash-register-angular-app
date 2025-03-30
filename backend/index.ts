@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { config } from 'dotenv'
 import productsRouter from './routes/productRoutes';
+import ordersRouter from './routes/orderRoutes';
 import connectToDb from './database/dbConnection';
 import path from 'path';
 import bodyParser from 'body-parser'
@@ -31,3 +32,4 @@ app.listen(PORT, () => { console.log(`* Server running on port ${PORT}`); })
 
 /* Routes */
 app.use('/api', productsRouter);
+app.use('/api', ordersRouter);

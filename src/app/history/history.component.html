@@ -1,7 +1,10 @@
 <div class="py-16 px-5">
   <!-- TOOLBAR -->
   <history-toolbar (reset)="onReset()" />
-  @for ( order of history; track $index ) {
-    <history-item [order]="order" />
+  @for ( day of sortedHistory; track $index ) {
+    <div class="text-2xl font-extrabold border-2">{{ day.date | date:'fullDate' }}</div>
+    @for ( order of day.orders ; track $index ) {
+      <history-item [order]="order" (deleteOrder)="deleteOrder($event)" />
+    }
   }
 </div>

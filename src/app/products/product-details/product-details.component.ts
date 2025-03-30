@@ -109,7 +109,6 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   save() {
-    console.log(this.productForm)
     const formData = new FormData();
     const imageFile: File = this.productForm.get('imageFile')?.value;
 

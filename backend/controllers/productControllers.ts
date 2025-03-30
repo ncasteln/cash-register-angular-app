@@ -1,4 +1,4 @@
-import resetJson from '../reset.json'
+import resetJson from '../resetProducts.json'
 import { productModel } from '../models/productModels'
 import { Response } from 'express';
 

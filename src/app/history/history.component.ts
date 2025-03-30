@@ -1,10 +1,10 @@
-import { DecimalPipe, KeyValuePipe } from '@angular/common';
+import { DatePipe, DecimalPipe, KeyValuePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { HistoryToolbarComponent } from './history-toolbar/history-toolbar.component';
 import { HistoryItemComponent } from './history-item/history-item.component';
 import { IOrder } from '../models';
-import { HttpClient } from '@angular/common/http';
 import { OrdersService } from '../service/orders.service';
+import {  tap } from 'rxjs';
 
 @Component({
   selector: 'app-history',
@@ -13,34 +13,15 @@ import { OrdersService } from '../service/orders.service';
     KeyValuePipe, /* Iter thorugh object in @for */
     DecimalPipe,
     HistoryToolbarComponent,
-    HistoryItemComponent
+    HistoryItemComponent,
+    DatePipe
   ],
   templateUrl: './history.component.html',
   styleUrl: './history.component.scss'
 })
 export class HistoryComponent implements OnInit {
-  history: IOrder[] = [
-    {
-      _id: "IU39329FI043FI4034IJ",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      units: [
-        {
-            _id: "string",
-            name: "Cavolo a mrenda",
-            price: 12,
-            priceType: 0,
-            external: true,
-            tax: 4,
-            weight: 12.5,
-            weightType: 1,
-            discount: 20,
-            subtotal: 45,
-            quantity: 0
-        }
-      ]
-    }
-  ];
+  history: IOrder[] = [];
+  sortedHistory: { date: Date, orders: IOrder[] }[] = []
 
   constructor( private ordersService: OrdersService ) {}
 
@@ -49,11 +30,45 @@ export class HistoryComponent implements OnInit {
   }
 
   getOrders() {
-    // this.ordersService.getOrders().subscribe(o => this.history = o);
+    this.ordersService.getOrders()
+      .pipe(
+        tap(orders => {
+          this.sortedHistory = this.groupByDate(orders);
+        })
+      )
+      .subscribe(o => {
+        this.history = o;
+      });
+  }
+
+  groupByDate( orders: IOrder[] ): { date: Date, orders: IOrder[] }[] {
+    const groups = orders.reduce((acc, order) => {
+      const date = new Date(order.createdAt);
+
+      // Create group if doesn't exist
+      if (!acc.some(g => g.date.getDate() === date.getDate())) {
+        acc.push({ date, orders: [] });
+      }
+
+      // Add order to appropriate group
+      const group = acc.find(g => g.date.getDate() === date.getDate());
+      if (group) {
+        group.orders.push(order);
+      }
+
+      return acc;
+    }, [] as { date: Date, orders: IOrder[] }[]);
+
+    // Sort groups by date (newest first)
+    return groups.sort((a, b) => b.date.getDate() - a.date.getDate());
+  }
+
+  deleteOrder( _id: string ) {
+    console.log(_id)
+    this.ordersService.delete(_id).subscribe(o => this.getOrders())
   }
 
   onReset() {
-    // console.log("* RESET() ")
-    // this.ordersService.reset().subscribe(o => this.getOrders());
+    this.ordersService.reset().subscribe(o => this.getOrders());
   }
 }
