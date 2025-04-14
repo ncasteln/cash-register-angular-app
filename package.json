@@ -1,13 +1,37 @@
 {
   "name": "cash-register-angular-app",
   "version": "0.0.0",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "electron": "ng build --base-href ./ && electron .",
+    "electron:build:win": "ng build --base-href ./ && electron-builder --win",
+    "electron:build:linux": "ng build --base-href ./ && electron-builder --linux",
     "serve:ssr:cash-register-angular-app": "node dist/cash-register-angular-app/server/server.mjs"
+  },
+  "build": {
+    "appId": "cascina-selvetto-app",
+    "productName": "cash-register",
+    "files": [
+      "dist/",
+      "main.js"
+    ],
+    "directories": {
+      "buildResources": "build"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Utility",
+      "maintainer": "Your Name",
+      "icon": "build/icon.png"
+    }
   },
   "private": true,
   "dependencies": {
@@ -34,6 +58,8 @@
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
     "autoprefixer": "^10.4.20",
+    "electron": "^35.1.5",
+    "electron-builder": "^26.0.12",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
