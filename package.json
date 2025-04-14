@@ -11,7 +11,7 @@
     "electron": "ng build --base-href ./ && electron .",
     "electron:build:win": "ng build --base-href ./ && electron-builder --win",
     "electron:build:linux": "ng build --base-href ./ && electron-builder --linux",
-    "backend": "node backend/index.ts",
+    "backend": "ts-node backend/index.ts",
     "serve:ssr:cash-register-angular-app": "node dist/cash-register-angular-app/server/server.mjs"
   },
   "build": {
@@ -20,7 +20,7 @@
     "files": [
       "dist/",
       "main.js",
-      "backend/uploads"
+      "backend/**"
     ],
     "directories": {
       "buildResources": "public/assets"
@@ -30,7 +30,9 @@
       "icon": "public/assets/favicon-512x512.png"
     },
     "linux": {
-      "target": ["AppImage"],
+      "target": [
+        "AppImage"
+      ],
       "maintainer": "Nic",
       "icon": "public/assets/favicon-512x512.png"
     }
@@ -70,6 +72,7 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
+    "ts-node": "^10.9.2",
     "typescript": "~5.5.2"
   }
 }
