@@ -11,6 +11,7 @@
     "electron": "ng build --base-href ./ && electron .",
     "electron:build:win": "ng build --base-href ./ && electron-builder --win",
     "electron:build:linux": "ng build --base-href ./ && electron-builder --linux",
+    "backend": "node backend/index.ts",
     "serve:ssr:cash-register-angular-app": "node dist/cash-register-angular-app/server/server.mjs"
   },
   "build": {
@@ -18,19 +19,20 @@
     "productName": "cash-register",
     "files": [
       "dist/",
-      "main.js"
+      "main.js",
+      "backend/uploads"
     ],
     "directories": {
-      "buildResources": "build"
+      "buildResources": "public/assets"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "public/assets/favicon-512x512.png"
     },
     "linux": {
-      "target": ["AppImage", "deb"],
-      "category": "Utility",
-      "maintainer": "Your Name",
-      "icon": "build/icon.png"
+      "target": ["AppImage"],
+      "maintainer": "Nic",
+      "icon": "public/assets/favicon-512x512.png"
     }
   },
   "private": true,
