@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IOrder, Order } from '../../models';
+import { AmountType } from '../../models';
 
 @Component({
   selector: 'history-item',

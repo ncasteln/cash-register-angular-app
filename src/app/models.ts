@@ -81,7 +81,4 @@ export interface IUnit {
 }
 
 /* PRODUCT TYPE */
-export enum AmountType {
-  fixed,
-  dynamic
-}
+export enum AmountType { fixed, dynamic }

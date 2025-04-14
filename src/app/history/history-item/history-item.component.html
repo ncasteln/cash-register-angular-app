@@ -1,10 +1,65 @@
-<div class="border-2 w-full flex">
-  <!-- Mettere in ordine di date -->
+<div class="p-5 w-full flex flex-col hover:bg-yellow-200 bg-yellow-100 gap-5">
 
-  <h2>Order: {{ order._id }}</h2>
+  <!-- id and updatedAt -->
+  <div class="border-b-[1px] border-black flex justify-between items-baseline">
+    <h2>Ordine: {{ order._id }}</h2>
+    @if (order.updatedAt) {
+      <h3>Aggiornato il: {{ order.updatedAt }}</h3>
+    }
+  </div>
 
-  <button class="bg-red-500 text-white p-2 rounded-md"
-    (click)="deleteOrder.emit(order._id)">
-    Delete
-  </button>
+  <div class="flex justify-between">
+    <div class="flex">
+      @if ( order.units.length === 0 ) {
+        <div>No products in the order</div>
+      }
+      @else {
+        <div class="flex flex-wrap gap-5">
+          @for (u of order.units; track $index) {
+            <ul class="flex flex-col min-w-[200px] border-[1px] p-5 border-yellow-300 hover:bg-yellow-100 duration-250">
+              <li class="flex">
+                <span class="min-w-[80px] font-semibold">Nome:</span>
+                <span>{{ u.name }}</span>
+              </li>
+              <li class="flex">
+                <span class="min-w-[80px] font-semibold">€/unità:</span>
+                <span>{{ u.price }} €</span>
+              </li>
+              <li class="flex">
+                <span class="min-w-[80px] font-semibold">Origine:</span>
+                <span>{{ u.external ? 'Rivendita' : 'Interno' }}</span>
+              </li>
+              <li class="flex">
+                <span class="min-w-[80px] font-semibold">Iva:</span>
+                <span>{{ u.tax }} %</span>
+              </li>
+              <li class="flex">
+                <span class="min-w-[80px] font-semibold">Peso:</span>
+                <span>{{ u.weight }} Kg</span>
+              </li>
+              <li class="flex">
+                <span class="min-w-[80px] font-semibold">Quantità:</span>
+                <span>{{ u.quantity }}</span>
+              </li>
+              <li class="flex">
+                <span class="min-w-[80px] font-semibold">Sconto:</span>
+                <span>{{ u.discount }} %</span>
+              </li>
+              <li class="flex">
+                <span class="min-w-[80px] font-semibold">Subtotale:</span>
+                <span>{{ u.subtotal }} €</span>
+              </li>
+            </ul>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="flex flex-col">
+      <button class="bg-red-500 text-white p-2 rounded-md"
+        (click)="deleteOrder.emit(order._id)">
+        Delete
+      </button>
+    </div>
+  </div>
 </div>

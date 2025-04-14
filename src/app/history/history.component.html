@@ -1,10 +1,14 @@
 <div class="py-16 px-5">
   <!-- TOOLBAR -->
   <history-toolbar (reset)="onReset()" />
-  @for ( day of sortedHistory; track $index ) {
-    <div class="text-2xl font-extrabold border-2">{{ day.date | date:'fullDate' }}</div>
-    @for ( order of day.orders ; track $index ) {
-      <history-item [order]="order" (deleteOrder)="deleteOrder($event)" />
+  <div class="flex flex-col gap-8">
+    @for ( day of sortedHistory; track $index ) {
+      <div class="text-2xl font-extrabold">{{ day.date | date:'fullDate' }}</div>
+      <div class="flex flex-col gap-5">
+        @for ( order of day.orders ; track $index ) {
+          <history-item [order]="order" (deleteOrder)="deleteOrder($event)" />
+        }
+      </div>
     }
-  }
+  </div>
 </div>
