@@ -1,14 +1,14 @@
 <button (click)="onDisable()" type="button"
-  class="text-white p-2 w-full"
+  class="text-white p-1 w-full border-[1px] border-white rounded-md"
   [ngClass]="product.disabled
     ? 'bg-green-500 hover:bg-green-400'
     : 'bg-gray-500 hover:bg-gray-400'">
-      {{ product.disabled ? 'A' : 'D' }}
+      {{ product.disabled ? 'Attiva' : 'Disattiva' }}
 </button>
 <button [routerLink]="['/product-details', product._id]"
-  type="button" class="bg-yellow-500 hover:hover:bg-yellow-400 text-white p-2 w-full">
-  M
+  type="button" class="bg-yellow-500 hover:hover:bg-yellow-400 text-white p-1 w-full border-[1px] border-white rounded-md">
+  Modifica
 </button>
-<button (click)="onDelete()" type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full">
-  R
+<button (click)="onDelete()" type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-1 w-full border-[1px] border-white rounded-md">
+  Rimuovi
 </button>

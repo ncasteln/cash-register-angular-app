@@ -6,6 +6,7 @@
     @if (order.updatedAt) {
       <h3>Aggiornato il: {{ order.updatedAt }}</h3>
     }
+    <h4>Totale speso: {{ total() | number: '1.2-2' }} €</h4>
   </div>
 
   <div class="flex justify-between">
@@ -23,7 +24,7 @@
               </li>
               <li class="flex">
                 <span class="min-w-[80px] font-semibold">€/unità:</span>
-                <span>{{ u.price }} €</span>
+                <span>{{ u.price | number: '1.2-2' }} €</span>
               </li>
               <li class="flex">
                 <span class="min-w-[80px] font-semibold">Origine:</span>
@@ -35,7 +36,7 @@
               </li>
               <li class="flex">
                 <span class="min-w-[80px] font-semibold">Peso:</span>
-                <span>{{ u.weight }} Kg</span>
+                <span>{{ u.weight | number: '1.2-2' }} Kg</span>
               </li>
               <li class="flex">
                 <span class="min-w-[80px] font-semibold">Quantità:</span>
@@ -47,7 +48,7 @@
               </li>
               <li class="flex">
                 <span class="min-w-[80px] font-semibold">Subtotale:</span>
-                <span>{{ u.subtotal }} €</span>
+                <span>{{ u.subtotal | number: '1.2-2' }} €</span>
               </li>
             </ul>
           }

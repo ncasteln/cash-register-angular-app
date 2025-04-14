@@ -3,7 +3,7 @@
 
   <!-- LIST/GRID -->
   <div class="flex justify-between gap-5">
-    <div class="w-1/2">
+    <div class="w-4/5">
       <form (ngSubmit)="onSubmit()">
         <cash-register-layout
           [layout]="layoutMode()"
@@ -16,22 +16,24 @@
     <div class="text-end text-base sticky top-20 self-start w-1/2">
       <dynamic-table [headers]="['Nome', 'Sconto', 'Quantità', 'Subtotale', 'Iva', '']">
         @for( unit of currentUnits; track $index) {
-          <tr class="hover:bg-yellow-100">
+          <tr class="hover:bg-yellow-100 p-1">
             <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.name }}</td>
             <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.discount ? unit.discount+'%' : '-' }}</td>
             <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.quantity === -1 ? '-' : unit.quantity }}</td>
-            <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.subtotal+'€' }}</td>
+            <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.subtotal | number: '1.2-2' }} €</td>
             <td class="p-2 border-b-2 border-b-yellow-300">{{ unit.tax ? unit.tax+'%' : '-' }}</td>
             <td class="p-2 border-b-2 border-b-yellow-300">
               <button (click)="removeFromOrder($index)"
-                class="bg-red-500 border-[1px] text-white rounded-md border-white p-2">Rimuovi</button>
+                class="bg-red-500 border-[1px] text-white rounded-md border-white p-1">
+                Rimuovi
+              </button>
             </td>
           </tr>
         }
       </dynamic-table>
-      <h3 class="text-lg p-5 border-2">Total: {{ total() }}</h3>
+      <div class="text-2xl w-full p-5 border-b-2 border-x-2 border-yellow-200">Totale: {{ total() | number: '1.2-2' }} €</div>
       <button
-        class="text-white rounded-md p-5 w-full"
+        class="text-white rounded-md p-5 mt-5 w-full"
         [ngClass]="currentUnits.length === 0 ? 'bg-gray-300' : 'bg-green-500 hover:bg-green-400'"
         [disabled]="currentUnits.length === 0"
         (click)="onSubmit()">

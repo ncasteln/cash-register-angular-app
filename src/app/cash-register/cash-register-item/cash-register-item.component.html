@@ -1,16 +1,21 @@
-<div class="grid grid-cols-6 gap-2 items-center text-lg hover:bg-yellow-200 bg-yellow-100 mb-2">
-  <div class="h-16">
-    <img class="" [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" alt="product.name">
-  </div>
+<div class="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr] gap-2 items-center text-lg hover:bg-yellow-200 bg-yellow-100 mb-2 border-[1px] border-yellow-200 p-2">
+  <img
+    class="w-24 h-24 object-cover border-[1px] border-gray-500 rounded-sm"
+    [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"
+    [alt]="product.name || 'Product image'"
+  />
 
   <div class="h-full flex items-center">{{ product.name }}</div>
 
-  <div class="h-full flex items-center border-2">
+  <div class="h-full flex flex-col items-center justify-center text-sm">
+    <label for="product.name'-input'">Prezzo</label>
     @if (product.priceType === 0) {
-      {{ product.price | number: '1.2-2' }} €
+      <b class="p-1 px-2">
+        {{ product.price | number: '1.2-2' }} €
+      </b>
     }
     @else {
-      <input class="w-full"
+      <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
         name="price"
         type="text"
         id="product.name'-input'"
@@ -19,12 +24,15 @@
     }
   </div>
 
-  <div class="h-full flex items-center border-2">
+  <div class="h-full flex flex-col items-center justify-center text-sm">
+    <label for="product.name'-input'">Peso</label>
     @if (product.weightType === 0) {
-      {{ product.weight | number: '1.2-2' }} Kg
+      <b class="p-1 px-2">
+        {{ product.weight | number: '1.2-2' }} Kg
+      </b>
     }
     @else {
-      <input class="w-full"
+      <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
         name="weight"
         type="text"
         id="product.name'-input'"
@@ -33,9 +41,9 @@
     }
   </div>
 
-  <div class="h-full flex items-center gap-3 ">
+  <div class="h-full flex flex-col items-center justify-center text-sm">
     <label for="discount">Sconto</label>
-    <select class="p-2 w-full rounded bg-white"
+    <select class="p-2 w-full bg-white border-[1px] border-gray-500 min-h-10"
       id="discount"
       [formControl]="discount"
       [value]="discount">
@@ -46,11 +54,11 @@
     </select>
   </div>
 
-  <div class="h-full flex items-center ">
+  <div class="h-full flex items-center">
     <button
       [disabled]="addIsDisabled()"
       type="button"
-      class="text-white p-2 w-full h-full"
+      class="text-white p-2 w-full min-h-16"
       [ngClass]="addIsDisabled() ? 'bg-gray-300' : 'bg-green-500 hover:bg-green-400'"
       (click)="onAddToOrder()">
       Aggiungi
