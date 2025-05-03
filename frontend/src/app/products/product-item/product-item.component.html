@@ -1,4 +1,5 @@
-<div class="grid grid-cols-5 gap-2 items-center text-lg hover:bg-yellow-200 bg-yellow-100 mb-2">
+<div class="grid grid-cols-5 gap-2 items-center text-lg  mb-2"
+  [ngClass]="product.deleted ? 'bg-red-300 hover:bg-red-400' : 'hover:bg-yellow-200 bg-yellow-100'">
   <img [ngClass]="{ 'opacity-50': product.disabled }"
     class="w-24 h-24 object-cover border-[1px] border-gray-500 rounded-sm"
     [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"
@@ -22,5 +23,9 @@
     </b>
   </div>
 
-  <product-actions [product]="product" (delete)="delete.emit(product._id)" class="flex flex-col w-full" />
+  @if (product.deleted) {
+    <product-actions [product]="product" (restore)="restore.emit(product._id)" class="flex flex-col w-full" />
+  } @else {
+    <product-actions [product]="product" (delete)="delete.emit(product._id)" class="flex flex-col w-full" />
+  }
 </div>

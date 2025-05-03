@@ -22,6 +22,8 @@ const productSchema = new mongoose.Schema({
   disabled: Boolean,
   external: Boolean,
   // new
+  deleted: Boolean,
+  deletedAt: Date,
   tax: { type: Number, required: false },
   weight: { type: Number, required: false },
   weightType: Number

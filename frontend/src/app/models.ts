@@ -12,6 +12,7 @@ export class Product implements IProduct {
   tax = -1;
   weight = -1;
   weightType = AmountType.dynamic;
+  deleted = false;
 }
 
 export class Image implements IImage {
@@ -34,6 +35,7 @@ export interface IProduct {
   tax: number,
   weight: number
   weightType: AmountType,
+  deleted: boolean
 }
 
 export interface IImage {

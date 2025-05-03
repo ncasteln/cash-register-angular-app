@@ -9,6 +9,12 @@
   type="button" class="bg-yellow-500 hover:hover:bg-yellow-400 text-white p-1 w-full border-[1px] border-white rounded-md">
   Modifica
 </button>
-<button (click)="onDelete()" type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-1 w-full border-[1px] border-white rounded-md">
-  Rimuovi
-</button>
+@if (product.deleted) {
+  <button (click)="onRestore()" type="button" class="bg-green-500 hover:hover:bg-green-400 text-white p-1 w-full border-[1px] border-white rounded-md">
+    Recupera
+  </button>
+} @else {
+  <button (click)="onDelete()" type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-1 w-full border-[1px] border-white rounded-md">
+    Rimuovi
+  </button>
+}

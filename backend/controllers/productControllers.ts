@@ -141,11 +141,34 @@ export const deleteProducts = async(req: any, res: any) => {
     console.log("* Products.DELETE: ", req.params);
 
     const id = req.params.id;
-    const product = await productModel.findByIdAndDelete(id);
+    const product = await productModel.findById(id);
     if (!product)
       throw Error("* Product doesn't exists");
+    product.deleted = true;
+    product.deletedAt = new Date();
+    await product.save();
     res.status(200).json({
       msg: `* ${product.name} deleted successfully`,
+      oldProduct: product
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: e });
+  }
+}
+
+export const restoreProducts = async(req: any, res: any) => {
+  try {
+    console.log("* Products.RESTORE: ", req.params);
+
+    const id = req.params.id;
+    const product = await productModel.findById(id);
+    if (!product)
+      throw Error("* Product doesn't exists");
+    product.deleted = false;
+    await product.save();
+    res.status(200).json({
+      msg: `* ${product.name} restored successfully`,
       oldProduct: product
     });
   } catch (e) {

@@ -4,6 +4,7 @@
     (resetDatabase)="resetDatabase()" />
   <products-layout
     (delete)="deleteProduct($event)"
+    (restore)="restoreProduct($event)"
     [products]="products"
     [layout]="layoutMode()" />
 </div>

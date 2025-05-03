@@ -54,8 +54,16 @@ export class ProductsComponent implements OnInit {
   */
 
   /* DELETE */
-  deleteProduct( _id: string) {
+  deleteProduct( _id: string ) {
     this._productsService.delete(_id)
+    .pipe(
+      switchMap(() => this._productsService.getProducts()))
+    .subscribe(p => this.products = p);
+  }
+
+  /* RESTORE */
+  restoreProduct( _id: string ) {
+    this._productsService.restore(_id)
     .pipe(
       switchMap(() => this._productsService.getProducts()))
     .subscribe(p => this.products = p);

@@ -7,7 +7,8 @@ import {
   disableProduct,
   resetProducts,
   getProductById,
-  getImage } from '../controllers/productControllers'
+  getImage,
+  restoreProducts} from '../controllers/productControllers'
 import multer from 'multer';
 import { imageStorage } from '../storage/imageStorage';
 
@@ -30,6 +31,7 @@ productsRouter.put('/products/update/disable/:id', disableProduct);
 
 /* DELETE */
 productsRouter.delete('/products/delete/:id', deleteProducts);
+productsRouter.put('/products/restore/:id', restoreProducts);
 
 /* RESET DB */
 productsRouter.delete('/products/reset', resetProducts);

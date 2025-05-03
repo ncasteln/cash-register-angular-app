@@ -27,6 +27,7 @@ export class ProductsLayoutComponent {
   @Input() products: IProduct[] = [];
   @Input() layout: TLayoutMode = 'table';
   @Output() delete = new EventEmitter<string>();
+  @Output() restore = new EventEmitter<string>();
 
   constructor() {}
 }

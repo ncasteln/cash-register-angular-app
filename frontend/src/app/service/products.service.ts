@@ -43,6 +43,12 @@ export class ProductsService {
       { observe: 'response' }))
   }
 
+  restore( _id: string ) {
+    return (this.http.put<IProductResponse>(
+      `${this.url}/restore/${_id}`,
+      { observe: 'response' }))
+  }
+
   update( _id: string, productForm: FormData ) {
     return (
       this.http.put<IProduct>(

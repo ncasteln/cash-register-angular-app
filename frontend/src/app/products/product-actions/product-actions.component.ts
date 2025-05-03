@@ -17,6 +17,7 @@ import { NgClass } from '@angular/common';
 export class ProductActionsComponent {
   @Input() product: IProduct = new Product();
   @Output() delete = new EventEmitter<string>();
+  @Output() restore = new EventEmitter<string>();
 
   constructor( private _productsService: ProductsService ) {}
 
@@ -28,5 +29,8 @@ export class ProductActionsComponent {
 
   onDelete() {
     this.delete.emit(this.product._id)
+  }
+  onRestore() {
+    this.restore.emit(this.product._id)
   }
 }

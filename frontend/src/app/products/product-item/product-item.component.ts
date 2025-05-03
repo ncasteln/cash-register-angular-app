@@ -18,6 +18,7 @@ export class ProductItemComponent {
   readonly uploadsPath = 'http://localhost:3000/api/products/uploads/';
   @Input() product = new Product();
   @Output() delete = new EventEmitter();
+  @Output() restore = new EventEmitter();
 
   constructor() {}
 }
