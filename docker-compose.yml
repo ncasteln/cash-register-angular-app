@@ -1,0 +1,14 @@
+services:
+  frontend:
+    image: imageName
+    build: path
+
+  backend:
+    image: imageName
+    build: path
+    env_file:
+      - fileName
+
+  mondgo:
+    image: imageName
+    build: path
