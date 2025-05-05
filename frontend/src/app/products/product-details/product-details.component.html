@@ -16,32 +16,46 @@
             <mat-hint>Niente nomi doppi fra i prodotti</mat-hint>
           </mat-form-field>
 
-          <mat-checkbox matCheckbox formControlName="external">Prodotto di rivendita</mat-checkbox>
+          <mat-radio-group formControlName="category">
+            <mat-label>Categoria:</mat-label>
+            <mat-radio-button value="vegetable">Ortaggi e frutta</mat-radio-button>
+            <mat-radio-button value="animal">Uova, salutmi, latticini</mat-radio-button>
+            <mat-radio-button value="baked">Prodotti da forno</mat-radio-button>
+            <mat-radio-button value="other">Altro</mat-radio-button>
+          </mat-radio-group>
+          <!-- Remove -->
+          <!-- <mat-checkbox matCheckbox formControlName="external">Prodotto di rivendita</mat-checkbox> -->
 
           <mat-radio-group formControlName="priceType">
             <mat-label>Prezzo:</mat-label>
-            <mat-radio-button value="0">Fisso</mat-radio-button>
-            <mat-radio-button value="1">Dinamico</mat-radio-button>
+            <mat-radio-button value="fixed">Fisso</mat-radio-button>
+            <mat-radio-button value="dynamic">Dinamico</mat-radio-button>
           </mat-radio-group>
           <mat-form-field appearance="outline">
             <mat-label>Prezzo in €</mat-label>
             <input matInput
-              [disableControl]="productForm.value.priceType === '1'"
+              [disableControl]="productForm.value.priceType === 'dynamic'"
               type="text"
               id="price"
               formControlName="price" />
             <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
           </mat-form-field>
 
+          <mat-radio-group formControlName="measureType">
+            <mat-label>Unità di misura:</mat-label>
+            <mat-radio-button value="0">Kg</mat-radio-button>
+            <mat-radio-button value="1">Unità</mat-radio-button>
+          </mat-radio-group>
+
           <mat-radio-group formControlName="weightType">
-            <mat-label>Peso:</mat-label>
-            <mat-radio-button value="0">Fisso</mat-radio-button>
-            <mat-radio-button value="1">Dinamico</mat-radio-button>
+            <mat-label>{{ productForm.value.measureType === 'kg' ? 'Peso:' : 'Unità:' }}</mat-label>
+            <mat-radio-button value="fixed">Fisso</mat-radio-button>
+            <mat-radio-button value="dynamic">Dinamico</mat-radio-button>
           </mat-radio-group>
           <mat-form-field appearance="outline">
-            <mat-label>Peso in kg</mat-label>
+            <mat-label>{{ productForm.value.measureType === 'kg' ? 'Peso in kg:' : 'Numero di unità:' }}</mat-label>
             <input matInput
-              [disableControl]="productForm.value.weightType === '1'"
+              [disableControl]="productForm.value.weightType === 'fixed'"
               type="text"
               id="weight"
               formControlName="weight" />

@@ -63,13 +63,13 @@ export class CashRegisterComponent implements OnInit {
     */
     const purchasedUnit = this.currentUnits.find(u => u._id === newUnit._id);
     if (purchasedUnit) {
-      if (newUnit.weightType === 0)
+      if (newUnit.weightType === 'fixed')
         purchasedUnit.quantity += 1;
       purchasedUnit.weight += newUnit.weight;
 
       let subtotal = 0;
-      if (newUnit.weightType === 1 && newUnit.priceType === 1 ||
-        newUnit.weightType === 0 && newUnit.priceType === 0
+      if (newUnit.weightType === 'dynamic' && newUnit.priceType === 'dynamic' ||
+        newUnit.weightType === 'fixed' && newUnit.priceType === 'fixed'
       ) {
         subtotal = this.setDiscount(newUnit.price, newUnit.discount);
       } else {
@@ -80,10 +80,10 @@ export class CashRegisterComponent implements OnInit {
       this.total.update(t => t + subtotal)
     }
     else {
-      if (newUnit.weightType === 0)
+      if (newUnit.weightType === 'fixed')
         newUnit.quantity = 1;
-      if (newUnit.weightType === 1 && newUnit.priceType === 1 ||
-        newUnit.weightType === 0 && newUnit.priceType === 0
+      if (newUnit.weightType === 'dynamic' && newUnit.priceType === 'dynamic' ||
+        newUnit.weightType === 'fixed' && newUnit.priceType === 'fixed'
       ) {
         newUnit.subtotal = this.setDiscount(newUnit.price, newUnit.discount);
       }

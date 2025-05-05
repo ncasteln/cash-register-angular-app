@@ -48,9 +48,9 @@ export class CashRegisterItemComponent implements OnInit {
   }
 
   addIsDisabled() {
-    if (this.product.priceType === 1 && !this.price.value)
+    if (this.product.priceType === 'dynamic' && !this.price.value)
       return (true);
-    if (this.product.weightType === 1 && !this.weight.value)
+    if (this.product.weightType === 'dynamic' && !this.weight.value)
       return (true);
     return (false);
   }

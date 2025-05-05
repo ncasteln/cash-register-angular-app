@@ -9,7 +9,7 @@
 
   <div class="h-full flex flex-col items-center justify-center text-sm">
     <label for="product.name'-input'">Prezzo</label>
-    @if (product.priceType === 0) {
+    @if (product.priceType === 'fixed') {
       <b class="p-1 px-2">
         {{ product.price | number: '1.2-2' }} €
       </b>
@@ -26,7 +26,7 @@
 
   <div class="h-full flex flex-col items-center justify-center text-sm">
     <label for="product.name'-input'">Peso</label>
-    @if (product.weightType === 0) {
+    @if (product.weightType === 'fixed') {
       <b class="p-1 px-2">
         {{ product.weight | number: '1.2-2' }} Kg
       </b>

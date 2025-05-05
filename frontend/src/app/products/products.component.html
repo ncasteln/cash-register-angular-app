@@ -1,10 +1,12 @@
 <div class="py-16 px-5">
   <products-toolbar
     (onSelectionChange)="toggleLayoutMode($event)"
-    (resetDatabase)="resetDatabase()" />
+    (resetDatabase)="resetDatabase()"
+    (onCategoryChange)="onCategoryChange($event)"/>
   <products-layout
     (delete)="deleteProduct($event)"
     (restore)="restoreProduct($event)"
-    [products]="products"
-    [layout]="layoutMode()" />
+    [products]="filteredProducts"
+    [layout]="layoutMode()"
+    [selectedCat]="selectedCat" />
 </div>

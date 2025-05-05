@@ -13,6 +13,8 @@ export class Product implements IProduct {
   weight = -1;
   weightType = AmountType.dynamic;
   deleted = false;
+  measureType = MeasureType.kg;
+  category = Category.other;
 }
 
 export class Image implements IImage {
@@ -35,7 +37,9 @@ export interface IProduct {
   tax: number,
   weight: number
   weightType: AmountType,
-  deleted: boolean
+  deleted: boolean,
+  measureType: MeasureType,
+  category: Category
 }
 
 export interface IImage {
@@ -79,8 +83,25 @@ export interface IUnit {
   weightType: AmountType,
   discount: number,
   subtotal: number,
-  quantity: number
+  quantity: number, // RENAME
+  measureType: number, // change to string ?
+  category: Category
 }
 
-/* PRODUCT TYPE */
-export enum AmountType { fixed, dynamic }
+/* TYPES */
+export enum Category {
+  'vegetable',
+  'animal',
+  'baked',
+  'other'
+}
+
+export enum AmountType {
+  fixed = 'fixed',
+  dynamic = 'dynamic'
+}
+
+export enum MeasureType {
+  kg = 'kg',
+  unit = 'unit'
+}

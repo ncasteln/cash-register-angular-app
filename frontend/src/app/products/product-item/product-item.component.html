@@ -10,16 +10,16 @@
   <div class="h-full flex flex-col items-center justify-center text-sm">
     <label for="product.name'-input'">Prezzo</label>
     <b class="p-1 px-2">
-      {{ product.priceType === 0 ? (product.price | number: '1.2-2') : 'Dinamico' }}
-      {{ product.priceType === 0 ? '€' : '' }}
+      {{ product.priceType === 'fixed' ? (product.price | number: '1.2-2') : 'Dinamico' }}
+      {{ product.priceType === 'fixed' ? '€' : '' }}
     </b>
   </div>
 
   <div class="h-full flex flex-col items-center justify-center text-sm">
     <label for="product.name'-input'">Peso</label>
     <b class="p-1 px-2">
-      {{ product.weightType === 0 ? (product.weight | number: '1.2-2') : 'Dinamico' }}
-      {{ product.weightType === 0 ? 'Kg' : '' }}
+      {{ product.weightType === 'fixed' ? (product.weight | number: '1.2-2') : 'Dinamico' }}
+      {{ product.weightType === 'fixed' ? 'Kg' : '' }}
     </b>
   </div>
 

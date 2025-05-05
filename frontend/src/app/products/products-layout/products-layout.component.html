@@ -1,59 +1,10 @@
-<div class="grid grid-cols-2 gap-5 w-full">
-  <!-- Row 1, Col 1: Prodotti interni attivi -->
-  <div>
-    <div class="text-xl mb-2">Prodotti interni attivi</div>
-    @for (product of products; track $index) {
-      @if (!product.deleted) {
-        @if (!product.external && !product.disabled) {
-          <product-item [product]="product" (delete)="delete.emit($event)" />
-        }
-      }
+<div class="flex flex-col">
+  @for ( p of products; track $index ) {
+    @if (!p.deleted) {
+      <product-item [product]="p" (delete)="delete.emit($event)" />
     }
-  </div>
-
-  <!-- Row 1, Col 2: Rivendita attivi -->
-  <div>
-    <div class="text-xl mb-2">Rivendita attivi</div>
-    @for (product of products; track $index) {
-      @if (!product.deleted) {
-        @if (product.external && !product.disabled) {
-          <product-item [product]="product" (delete)="delete.emit($event)" />
-        }
-      }
-    }
-  </div>
-
-  <!-- Row 2, Col 1: Prodotti interni disattivati -->
-  <div>
-    <div class="text-xl mb-2">Prodotti interni disattivati</div>
-    @for (product of products; track $index) {
-        @if (!product.deleted) {
-        @if (!product.external && product.disabled) {
-          <product-item [product]="product" (delete)="delete.emit($event)" />
-        }
-      }
-    }
-  </div>
-
-  <!-- Row 2, Col 2: Rivendita disattivati -->
-  <div>
-    <div class="text-xl mb-2">Rivendita disattivati</div>
-    @for (product of products; track $index) {
-        @if (!product.deleted) {
-        @if (product.external && product.disabled) {
-          <product-item [product]="product" (delete)="delete.emit($event)" />
-        }
-      }
-    }
-  </div>
-</div>
-
-<!-- DELETED -->
-<div>
-  <div class="text-xl mb-2">Prodotti rimossi</div>
-  @for (product of products; track $index) {
-    @if (product.deleted) {
-      <product-item [product]="product" (restore)="restore.emit($event)" />
+    @else if (p.deleted && selectedCat === 'deleted') {
+      <product-item [product]="p" (delete)="delete.emit($event)" />
     }
   }
 </div>

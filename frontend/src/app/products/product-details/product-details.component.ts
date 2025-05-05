@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { AmountType, IProduct } from '../../models';
+import { AmountType, Category, IProduct, MeasureType } from '../../models';
 import { ProductsService } from '../../service/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
@@ -100,7 +100,11 @@ export class ProductDetailsComponent implements OnInit {
       weightType: new FormControl(AmountType.dynamic, [ Validators.required ]),
       weight: new FormControl(this.product?.weight ?? null, [ Validators.pattern(/^\d+(\.\d{1,2})?$/) ]),
 
-      external: new FormControl(this.product?.external ?? false, [ Validators.required ]),
+      measureType: new FormControl(MeasureType.kg, [ Validators.required ]),
+
+      category: new FormControl(Category.other, [ Validators.required ]),
+
+      external: new FormControl(this.product?.external ?? false, [ Validators.required ]), // remove
       disabled: new FormControl(this.product?.disabled ?? false, [ Validators.required ]),
       id: new FormControl(this.product?._id ?? null),
       imageFile: new FormControl(this.product?.img ?? null),
@@ -126,6 +130,8 @@ export class ProductDetailsComponent implements OnInit {
     formData.append('tax', this.productForm.get('tax')?.value)
     formData.append('priceType', this.productForm.get('priceType')?.value);
     formData.append('weightType', this.productForm.get('weightType')?.value);
+    formData.append('measureType', this.productForm.get('measureType')?.value);
+    formData.append('category', this.productForm.get('category')?.value);
 
     if (this.product) {
       this._productsService.update(this.product._id, formData).subscribe(p => {

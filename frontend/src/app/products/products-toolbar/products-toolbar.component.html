@@ -1,15 +1,35 @@
-<div class="flex justify-between items-center py-5">
-  <h1 class="text-4xl">Listino prodotti</h1>
-  <div class="flex gap-5">
-    <button [routerLink]="['/create-product']"
-      class="bg-yellow-500 hover:bg-yellow-400 text-white rounded-md p-5">
-        Crea nuovo
-    </button>
-    <button class="bg-yellow-500 hover:bg-yellow-400 text-white rounded-md p-5" role="button" (click)="onClickReset()">Reset</button>
-    <div class="bg-yellow-500 text-white rounded-md flex">
-      <button class="hover:bg-yellow-400 p-5 rounded-md" (click)="onClickView('table')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></svg>
+<div class="w-full flex justify-between items-center py-5">
+  <div class="w-full flex gap-5 justify-between">
+    <div class="flex gap-3">
+      @for ( c of categories; track $index; let last = $last ) {
+        @if (c.cat === 'deleted') {
+          <button
+            [ngClass]="selectedCategory() === c.cat
+              ? 'bg-white text-red-500'
+              : 'bg-red-500 text-white border-0 hover:bg-white hover:text-red-500 duration-200'"
+            class="rounded-full p-5 border-red-500 border-2"
+            (click)="onClickCategory(c.cat)">
+            {{ c.text }}
+          </button>
+        }
+        @else {
+          <button
+            [ngClass]="selectedCategory() === c.cat
+              ? 'bg-white text-yellow-500'
+              : 'bg-yellow-500 text-white border-0 hover:bg-white hover:text-yellow-500 duration-200'"
+            class="rounded-full p-5 border-yellow-500 border-2"
+            (click)="onClickCategory(c.cat)">
+            {{ c.text }}
+          </button>
+        }
+      }
+    </div>
+    <div class="flex gap-5">
+      <button [routerLink]="['/create-product']"
+        class="bg-green-500 hover:bg-green-400 text-white rounded-md p-5">
+          Crea nuovo
       </button>
+      <button class="bg-yellow-500 hover:bg-yellow-400 text-white rounded-md p-5" role="button" (click)="onClickReset()">Reset</button>
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DecimalPipe, NgClass } from '@angular/common';
-import { IProduct, TLayoutMode } from '../../models';
+import { Category, IProduct, TLayoutMode } from '../../models';
 import { DynamicTableComponent } from '../../dynamic-table/dynamic-table.component';
 import { ProductActionsComponent } from '../product-actions/product-actions.component';
 import { RouterLink } from '@angular/router';
@@ -26,8 +26,10 @@ export class ProductsLayoutComponent {
   readonly uploadsPath = 'http://localhost:3000/api/products/uploads/'
   @Input() products: IProduct[] = [];
   @Input() layout: TLayoutMode = 'table';
+  @Input() selectedCat: Category | string = 'all';
   @Output() delete = new EventEmitter<string>();
   @Output() restore = new EventEmitter<string>();
 
-  constructor() {}
+  constructor() {
+  }
 }
