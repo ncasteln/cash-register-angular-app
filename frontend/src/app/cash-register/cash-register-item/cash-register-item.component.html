@@ -11,7 +11,7 @@
     <label for="product.name'-input'">Prezzo</label>
     @if (product.priceType === 'fixed') {
       <b class="p-1 px-2">
-        {{ product.price | number: '1.2-2' }} €
+        {{ product.price | number: '1.2-2' }} €/{{ product.measureType === 'kg' ? 'kg' : 'unità'}}
       </b>
     }
     @else {
@@ -25,19 +25,30 @@
   </div>
 
   <div class="h-full flex flex-col items-center justify-center text-sm">
-    <label for="product.name'-input'">Peso</label>
-    @if (product.weightType === 'fixed') {
-      <b class="p-1 px-2">
-        {{ product.weight | number: '1.2-2' }} Kg
-      </b>
-    }
-    @else {
-      <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
-        name="weight"
-        type="text"
-        id="product.name'-input'"
-        [formControl]="weight"
-        placeholder="Kg">
+      @if (product.measureType === 'kg') {
+        <label for="product.name'-input'">Peso</label>
+        @if (product.weightType === 'fixed') {
+          <b class="p-1 px-2">
+            {{ product.weight | number: '1.2-2' }} Kg
+          </b>
+        }
+        @else {
+          <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
+            name="weight"
+            type="text"
+            id="product.name'-input'"
+            [formControl]="weight"
+            placeholder="Kg">
+        }
+      <!-- @else {
+        <label for="product.name'-input'">Unità</label>
+        <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
+          name="units"
+          type="text"
+          id="product.name'-input'"
+          [formControl]="units"
+          placeholder="1">
+      } -->
     }
   </div>
 

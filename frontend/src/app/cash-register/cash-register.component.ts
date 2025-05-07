@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
-import { IUnit, IProduct, TLayoutMode } from '../models';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IUnit, IProduct, TLayoutMode, Category } from '../models';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DecimalPipe, KeyValuePipe, NgClass } from '@angular/common';
 import { CashRegisterToolbarComponent } from './cash-register-toolbar/cash-register-toolbar.component';
 import { CashRegisterGridComponent } from './cash-register-grid/cash-register-grid.component';
@@ -30,11 +30,15 @@ import { OrdersService } from '../service/orders.service';
 })
 export class CashRegisterComponent implements OnInit {
   products: IProduct[] = [];
+  filteredProducts: IProduct[] = [];
   total = signal(0);
   currentUnits: IUnit[] = [];
 
   /* View */
   layoutMode = signal<TLayoutMode>('table');
+
+  /* Category */
+  selectedCat: Category | string = 'all'
 
   constructor(
     private _productService: ProductsService,
@@ -42,13 +46,29 @@ export class CashRegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._productService.getProducts().subscribe(res => {
-      this.products = res.filter(p => !p.disabled).sort((a, b) => { return a.name > b.name ? 1 : a.name < b.name ? -1 : 0 });
+    this._productService.getProducts()
+    .subscribe(res => {
+      this.products = res.filter(p => !p.disabled && !p.deleted);
+      this.filteredProducts = this.products;
     });
   }
 
   toggleDisplayMode( newMode: TLayoutMode ) {
     this.layoutMode.set(newMode);
+  }
+
+  onCategoryChange( newCat: Category | string ) {
+    this.selectedCat = newCat;
+
+    if (newCat === 'all') {
+      this.filteredProducts = this.products;
+      return ;
+    }
+    this.filteredProducts = this.products.filter(p => {
+      if (newCat === 'deleted')
+        return p.deleted;
+      return p.category === newCat;
+    })
   }
 
   onAddToOrder( newUnit: IUnit ) {
@@ -113,10 +133,10 @@ export class CashRegisterComponent implements OnInit {
   onSubmit() {
     console.log("* onSubmit()")
     console.log(this.currentUnits)
-    this._ordersService.create(this.currentUnits).subscribe(o => {
-      // print successful message
-      this.currentUnits = [];
-      this.total.set(0);
-    })
+    // this._ordersService.create(this.currentUnits).subscribe(o => {
+    //   // print successful message
+    //   this.currentUnits = [];
+    //   this.total.set(0);
+    // })
   }
 }

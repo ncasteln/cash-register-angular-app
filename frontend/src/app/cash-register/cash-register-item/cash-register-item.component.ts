@@ -24,9 +24,9 @@ export class CashRegisterItemComponent implements OnInit {
   @Input() product: IProduct = new Product();
   @Output() addToOrder = new EventEmitter();
 
-  price = new FormControl(null)
-  weight = new FormControl(null)
-  discount = new FormControl(null)
+  price = new FormControl<string | null>(null)
+  weight = new FormControl<string | null>(null)
+  discount = new FormControl<string | null>(null)
 
   constructor() {}
 
@@ -35,11 +35,11 @@ export class CashRegisterItemComponent implements OnInit {
 
   onAddToOrder() {
     this.addToOrder.emit({
-        ...this.product,
-        price: Number(this.price.value ? this.price.value : this.product.price),
-        weight: Number(this.weight.value ? this.weight.value : this.product.weight),
-        discount: Number(this.discount.value),
-        quantity: -1
+      ...this.product,
+      price: Number(this.price.value ? this.price.value : this.product.price),
+      weight: Number(this.weight.value ? this.weight.value : this.product.weight),
+      discount: Number(this.discount.value),
+      quantity: -1
     })
 
     this.price.setValue(null)

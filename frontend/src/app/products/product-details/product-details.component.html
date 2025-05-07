@@ -10,61 +10,71 @@
         enctype="multipart/form-data">
         <div class="flex flex-col justify-between gap-5">
 
-          <mat-form-field appearance="outline">
-            <mat-label>Nome: </mat-label>
+          <mat-form-field class="border-2 border-green-200 hover:bg-green-200 p-5" appearance="outline">
+            <mat-label class="font-bold text-lg">Nome: </mat-label>
             <input matInput type="text" formControlName="name" />
             <mat-hint>Niente nomi doppi fra i prodotti</mat-hint>
           </mat-form-field>
 
-          <mat-radio-group formControlName="category">
-            <mat-label>Categoria:</mat-label>
-            <mat-radio-button value="vegetable">Ortaggi e frutta</mat-radio-button>
-            <mat-radio-button value="animal">Uova, salutmi, latticini</mat-radio-button>
-            <mat-radio-button value="baked">Prodotti da forno</mat-radio-button>
-            <mat-radio-button value="other">Altro</mat-radio-button>
+          <mat-radio-group class="border-2 border-green-200 hover:bg-green-200 p-5" formControlName="category">
+            <mat-label class="font-bold text-lg">Categoria:</mat-label>
+            <div class="flex flex-col">
+              <mat-radio-button value="vegetable">Ortaggi e frutta</mat-radio-button>
+              <mat-radio-button value="animal">Uova, salutmi, latticini</mat-radio-button>
+              <mat-radio-button value="baked">Prodotti da forno</mat-radio-button>
+              <mat-radio-button value="other">Altro</mat-radio-button>
+            </div>
           </mat-radio-group>
           <!-- Remove -->
           <!-- <mat-checkbox matCheckbox formControlName="external">Prodotto di rivendita</mat-checkbox> -->
 
-          <mat-radio-group formControlName="priceType">
-            <mat-label>Prezzo:</mat-label>
-            <mat-radio-button value="fixed">Fisso</mat-radio-button>
-            <mat-radio-button value="dynamic">Dinamico</mat-radio-button>
-          </mat-radio-group>
-          <mat-form-field appearance="outline">
-            <mat-label>Prezzo in €</mat-label>
-            <input matInput
-              [disableControl]="productForm.value.priceType === 'dynamic'"
-              type="text"
-              id="price"
-              formControlName="price" />
-            <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
-          </mat-form-field>
+          <div class="border-2 border-green-200 hover:bg-green-200 p-5">
+            <mat-radio-group formControlName="priceType">
+              <mat-label class="font-bold text-lg">Prezzo:</mat-label>
+              <div class="flex flex-col">
+                <mat-radio-button value="fixed">Fisso</mat-radio-button>
+                <mat-radio-button value="dynamic">Dinamico</mat-radio-button>
+              </div>
+            </mat-radio-group>
+            <mat-form-field class="w-full" appearance="outline">
+              <input matInput
+                [disableControl]="productForm.value.priceType === 'dynamic'"
+                type="text"
+                id="price"
+                formControlName="price" />
+              <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
+            </mat-form-field>
+          </div>
 
-          <mat-radio-group formControlName="measureType">
-            <mat-label>Unità di misura:</mat-label>
-            <mat-radio-button value="0">Kg</mat-radio-button>
-            <mat-radio-button value="1">Unità</mat-radio-button>
+          <mat-radio-group class="border-2 border-green-200 hover:bg-green-200 p-5" formControlName="measureType">
+            <mat-label class="font-bold text-lg">Unità di misura:</mat-label>
+            <div class="flex flex-col">
+              <mat-radio-button value="kg">Kg</mat-radio-button>
+              <mat-radio-button value="unit">Unità</mat-radio-button>
+            </div>
           </mat-radio-group>
 
-          <mat-radio-group formControlName="weightType">
-            <mat-label>{{ productForm.value.measureType === 'kg' ? 'Peso:' : 'Unità:' }}</mat-label>
-            <mat-radio-button value="fixed">Fisso</mat-radio-button>
-            <mat-radio-button value="dynamic">Dinamico</mat-radio-button>
-          </mat-radio-group>
-          <mat-form-field appearance="outline">
-            <mat-label>{{ productForm.value.measureType === 'kg' ? 'Peso in kg:' : 'Numero di unità:' }}</mat-label>
-            <input matInput
-              [disableControl]="productForm.value.weightType === 'fixed'"
-              type="text"
-              id="weight"
-              formControlName="weight" />
-            <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
-          </mat-form-field>
+          <div class="border-2 border-green-200 hover:bg-green-200 p-5">
+            <mat-radio-group formControlName="weightType">
+              <mat-label class="font-bold text-lg">{{ productForm.value.measureType === 'kg' ? 'Peso:' : 'Unità:' }}</mat-label>
+              <div class="flex flex-col">
+                <mat-radio-button value="fixed">Fisso</mat-radio-button>
+                <mat-radio-button value="dynamic">Dinamico</mat-radio-button>
+              </div>
+            </mat-radio-group>
+            <mat-form-field class="w-full mt-5 z-50" appearance="outline">
+              <input matInput
+                [disableControl]="productForm.value.weightType === 'dynamic'"
+                type="text"
+                id="weight"
+                formControlName="weight" />
+              <mat-hint>Solo numeri, una virgola, max 2 decimali</mat-hint>
+            </mat-form-field>
+          </div>
 
           <!-- Check if required, change validation -->
           <mat-form-field appearance="outline">
-            <mat-label>Iva</mat-label>
+            <mat-label class="font-bold text-lg">Iva</mat-label>
             <input matInput
               type="text"
               id="tax"
@@ -73,7 +83,7 @@
           </mat-form-field>
 
           <mat-form-field class="w-full" appearance="outline">
-            <mat-label>Immagine</mat-label>
+            <mat-label class="font-bold text-lg">Immagine</mat-label>
             <ngx-mat-file-input
               formControlName="imageFile"
               accept=".png, .jpg, .jpeg" >

@@ -94,15 +94,15 @@ export class ProductDetailsComponent implements OnInit {
     this.productForm = new FormGroup({
       name: new FormControl(this.product?.name ?? null, [ Validators.required, trimValidator, duplicateValidator(this.products) ]),
 
-      priceType: new FormControl(AmountType.fixed, [ Validators.required ]),
+      priceType: new FormControl(this.product?.priceType ?? AmountType.fixed, [ Validators.required ]),
       price: new FormControl(this.product?.price ?? null, [ Validators.pattern(/^\d+(\.\d{1,2})?$/) ]),
 
-      weightType: new FormControl(AmountType.dynamic, [ Validators.required ]),
+      weightType: new FormControl(this.product?.weightType ?? AmountType.dynamic, [ Validators.required ]),
       weight: new FormControl(this.product?.weight ?? null, [ Validators.pattern(/^\d+(\.\d{1,2})?$/) ]),
 
-      measureType: new FormControl(MeasureType.kg, [ Validators.required ]),
+      measureType: new FormControl(this.product?.measureType ?? MeasureType.kg, [ Validators.required ]),
 
-      category: new FormControl(Category.other, [ Validators.required ]),
+      category: new FormControl(this.product?.category ?? Category.vegetable, [ Validators.required ]),
 
       external: new FormControl(this.product?.external ?? false, [ Validators.required ]), // remove
       disabled: new FormControl(this.product?.disabled ?? false, [ Validators.required ]),

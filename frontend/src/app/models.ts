@@ -105,3 +105,12 @@ export enum MeasureType {
   kg = 'kg',
   unit = 'unit'
 }
+
+export const categories = [
+  { cat: 'all', text: 'Tutti' },
+  { cat: 'vegetable', text: 'Verdura e frutta' },
+  { cat: 'animal', text: 'Uova, salumi, latticini' },
+  { cat: 'baked', text: 'Prodotti da forno' },
+  { cat: 'other', text: 'Altro' },
+  { cat: 'deleted', text: 'Rimossi' }
+]

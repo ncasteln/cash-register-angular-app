@@ -1,17 +1,35 @@
-<div class="grid grid-cols-5 gap-2 items-center text-lg  mb-2"
-  [ngClass]="product.deleted ? 'bg-red-300 hover:bg-red-400' : 'hover:bg-yellow-200 bg-yellow-100'">
+<div
+  [routerLink]="['/product-details', product._id]"
+  class=" bg-green-50 grid grid-cols-6 gap-2 items-center text-lg mb-2 px-2"
+  [ngClass]="{
+    '!bg-gray-200 hover:!bg-gray-300' : product.disabled,
+    '!bg-red-200 hover:!bg-red-300': product.deleted
+  }">
   <img [ngClass]="{ 'opacity-50': product.disabled }"
     class="w-24 h-24 object-cover border-[1px] border-gray-500 rounded-sm"
     [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"
     [alt]="product.name || 'Product image'" />
 
-  <div class="h-full flex items-center" [ngClass]="{ 'opacity-50': product.disabled }">{{ product.name }}</div>
+  <div class="h-full flex items-center font-bold" [ngClass]="{ 'opacity-50': product.disabled }">{{ product.name }}</div>
+
+  @for ( c of categories; track $index ) {
+    @if (c.cat === product.category.toString()) {
+      <div class="h-full flex flex-col items-center justify-center text-sm">
+        <label for="cat">Categoria:</label>
+        <b id="cat">{{ c.text }}</b>
+      </div>
+    }
+  }
 
   <div class="h-full flex flex-col items-center justify-center text-sm">
     <label for="product.name'-input'">Prezzo</label>
     <b class="p-1 px-2">
-      {{ product.priceType === 'fixed' ? (product.price | number: '1.2-2') : 'Dinamico' }}
-      {{ product.priceType === 'fixed' ? '€' : '' }}
+      @if (product.priceType === 'fixed') {
+        {{ product.price | number: '1.2-2' }} € / {{ product.measureType === 'kg' ? 'kg' : 'unità' }}
+      }
+      @else {
+        Dinamico
+      }
     </b>
   </div>
 
@@ -23,10 +41,8 @@
     </b>
   </div>
 
-  @if (product.deleted) {
-    <product-actions [product]="product" (restore)="restore.emit(product._id)" class="flex flex-col w-full" />
-  }
-  @else {
-    <product-actions [product]="product" (delete)="delete.emit(product._id)" class="flex flex-col w-full" />
-  }
+  <product-actions
+    [product]="product"
+    (delete)="delete.emit(product._id)"
+    (restore)="restore.emit(product._id)" class="flex w-full gap-2" />
 </div>

@@ -8,7 +8,7 @@
   "weight": 0.5,
   "weightType": "fixed",
   "priceType": "fixed",
-  "measureType": "kg",
+  "measureType": "unit",
   "category": "other",
   "deleted": false,
   "__v": 0
@@ -53,7 +53,7 @@
   "weight": 1,
   "weightType": "fixed",
   "priceType": "fixed",
-  "measureType": "kg",
+  "measureType": "unit",
   "category": "other",
   "deleted": false,
   "__v": 0
@@ -68,7 +68,7 @@
   "weight": 2.5,
   "weightType": "fixed",
   "priceType": "fixed",
-  "measureType": "kg",
+  "measureType": "unit",
   "category": "vegetable",
   "deleted": false,
   "__v": 0
@@ -98,7 +98,7 @@
   "weight": 1.2,
   "weightType": "fixed",
   "priceType": "fixed",
-  "measureType": "kg",
+  "measureType": "unit",
   "category": "vegetable",
   "deleted": false,
   "__v": 0

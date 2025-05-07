@@ -1,5 +1,7 @@
 <div class="py-16 px-5">
-  <cash-register-toolbar (onSelectionChange)="toggleDisplayMode($event)" />
+  <cash-register-toolbar
+    (onViewChange)="toggleDisplayMode($event)"
+    (onCategoryChange)="onCategoryChange($event)"/>
 
   <!-- LIST/GRID -->
   <div class="flex justify-between gap-5">
@@ -7,7 +9,7 @@
       <form (ngSubmit)="onSubmit()">
         <cash-register-layout
           [layout]="layoutMode()"
-          [products]="products"
+          [products]="filteredProducts"
           (addToOrder)="onAddToOrder($event)" />
       </form>
     </div>

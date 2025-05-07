@@ -1,16 +1,21 @@
 <div class="flex flex-col">
-  @for ( p of products; track $index ) {
-    @if (!p.deleted) {
-      <product-item
-        [product]="p"
-        (delete)="delete.emit($event)"
-        (restore)="restore.emit($event)" />
-    }
-    @else if (p.deleted && selectedCat === 'deleted') {
-      <product-item
-        [product]="p"
-        (delete)="delete.emit($event)"
-        (restore)="restore.emit($event)" />
+  @if ( products.length === 0 ) {
+    <div class="text-4xl text-gray-400 m-auto mt-48">La categoria non contiene prodotti!</div>
+  }
+  @else {
+    @for ( p of products; track $index ) {
+      @if (!p.deleted) {
+        <product-item
+          [product]="p"
+          (delete)="delete.emit($event)"
+          (restore)="restore.emit($event)" />
+      }
+      @else if (p.deleted && selectedCat === 'deleted') {
+        <product-item
+          [product]="p"
+          (delete)="delete.emit($event)"
+          (restore)="restore.emit($event)" />
+      }
     }
   }
 </div>
