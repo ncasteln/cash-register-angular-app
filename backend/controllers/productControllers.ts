@@ -1,19 +1,13 @@
 import resetJson from '../resetProducts.json'
-import { productModel } from '../models/productModels'
+import { Category, productModel } from '../models/productModels'
 import { Response } from 'express';
-
-/* SANITIZE
-  - No question marks
-  - No empty strings
-  - No duplicates
-*/
 
 export const getProducts = async(req: any, res: any) => {
   try {
     console.log("* Products.GET");
-    const result = await productModel.find({});
-    if (result)
-      res.status(200).json(result);
+    const products = await productModel.find({});
+    if (products)
+      res.status(200).json(products);
     else
       res.status(400).json({ msg: "* Products not found" });
   } catch (e) {
@@ -58,9 +52,7 @@ export const getProductById = async(req: any, res: any) => {
 export const postProducts = async(req: any, res: any) => {
   try {
     console.log("* Products.POST: ", req.params, req.body);
-    let { name, price, img, external, disabled, tax, weight, priceType, weightType } = req.body;
-
-    console.log(req.body)
+    let { name, price, img, external, disabled, tax, weight, priceType, weightType, measureType, category } = req.body;
 
     if (req.file)
       img = req.file.filename;
@@ -74,7 +66,9 @@ export const postProducts = async(req: any, res: any) => {
       tax: tax === "null" ? null : tax,
       weight: weight === "null" ? null : weight,
       weightType,
-      priceType
+      measureType,
+      priceType,
+      category
     });
     await newProduct.save();
     res.status(201).json({ msg: "* Product CREATED successfully"});
@@ -87,7 +81,7 @@ export const postProducts = async(req: any, res: any) => {
 export const updateProducts = async(req: any, res: any) => {
   try {
     console.log("* Products.UPDATE: ", req.params, req.body)
-    let { name, price, img, external, disabled, tax, weight, weightType, priceType } = req.body;
+    let { name, price, img, external, disabled, tax, weight, weightType, priceType, measureType, category } = req.body;
 
     if (req.file)
       img = req.file.filename;
@@ -102,7 +96,9 @@ export const updateProducts = async(req: any, res: any) => {
         tax: tax === "null" ? null : tax,
         weight: weight === "null" ? null : weight,
         weightType,
-        priceType
+        priceType,
+        measureType,
+        category
       },
       { new: true }
     )
@@ -162,14 +158,18 @@ export const restoreProducts = async(req: any, res: any) => {
     console.log("* Products.RESTORE: ", req.params);
 
     const id = req.params.id;
-    const product = await productModel.findById(id);
-    if (!product)
+    const deletedProduct = await productModel.findOne({
+      _id: id,
+      deleted: true,
+      deletedAt: { $ne: null }
+    });
+    if (!deletedProduct)
       throw Error("* Product doesn't exists");
-    product.deleted = false;
-    await product.save();
+    deletedProduct.deleted = false;
+    await deletedProduct.save();
     res.status(200).json({
-      msg: `* ${product.name} restored successfully`,
-      oldProduct: product
+      msg: `* ${deletedProduct.name} restored successfully`,
+      oldProduct: deletedProduct
     });
   } catch (e) {
     console.error(e);

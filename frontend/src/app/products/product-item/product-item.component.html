@@ -25,7 +25,8 @@
 
   @if (product.deleted) {
     <product-actions [product]="product" (restore)="restore.emit(product._id)" class="flex flex-col w-full" />
-  } @else {
+  }
+  @else {
     <product-actions [product]="product" (delete)="delete.emit(product._id)" class="flex flex-col w-full" />
   }
 </div>

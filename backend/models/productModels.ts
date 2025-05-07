@@ -1,5 +1,22 @@
 import mongoose from "mongoose";
 
+export enum Category {
+  'vegetable',
+  'animal',
+  'baked',
+  'other'
+}
+
+export enum AmountType {
+  fixed = 'fixed',
+  dynamic = 'dynamic'
+}
+export enum MeasureType {
+  kg = 'kg',
+  unit = 'unit'
+}
+
+
 const imageSchema = new mongoose.Schema({
   lastModified: String,
   lastModifiedDate: String,
@@ -9,15 +26,9 @@ const imageSchema = new mongoose.Schema({
   webkitRelativePath: String
 })
 
-export enum AmountType {
-  fixed,
-  dynamic
-}
-
 const productSchema = new mongoose.Schema({
   name: String,
   price: { type: Number, required: false },
-  priceType: Number,
   img: String,
   disabled: Boolean,
   external: Boolean,
@@ -26,7 +37,10 @@ const productSchema = new mongoose.Schema({
   deletedAt: Date,
   tax: { type: Number, required: false },
   weight: { type: Number, required: false },
-  weightType: Number
+  priceType: { type: String, enum: AmountType },
+  weightType: { type: String, enum: AmountType },
+  measureType: { type: String, enum: MeasureType },
+  category: { type: String, enum: Category }
 });
 
 /* .model(schemaName, schema, nameOfTheCollection) */

@@ -1,10 +1,16 @@
 <div class="flex flex-col">
   @for ( p of products; track $index ) {
     @if (!p.deleted) {
-      <product-item [product]="p" (delete)="delete.emit($event)" />
+      <product-item
+        [product]="p"
+        (delete)="delete.emit($event)"
+        (restore)="restore.emit($event)" />
     }
     @else if (p.deleted && selectedCat === 'deleted') {
-      <product-item [product]="p" (delete)="delete.emit($event)" />
+      <product-item
+        [product]="p"
+        (delete)="delete.emit($event)"
+        (restore)="restore.emit($event)" />
     }
   }
 </div>
