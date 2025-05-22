@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IOrder, IProduct, IUnit } from '../models';
+import { IOrder, IOrderResponse, IProduct, IUnit } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class OrdersService {
 
   create( units: IUnit[] ) {
     return (
-      this.http.post<IOrder>(`${this.url}/create/`,
+      this.http.post<IOrderResponse>(`${this.url}/create/`,
         units,
         { observe: 'response' }
       ));
@@ -38,6 +38,25 @@ export class OrdersService {
         `${this.url}/update/${_id}`,
         newUnit
         ));
+  }
+
+  markOrder( _id: string ) {
+    return (
+      this.http.put<IOrderResponse>(
+        `${this.url}/update/markOrder/${_id}`,
+        { observe: 'response' }
+      ));
+  }
+
+  markUnit( _id: string, unitIndex: number ) {
+    return (
+      this.http.put<IOrderResponse>(
+        `${this.url}/update/markUnit/${_id}/${unitIndex}`,
+        { observe: 'response' }
+      ));
+  }
+
+  addNote( _id: string, newUnit: IUnit ) {
   }
 
   reset() {

@@ -16,7 +16,6 @@ export enum MeasureType {
   unit = 'unit'
 }
 
-
 const imageSchema = new mongoose.Schema({
   lastModified: String,
   lastModifiedDate: String,

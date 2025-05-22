@@ -133,10 +133,10 @@ export class CashRegisterComponent implements OnInit {
   onSubmit() {
     console.log("* onSubmit()")
     console.log(this.currentUnits)
-    // this._ordersService.create(this.currentUnits).subscribe(o => {
-    //   // print successful message
-    //   this.currentUnits = [];
-    //   this.total.set(0);
-    // })
+    this._ordersService.create(this.currentUnits).subscribe(o => {
+      // print successful message
+      this.currentUnits = [];
+      this.total.set(0);
+    })
   }
 }

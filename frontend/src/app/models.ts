@@ -57,12 +57,19 @@ export interface IProductResponse {
   newProduct: IProduct
 }
 
+export interface IOrderResponse {
+  msg: string,
+  oldOrder: IOrder,
+  newOrder: IOrder
+}
+
 /* ORDERS */
 export class Order implements IOrder {
   _id = '';
   createdAt = new Date();
   updatedAt = new Date();
   units = [];
+  marked = false;
 }
 
 export interface IOrder {
@@ -70,6 +77,7 @@ export interface IOrder {
   units: IUnit[];
   createdAt: Date;
   updatedAt: Date;
+  marked: boolean;
 }
 
 export interface IUnit {
@@ -84,8 +92,9 @@ export interface IUnit {
   discount: number,
   subtotal: number,
   quantity: number, // RENAME
-  measureType: number, // change to string ?
-  category: Category
+  measureType: MeasureType, // change to string ?
+  category: Category,
+  marked: boolean
 }
 
 /* TYPES */

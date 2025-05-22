@@ -1,63 +1,69 @@
 [
   {
     "createdAt": "2025-01-15T08:20:00Z",
+    "marked": true,
     "units": [
-      { "name": "Cassetta grande", "price": 4, "priceType": 0, "external": false, "tax": 10, "weight": 2.5, "weightType": 0, "quantity": 1, "discount": 0, "subtotal": 4 },
-      { "name": "Pomodori", "price": 3.5, "priceType": 0, "external": false, "tax": 10, "weight": 1.0, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 7 },
-      { "name": "Cipolle", "price": 1.1, "priceType": 0, "external": false, "tax": 6, "weight": 1.0, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 2.2 },
-      { "name": "Carote", "price": 1.5, "priceType": 0, "external": false, "tax": 10, "weight": 0.6, "weightType": 0, "quantity": 3, "discount": 0, "subtotal": 4.5 },
-      { "name": "Zucchine", "price": 2.9, "priceType": 0, "external": false, "tax": 10, "weight": 1.1, "weightType": 0, "quantity": 1, "discount": 0, "subtotal": 2.9 }
+      { "name": "Cassetta grande", "price": 4, "priceType": "fixed", "external": false, "tax": 10, "weight": 2.5, "weightType": "fixed", "measureType": "kg", "quantity": 1, "discount": 0, "subtotal": 4 },
+      { "name": "Pomodori", "price": 3.5, "priceType": "fixed", "external": false, "tax": 10, "weight": 1.0, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 7 },
+      { "name": "Cipolle", "price": 1.1, "priceType": "fixed", "external": false, "tax": 6, "weight": 1.0, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 2.2 },
+      { "name": "Carote", "price": 1.5, "priceType": "fixed", "external": false, "tax": 10, "weight": 0.6, "weightType": "fixed", "measureType": "kg", "quantity": 3, "discount": 0, "subtotal": 4.5 },
+      { "name": "Zucchine", "price": 2.9, "priceType": "fixed", "external": false, "tax": 10, "weight": 1.1, "weightType": "fixed", "measureType": "kg", "quantity": 1, "discount": 0, "subtotal": 2.9 }
     ]
   },
   {
     "createdAt": "2025-01-15T09:50:00Z",
+    "marked": false,
     "units": [
-      { "name": "Carote", "price": 1.5, "priceType": 0, "external": false, "tax": 10, "weight": 0.6, "weightType": 0, "quantity": 3, "discount": 0, "subtotal": 4.5 },
-      { "name": "Zucchine", "price": 2.9, "priceType": 0, "external": false, "tax": 10, "weight": 1.1, "weightType": 0, "quantity": 1, "discount": 0, "subtotal": 2.9 },
-      { "name": "Cassetta piccola", "price": 2.5, "priceType": 0, "external": false, "tax": 20, "weight": 1.2, "weightType": 0, "quantity": 1, "discount": 0, "subtotal": 2.5 },
-      { "name": "Melanzane", "price": 2.8, "priceType": 0, "external": false, "tax": 10, "weight": 0.8, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 5.6 },
-      { "name": "Insalata", "price": 1.2, "priceType": 0, "external": false, "tax": 5, "weight": 0.3, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 2.4 },
-      { "name": "Patate", "price": 0.9, "priceType": 0, "external": false, "tax": 4, "weight": 1.5, "weightType": 0, "quantity": 3, "discount": 0, "subtotal": 2.7 },
-      { "name": "Finocchi", "price": 1.3, "priceType": 0, "external": false, "tax": 7, "weight": 0.6, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 2.6 }
+      { "name": "Carote", "price": 1.5, "priceType": "fixed", "external": false, "tax": 10, "weight": 0.6, "weightType": "fixed", "measureType": "kg", "quantity": 3, "discount": 0, "subtotal": 4.5 },
+      { "name": "Zucchine", "price": 2.9, "priceType": "fixed", "external": false, "tax": 10, "weight": 1.1, "weightType": "fixed", "measureType": "kg", "quantity": 1, "discount": 0, "subtotal": 2.9 },
+      { "name": "Cassetta piccola", "price": 2.5, "priceType": "fixed", "external": false, "tax": 20, "weight": 1.2, "weightType": "fixed", "measureType": "kg", "quantity": 1, "discount": 0, "subtotal": 2.5 },
+      { "name": "Melanzane", "price": 2.8, "priceType": "fixed", "external": false, "tax": 10, "weight": 0.8, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 5.6 },
+      { "name": "Insalata", "price": 1.2, "priceType": "fixed", "external": false, "tax": 5, "weight": 0.3, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 2.4 },
+      { "name": "Patate", "price": 0.9, "priceType": "fixed", "external": false, "tax": 4, "weight": 1.5, "weightType": "fixed", "measureType": "kg", "quantity": 3, "discount": 0, "subtotal": 2.7 },
+      { "name": "Finocchi", "price": 1.3, "priceType": "fixed", "external": false, "tax": 7, "weight": 0.6, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 2.6 }
     ]
   },
   {
     "createdAt": "2025-01-15T11:15:00Z",
+    "marked": true,
     "units": [
-      { "name": "Paprika", "price": 3.2, "priceType": 0, "external": false, "tax": 10, "weight": 0.4, "weightType": 0, "quantity": 3, "discount": 0, "subtotal": 9.6 },
-      { "name": "Carote", "price": 1.5, "priceType": 0, "external": false, "tax": 10, "weight": 0.6, "weightType": 0, "quantity": 4, "discount": 0, "subtotal": 6 },
-      { "name": "Cavolfiore", "price": 3.3, "priceType": 0, "external": false, "tax": 8, "weight": 0.7, "weightType": 0, "quantity": 1, "discount": 0, "subtotal": 3.3 },
-      { "name": "Spinaci", "price": 1.8, "priceType": 0, "external": false, "tax": 6, "weight": 0.4, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 3.6 }
+      { "name": "Paprika", "price": 3.2, "priceType": "fixed", "external": false, "tax": 10, "weight": 0.4, "weightType": "fixed", "measureType": "kg", "quantity": 3, "discount": 0, "subtotal": 9.6 },
+      { "name": "Carote", "price": 1.5, "priceType": "fixed", "external": false, "tax": 10, "weight": 0.6, "weightType": "fixed", "measureType": "kg", "quantity": 4, "discount": 0, "subtotal": 6 },
+      { "name": "Cavolfiore", "price": 3.3, "priceType": "fixed", "external": false, "tax": 8, "weight": 0.7, "weightType": "fixed", "measureType": "kg", "quantity": 1, "discount": 0, "subtotal": 3.3 },
+      { "name": "Spinaci", "price": 1.8, "priceType": "fixed", "external": false, "tax": 6, "weight": 0.4, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 3.6 }
     ]
   },
   {
     "createdAt": "2025-01-16T10:40:00Z",
+    "marked": false,
     "units": [
-      { "name": "Insalata", "price": 1.2, "priceType": 0, "external": false, "tax": 5, "weight": 0.3, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 2.4 },
-      { "name": "Patate", "price": 0.9, "priceType": 0, "external": false, "tax": 4, "weight": 1.5, "weightType": 0, "quantity": 3, "discount": 0, "subtotal": 2.7 },
-      { "name": "Cipolle", "price": 1.1, "priceType": 0, "external": false, "tax": 6, "weight": 1.0, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 2.2 },
-      { "name": "Radicchio", "price": 2.0, "priceType": 0, "external": false, "tax": 8, "weight": 0.5, "weightType": 0, "quantity": 1, "discount": 0, "subtotal": 2.0 },
-      { "name": "Porri", "price": 2.2, "priceType": 0, "external": false, "tax": 7, "weight": 0.6, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 4.4 }
+      { "name": "Insalata", "price": 1.2, "priceType": "fixed", "external": false, "tax": 5, "weight": 0.3, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 2.4 },
+      { "name": "Patate", "price": 0.9, "priceType": "fixed", "external": false, "tax": 4, "weight": 1.5, "weightType": "fixed", "measureType": "kg", "quantity": 3, "discount": 0, "subtotal": 2.7 },
+      { "name": "Cipolle", "price": 1.1, "priceType": "fixed", "external": false, "tax": 6, "weight": 1.0, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 2.2 },
+      { "name": "Radicchio", "price": 2.0, "priceType": "fixed", "external": false, "tax": 8, "weight": 0.5, "weightType": "fixed", "measureType": "kg", "quantity": 1, "discount": 0, "subtotal": 2.0 },
+      { "name": "Porri", "price": 2.2, "priceType": "fixed", "external": false, "tax": 7, "weight": 0.6, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 4.4 }
     ]
   },
   {
     "createdAt": "2025-01-16T14:05:00Z",
+    "marked": false,
     "units": [
-      { "name": "Cassetta grande", "price": 4, "priceType": 0, "external": false, "tax": 10, "weight": 2.5, "weightType": 0, "quantity": 1, "discount": 0, "subtotal": 4 },
-      { "name": "Pomodori", "price": 3.5, "priceType": 0, "external": false, "tax": 10, "weight": 1.0, "weightType": 0, "quantity": 1, "discount": 0, "subtotal": 3.5 },
-      { "name": "Zucchine", "price": 2.9, "priceType": 0, "external": false, "tax": 10, "weight": 1.1, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 5.8 },
-      { "name": "Cavolfiore", "price": 3.3, "priceType": 0, "external": false, "tax": 8, "weight": 0.7, "weightType": 0, "quantity": 1, "discount": 0, "subtotal": 3.3 },
-      { "name": "Bietole", "price": 2.0, "priceType": 0, "external": false, "tax": 9, "weight": 0.8, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 4.0 }
+      { "name": "Cassetta grande", "price": 4, "priceType": "fixed", "external": false, "tax": 10, "weight": 2.5, "weightType": "fixed", "measureType": "kg", "quantity": 1, "discount": 0, "subtotal": 4 },
+      { "name": "Pomodori", "price": 3.5, "priceType": "fixed", "external": false, "tax": 10, "weight": 1.0, "weightType": "fixed", "measureType": "kg", "quantity": 1, "discount": 0, "subtotal": 3.5 },
+      { "name": "Zucchine", "price": 2.9, "priceType": "fixed", "external": false, "tax": 10, "weight": 1.1, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 5.8 },
+      { "name": "Cavolfiore", "price": 3.3, "priceType": "fixed", "external": false, "tax": 8, "weight": 0.7, "weightType": "fixed", "measureType": "kg", "quantity": 1, "discount": 0, "subtotal": 3.3 },
+      { "name": "Bietole", "price": 2.0, "priceType": "fixed", "external": false, "tax": 9, "weight": 0.8, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 4.0 }
     ]
   },
   {
     "createdAt": "2025-01-18T08:45:00Z",
+    "marked": false,
     "units": [
-      { "name": "Cassetta piccola", "price": 2.5, "priceType": 0, "external": false, "tax": 20, "weight": 1.2, "weightType": 0, "quantity": 1, "discount": 0, "subtotal": 2.5 },
-      { "name": "Melanzane", "price": 2.8, "priceType": 0, "external": false, "tax": 10, "weight": 0.8, "weightType": 0, "quantity": 1, "discount": 0, "subtotal": 2.8 },
-      { "name": "Peperoni", "price": 3.0, "priceType": 0, "external": false, "tax": 10, "weight": 0.9, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 6.0 },
-      { "name": "Spinaci", "price": 1.8, "priceType": 0, "external": false, "tax": 6, "weight": 0.4, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 3.6 },
-      { "name": "Rucola", "price": 1.6, "priceType": 0, "external": false, "tax": 6, "weight": 0.2, "weightType": 0, "quantity": 2, "discount": 0, "subtotal": 3.2 }
+      { "name": "Cassetta piccola", "price": 2.5, "priceType": "fixed", "external": false, "tax": 20, "weight": 1.2, "weightType": "fixed", "measureType": "kg", "quantity": 1, "discount": 0, "subtotal": 2.5 },
+      { "name": "Melanzane", "price": 2.8, "priceType": "fixed", "external": false, "tax": 10, "weight": 0.8, "weightType": "fixed", "measureType": "kg", "quantity": 1, "discount": 0, "subtotal": 2.8 },
+      { "name": "Peperoni", "price": 3.0, "priceType": "fixed", "external": false, "tax": 10, "weight": 0.9, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 6.0 },
+      { "name": "Spinaci", "price": 1.8, "priceType": "fixed", "external": false, "tax": 6, "weight": 0.4, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 3.6 },
+      { "name": "Rucola", "price": 1.6, "priceType": "fixed", "external": false, "tax": 6, "weight": 0.2, "weightType": "fixed", "measureType": "kg", "quantity": 2, "discount": 0, "subtotal": 3.2 }
     ]
   }
 ]

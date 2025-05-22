@@ -4,9 +4,9 @@
       @if (c.cat !== 'deleted') {
         <button
           [ngClass]="selectedCategory() === c.cat
-            ? 'bg-white text-yellow-500'
-            : 'bg-yellow-500 text-white border-0 hover:bg-white hover:text-yellow-500 duration-200'"
-          class="rounded-full px-5 py-2 border-yellow-500 border-2"
+            ? 'bg-white text-green-400'
+            : 'bg-green-400 text-white border-0 hover:bg-white hover:text-green-400 duration-200'"
+          class="rounded-full px-5 py-2 border-green-400 border-2"
           (click)="onClickCategory(c.cat)">
           {{ c.text }}
         </button>

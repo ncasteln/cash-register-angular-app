@@ -21,16 +21,19 @@ export class ProductActionsComponent {
 
   constructor( private _productsService: ProductsService ) {}
 
-  onDisable() {
+  onDisable( e: Event ) {
+    e.stopPropagation();
     this._productsService.disable(this.product._id).subscribe(res => {
       this.product.disabled = res.newProduct.disabled;
     })
   }
 
-  onDelete() {
+  onDelete( e: Event ) {
+    e.stopPropagation()
     this.delete.emit(this.product._id)
   }
-  onRestore() {
+  onRestore( e: Event ) {
+    e.stopPropagation()
     this.restore.emit(this.product._id)
   }
 }

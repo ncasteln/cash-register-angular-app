@@ -15,9 +15,9 @@
         @else {
           <button
             [ngClass]="selectedCategory() === c.cat
-              ? 'bg-white text-yellow-500'
-              : 'bg-yellow-500 text-white border-0 hover:bg-white hover:text-yellow-500 duration-200'"
-            class="rounded-full p-5 border-yellow-500 border-2"
+              ? 'bg-white text-green-400'
+              : 'bg-green-400 text-white border-0 hover:bg-white hover:text-green-400 duration-200'"
+            class="rounded-full p-5 border-green-400 border-2"
             (click)="onClickCategory(c.cat)">
             {{ c.text }}
           </button>
@@ -29,7 +29,7 @@
         class="bg-green-500 hover:bg-green-400 text-white rounded-md p-5">
           Crea nuovo
       </button>
-      <button class="bg-yellow-500 hover:bg-yellow-400 text-white rounded-md p-5" role="button" (click)="onClickReset()">Reset</button>
+      <button class="bg-green-500 hover:bg-green-400 text-white rounded-md p-5" role="button" (click)="onClickReset()">Reset</button>
     </div>
   </div>
 </div>

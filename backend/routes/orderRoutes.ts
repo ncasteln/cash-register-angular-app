@@ -3,6 +3,8 @@ import {
   deleteOrder,
   getOrderById,
   getOrders,
+  markOrder,
+  markUnit,
   postOrder,
   resetOrders,
   updateOrder } from '../controllers/orderControllers';
@@ -18,6 +20,8 @@ ordersRouter.post('/orders/create', postOrder);
 
 /* UPDATE */
 ordersRouter.put('/orders/update/:id', updateOrder);
+ordersRouter.put('/orders/update/markOrder/:id', markOrder);
+ordersRouter.put('/orders/update/markUnit/:id/:unitIndex', markUnit);
 
 /* DELETE */
 ordersRouter.delete('/orders/delete/:id', deleteOrder);

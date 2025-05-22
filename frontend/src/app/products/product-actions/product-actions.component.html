@@ -1,4 +1,4 @@
-<button (click)="onDisable()" type="button"
+<button (click)="onDisable($event)" type="button"
   class="text-white p-1 w-full border-[1px] border-white rounded-md"
   [ngClass]="product.disabled
     ? 'bg-green-500 hover:bg-green-400'
@@ -10,11 +10,11 @@
   Modifica
 </button> -->
 @if (product.deleted) {
-  <button (click)="onRestore()" type="button" class="bg-green-500 hover:hover:bg-green-400 text-white p-1 w-full border-[1px] border-white rounded-md">
+  <button (click)="onRestore($event)" type="button" class="bg-green-500 hover:hover:bg-green-400 text-white p-1 w-full border-[1px] border-white rounded-md">
     Recupera
   </button>
 } @else {
-  <button (click)="onDelete()" type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-1 w-full border-[1px] border-white rounded-md">
+  <button (click)="onDelete($event)" type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-1 w-full border-[1px] border-white rounded-md">
     Rimuovi
   </button>
 }

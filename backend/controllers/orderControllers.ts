@@ -36,7 +36,7 @@ export const getOrderById = async(req: any, res: any) => {
 
 export const postOrder = async(req: any, res: any) => {
   try {
-    console.log("* Orders.POST: "/* , req.params, req.body */);
+    console.log("* Orders.POST: ");
     const units = req.body;
 
     if (!units || !Array.isArray(units)) {
@@ -46,7 +46,8 @@ export const postOrder = async(req: any, res: any) => {
     }
     const newOrder = new orderModel({
       units,
-      createdAt: new Date()
+      createdAt: new Date(),
+      marked: false
     });
 
     await newOrder.save();
@@ -54,6 +55,44 @@ export const postOrder = async(req: any, res: any) => {
       msg: "* Order created successfully",
       orderId: newOrder._id
     });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: "* Internal server error" });
+  }
+}
+
+export const markOrder = async(req: any, res: any) => {
+  try {
+    console.log("* Orders.MARK ORDER: ", req.params, req.body);
+    const id = req.params.id;
+    const order = await orderModel.findById(id)
+    if (!order)
+      throw Error("* Order doesn't exists");
+    order.marked = !order.marked;
+    await order.save();
+    res.status(200).json({
+      msg: `* ${order.id} ${order.marked ? 'marked' : 'unmakred'} successfully`,
+      newOrder: order
+    })
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: "* Internal server error" });
+  }
+}
+
+export const markUnit = async(req: any, res: any) => {
+  try {
+    console.log("* Orders.MARK UNIT: ", req.params, req.body);
+    const { id: orderId, unitIndex } = req.params;
+    const order = await orderModel.findById(orderId)
+    if (!order)
+      throw Error("* Order doesn't exists");
+    order.units[unitIndex].marked = !order.units[unitIndex].marked;
+    await order.save();
+    res.status(200).json({
+      msg: `* Unit ${order.marked ? 'marked' : 'unmakred'} successfully`,
+      newOrder: order
+    })
   } catch (e) {
     console.error(e);
     res.status(500).json({ msg: "* Internal server error" });

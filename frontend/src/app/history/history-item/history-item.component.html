@@ -1,4 +1,6 @@
-<div class="p-5 w-full flex flex-col hover:bg-yellow-200 bg-yellow-100 gap-5">
+<div
+  class="p-5 w-full flex flex-col hover:bg-green-200 bg-green-100 gap-5"
+  [ngClass]="order.marked ? '!bg-red-300' : ''">
 
   <!-- id and updatedAt -->
   <div class="border-b-[1px] border-black flex justify-between items-baseline">
@@ -17,7 +19,15 @@
       @else {
         <div class="flex flex-wrap gap-5">
           @for (u of order.units; track $index) {
-            <ul class="flex flex-col min-w-[200px] border-[1px] p-5 border-yellow-300 hover:bg-yellow-100 duration-250">
+            <ul
+              class="flex flex-col min-w-[200px] border-[1px] p-5 border-green-300 hover:bg-green-100 duration-250 cursor-pointer"
+              [ngClass]="{ 'bg-red-300 hover:bg-red-400 border-red-400': order.marked || u.marked }"
+              (click)="onMarkUnit($index)">
+
+              <li class="flex">
+                <span class="min-w-[80px] font-semibold">ID:</span>
+                <span>{{ u._id }}</span>
+              </li>
               <li class="flex">
                 <span class="min-w-[80px] font-semibold">Nome:</span>
                 <span>{{ u.name }}</span>
@@ -56,10 +66,14 @@
       }
     </div>
 
-    <div class="flex flex-col">
-      <button class="bg-red-500 text-white p-2 rounded-md"
+    <div class="flex flex-col gap-2 justify-end max-w-28">
+      <button class="bg-yellow-500 w-full text-white p-2 rounded-md"
+        (click)="onMarkOrder()">
+        {{ !order.marked ? 'Segnala' : 'Approva'}}
+      </button>
+      <button class="bg-red-500 w-full text-white p-2 rounded-md"
         (click)="deleteOrder.emit(order._id)">
-        Delete
+        Rimuovi
       </button>
     </div>
   </div>
