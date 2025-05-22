@@ -21,7 +21,7 @@ import {  tap } from 'rxjs';
 })
 export class HistoryComponent implements OnInit {
   history: IOrder[] = [];
-  sortedHistory: { date: Date, orders: IOrder[] }[] = []
+  sortedHistory: { date: Date, total: number, orders: IOrder[] }[] = []
 
   constructor( private ordersService: OrdersService ) {}
 
@@ -41,23 +41,23 @@ export class HistoryComponent implements OnInit {
       });
   }
 
-  groupByDate( orders: IOrder[] ): { date: Date, orders: IOrder[] }[] {
+  groupByDate( orders: IOrder[] ): { date: Date, total: number, orders: IOrder[] }[] {
     const groups = orders.reduce((acc, order) => {
       const date = new Date(order.createdAt);
 
       // Create group if doesn't exist
-      if (!acc.some(g => g.date.getDate() === date.getDate())) {
-        acc.push({ date, orders: [] });
-      }
+      if (!acc.some(g => g.date.getDate() === date.getDate()))
+        acc.push({ date, total: 0, orders: [] });
 
       // Add order to appropriate group
       const group = acc.find(g => g.date.getDate() === date.getDate());
       if (group) {
         group.orders.push(order);
+        group.total += order.units.reduce((totalAcc, unit) => totalAcc + unit.subtotal, 0); // Changed from = to +=
       }
 
       return acc;
-    }, [] as { date: Date, orders: IOrder[] }[]);
+    }, [] as { date: Date, total: number, orders: IOrder[] }[]);
 
     // Sort groups by date (newest first)
     return groups.sort((a, b) => b.date.getDate() - a.date.getDate());

@@ -6,12 +6,25 @@
   <!-- LIST/GRID -->
   <div class="flex justify-between gap-5">
     <div class="w-4/5">
-      <form (ngSubmit)="onSubmit()">
-        <cash-register-layout
-          [layout]="layoutMode()"
-          [products]="filteredProducts"
-          (addToOrder)="onAddToOrder($event)" />
-      </form>
+      @if ( filteredProducts.length === 0 ) {
+        <div class="text-4xl text-gray-400 m-auto text-center mt-48">La categoria non contiene prodotti!</div>
+      }
+      @else {
+        <form (ngSubmit)="onSubmit()">
+          @for ( product of filteredProducts; track $index ) {
+            @if (layoutMode() === "table") {
+              <cash-register-item
+                [product]="product"
+                (addToOrder)="onAddToOrder($event)" />
+            }
+            @else {
+              <!-- Place for card -->
+               <!-- JUST use the item component and add a different view THERE
+                otherwise all the logic has to be duplicated (example addToOrder) -->
+            }
+          }
+        </form>
+      }
     </div>
 
     <!-- RIEPILOGO -->

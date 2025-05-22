@@ -7,8 +7,8 @@ import { CashRegisterToolbarComponent } from './cash-register-toolbar/cash-regis
 import { CashRegisterGridComponent } from './cash-register-grid/cash-register-grid.component';
 import { CashRegisterTableComponent } from './cash-register-table/cash-register-table.component';
 import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
-import { CashRegisterLayoutComponent } from './cash-register-layout/cash-register-layout.component';
 import { OrdersService } from '../service/orders.service';
+import { CashRegisterItemComponent } from './cash-register-item/cash-register-item.component';
 
 @Component({
   selector: 'cash-register',
@@ -22,8 +22,8 @@ import { OrdersService } from '../service/orders.service';
     CashRegisterGridComponent,
     CashRegisterTableComponent,
     DynamicTableComponent,
-    CashRegisterLayoutComponent,
-    NgClass
+    NgClass,
+    CashRegisterItemComponent
   ],
   templateUrl: './cash-register.component.html',
   styleUrl: './cash-register.component.scss'
