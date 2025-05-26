@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IProduct, IUnit, Product } from '../../models';
+import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
+import { IProduct, IUnit, Product, TLayoutMode } from '../../models';
 import { DecimalPipe, NgClass } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -22,11 +22,15 @@ import { FormControl, FormControlDirective, FormGroup, FormsModule, ReactiveForm
 export class CashRegisterItemComponent implements OnInit {
   readonly uploadsPath = 'http://localhost:3000/api/products/uploads/'
   @Input() product: IProduct = new Product();
+  @Input() layoutMode: TLayoutMode = 'grid';
+  @Input() isSelectedProduct: boolean = false;
   @Output() addToOrder = new EventEmitter();
 
   price = new FormControl<string | null>(null)
   weight = new FormControl<string | null>(null)
   discount = new FormControl<string | null>(null)
+
+  @Output() onSelectProduct = new EventEmitter();
 
   constructor() {}
 
@@ -53,5 +57,13 @@ export class CashRegisterItemComponent implements OnInit {
     if (this.product.weightType === 'dynamic' && !this.weight.value)
       return (true);
     return (false);
+  }
+
+  selectProduct() {
+    if (this.layoutMode === 'table') return ;
+    if (this.layoutMode === 'details')
+      this.onSelectProduct.emit(null)
+    else
+      this.onSelectProduct.emit(this.product);
   }
 }

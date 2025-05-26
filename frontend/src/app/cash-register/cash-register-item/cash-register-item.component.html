@@ -1,78 +1,169 @@
-<div class="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr] gap-2 items-center text-lg hover:bg-green-200 bg-green-100 mb-2 border-[1px] border-green-200 p-2">
-  <img
-    class="w-24 h-24 object-cover border-[1px] border-gray-500 rounded-sm"
-    [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"
-    [alt]="product.name || 'Product image'"
-  />
+<!-- TABLE -->
+@if (layoutMode === 'table') {
+  <div class="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr] items-center gap-2 text-lg hover:bg-green-200 bg-green-100 mb-2 border-[1px] border-green-200 p-2">
+    <img
+      class="w-24 h-24 object-cover border-[1px] border-gray-500 rounded-sm"
+      [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"
+      [alt]="product.name || 'Product image'" />
 
-  <div class="h-full flex items-center">{{ product.name }}</div>
+    <div class="h-full flex items-center">{{ product.name }}</div>
 
-  <div class="h-full flex flex-col items-center justify-center text-sm">
-    <label for="product.name'-input'">Prezzo</label>
-    @if (product.priceType === 'fixed') {
-      <b class="p-1 px-2">
-        {{ product.price | number: '1.2-2' }} €/{{ product.measureType === 'kg' ? 'kg' : 'unità'}}
-      </b>
-    }
-    @else {
-      <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
-        name="price"
-        type="text"
-        id="product.name'-input'"
-        [formControl]="price"
-        placeholder="€">
-    }
-  </div>
-
-  <div class="h-full flex flex-col items-center justify-center text-sm">
-      @if (product.measureType === 'kg') {
-        <label for="product.name'-input'">Peso</label>
-        @if (product.weightType === 'fixed') {
-          <b class="p-1 px-2">
-            {{ product.weight | number: '1.2-2' }} Kg
-          </b>
-        }
-        @else {
-          <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
-            name="weight"
-            type="text"
-            id="product.name'-input'"
-            [formControl]="weight"
-            placeholder="Kg">
-        }
-      <!-- @else {
-        <label for="product.name'-input'">Unità</label>
+    <div class="h-full flex flex-col items-center justify-center text-sm">
+      <label for="product.name'-input'">Prezzo</label>
+      @if (product.priceType === 'fixed') {
+        <b class="p-1 px-2">
+          {{ product.price | number: '1.2-2' }} €/{{ product.measureType === 'kg' ? 'kg' : 'unità'}}
+        </b>
+      }
+      @else {
         <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
-          name="units"
+          name="price"
           type="text"
           id="product.name'-input'"
-          [formControl]="units"
-          placeholder="1">
-      } -->
-    }
-  </div>
+          [formControl]="price"
+          placeholder="€">
+      }
+    </div>
 
-  <div class="h-full flex flex-col items-center justify-center text-sm">
-    <label for="discount">Sconto</label>
-    <select class="p-2 w-full bg-white border-[1px] border-gray-500 min-h-10"
-      id="discount"
-      [formControl]="discount"
-      [value]="discount">
-        <option value="0">0</option>
-        <option value="10">10 %</option>
-        <option value="20">20 %</option>
-        <option value="30">30 %</option>
-    </select>
-  </div>
+    <div class="h-full flex flex-col items-center justify-center text-sm">
+        @if (product.measureType === 'kg') {
+          <label for="product.name'-input'">Peso</label>
+          @if (product.weightType === 'fixed') {
+            <b class="p-1 px-2">
+              {{ product.weight | number: '1.2-2' }} Kg
+            </b>
+          }
+          @else {
+            <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
+              name="weight"
+              type="text"
+              id="product.name'-input'"
+              [formControl]="weight"
+              placeholder="Kg">
+          }
+        <!-- @else {
+          <label for="product.name'-input'">Unità</label>
+          <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
+            name="units"
+            type="text"
+            id="product.name'-input'"
+            [formControl]="units"
+            placeholder="1">
+        } -->
+      }
+    </div>
 
-  <div class="h-full flex items-center">
-    <button
-      [disabled]="addIsDisabled()"
-      type="button"
-      class="text-white p-2 w-full min-h-16"
-      [ngClass]="addIsDisabled() ? 'bg-gray-300' : 'bg-green-500 hover:bg-green-400'"
-      (click)="onAddToOrder()">
-      Aggiungi
-    </button>
+    <div class="h-full flex flex-col items-center justify-center text-sm">
+      <label for="discount">Sconto</label>
+      <select class="p-2 w-full bg-white border-[1px] border-gray-500 min-h-10"
+        id="discount"
+        [formControl]="discount"
+        [value]="discount">
+          <option value="0">0</option>
+          <option value="10">10 %</option>
+          <option value="20">20 %</option>
+          <option value="30">30 %</option>
+      </select>
+    </div>
+
+    <div class="h-full flex items-center">
+      <button
+        [disabled]="addIsDisabled()"
+        type="button"
+        class="text-white p-2 w-full min-h-16"
+        [ngClass]="addIsDisabled() ? 'bg-gray-300' : 'bg-green-500 hover:bg-green-400'"
+        (click)="onAddToOrder()">
+        Aggiungi
+      </button>
+    </div>
   </div>
-</div>
+}
+
+<!-- GRID -->
+@else if ( layoutMode === 'grid') {
+  <div (click)="selectProduct()"
+    class="w-32 flex flex-col items-center bg-green-100 hover:bg-green-300 cursor-pointer p-2"
+    [ngClass]="{ 'bg-green-500' : isSelectedProduct }">
+
+    <div class="flex items-center font-bold">{{ product.name }}</div>
+
+    <img class="w-24 h-24 object-cover border-[1px] border-gray-500 rounded-sm"
+      [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"
+      [alt]="product.name || 'Product image'" />
+  </div>
+}
+
+<!-- DETAILS -->
+@else {
+  <div class="relative p-5 bg-green-100">
+    <div class="absolute hover:underline right-5 top-5" (click)="selectProduct()">Chiudi</div>
+    <div class="flex gap-5">
+      <img class="w-48 h-48 object-cover border-[1px] border-gray-500 rounded-sm"
+        [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"
+        [alt]="product.name || 'Product image'" />
+
+      <div class="flex flex-col">
+        <div class="font-bold text-lg">{{ product.name }}</div>
+        <div class="h-full flex items-center text-sm">
+          <label class="min-w-16" for="product.name'-input'">Prezzo</label>
+          @if (product.priceType === 'fixed') {
+            <b class="p-1 px-2">
+              {{ product.price | number: '1.2-2' }} €/{{ product.measureType === 'kg' ? 'kg' : 'unità'}}
+            </b>
+          }
+          @else {
+            <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
+              name="price"
+              type="text"
+              id="product.name'-input'"
+              [formControl]="price"
+              placeholder="€">
+          }
+        </div>
+
+        <div class="h-full flex items-center text-sm">
+          @if (product.measureType === 'kg') {
+            <label class="min-w-16" for="product.name'-input'">Peso</label>
+            @if (product.weightType === 'fixed') {
+              <b class="p-1 px-2">
+                {{ product.weight | number: '1.2-2' }} Kg
+              </b>
+            }
+            @else {
+              <input class="w-full p-1 px-2 border-[1px] border-gray-500 min-h-10"
+                name="weight"
+                type="text"
+                id="product.name'-input'"
+                [formControl]="weight"
+                placeholder="Kg">
+            }
+          }
+        </div>
+
+        <div class="flex items-center text-sm">
+          <label class="min-w-16" for="discount">Sconto</label>
+          <select class="p-2 w-full bg-white border-[1px] border-gray-500 min-h-10"
+            id="discount"
+            [formControl]="discount"
+            [value]="discount">
+              <option value="0">0</option>
+              <option value="10">10 %</option>
+              <option value="20">20 %</option>
+              <option value="30">30 %</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center mt-5">
+      <button
+        [disabled]="addIsDisabled()"
+        type="button"
+        class="text-white p-2 w-full min-h-16"
+        [ngClass]="addIsDisabled() ? 'bg-gray-300' : 'bg-green-500 hover:bg-green-400'"
+        (click)="onAddToOrder()">
+        Aggiungi
+      </button>
+    </div>
+  </div>
+}

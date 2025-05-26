@@ -1,4 +1,4 @@
-export type TLayoutMode = 'grid' | 'table';
+export type TLayoutMode = 'grid' | 'table' | 'details';
 
 /* PRODUCTS */
 export class Product implements IProduct {

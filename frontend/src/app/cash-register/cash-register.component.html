@@ -1,4 +1,4 @@
-<div class="py-16 px-5">
+<div class="py-16 px-5 flex flex-col gap-5">
   <cash-register-toolbar
     (onViewChange)="toggleDisplayMode($event)"
     (onCategoryChange)="onCategoryChange($event)"/>
@@ -11,18 +11,27 @@
       }
       @else {
         <form (ngSubmit)="onSubmit()">
-          @for ( product of filteredProducts; track $index ) {
-            @if (layoutMode() === "table") {
-              <cash-register-item
-                [product]="product"
-                (addToOrder)="onAddToOrder($event)" />
-            }
-            @else {
-              <!-- Place for card -->
-               <!-- JUST use the item component and add a different view THERE
-                otherwise all the logic has to be duplicated (example addToOrder) -->
-            }
+          @if (!selectedProduct) {
+            <div class="flex flex-wrap gap-2" [ngClass]="layoutMode() === 'grid' ? 'flex-row' : 'flex-col'" >
+              @for ( product of filteredProducts; track $index ) {
+                <cash-register-item
+                  [product]="product"
+                  (addToOrder)="onAddToOrder($event)"
+                  [layoutMode]="layoutMode()"
+                  (onSelectProduct)="onSelectProduct($event)" />
+              }
+            </div>
           }
+          @else {
+            <cash-register-item
+              [product]="selectedProduct"
+              (addToOrder)="onAddToOrder($event)"
+              layoutMode="details"
+              (onSelectProduct)="onSelectProduct($event)" />
+          }
+          <!-- SELECTED PRODUCT -->
+          <!-- IDEA: make reusable cash-register-item so that the logic is still there -->
+
         </form>
       }
     </div>

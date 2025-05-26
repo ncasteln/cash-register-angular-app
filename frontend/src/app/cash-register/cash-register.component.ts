@@ -1,11 +1,9 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ProductsService } from '../service/products.service';
 import { IUnit, IProduct, TLayoutMode, Category } from '../models';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DecimalPipe, KeyValuePipe, NgClass } from '@angular/common';
 import { CashRegisterToolbarComponent } from './cash-register-toolbar/cash-register-toolbar.component';
-import { CashRegisterGridComponent } from './cash-register-grid/cash-register-grid.component';
-import { CashRegisterTableComponent } from './cash-register-table/cash-register-table.component';
 import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
 import { OrdersService } from '../service/orders.service';
 import { CashRegisterItemComponent } from './cash-register-item/cash-register-item.component';
@@ -19,8 +17,6 @@ import { CashRegisterItemComponent } from './cash-register-item/cash-register-it
     FormsModule,
     DecimalPipe,
     CashRegisterToolbarComponent,
-    CashRegisterGridComponent,
-    CashRegisterTableComponent,
     DynamicTableComponent,
     NgClass,
     CashRegisterItemComponent
@@ -29,16 +25,20 @@ import { CashRegisterItemComponent } from './cash-register-item/cash-register-it
   styleUrl: './cash-register.component.scss'
 })
 export class CashRegisterComponent implements OnInit {
+  readonly uploadsPath = 'http://localhost:3000/api/products/uploads/'
   products: IProduct[] = [];
   filteredProducts: IProduct[] = [];
   total = signal(0);
   currentUnits: IUnit[] = [];
 
   /* View */
-  layoutMode = signal<TLayoutMode>('table');
+  layoutMode = signal<TLayoutMode>('grid');
 
   /* Category */
   selectedCat: Category | string = 'all'
+
+  /* Selected product */
+  selectedProduct: IProduct | null = null;
 
   constructor(
     private _productService: ProductsService,
@@ -58,6 +58,7 @@ export class CashRegisterComponent implements OnInit {
   }
 
   onCategoryChange( newCat: Category | string ) {
+    this.selectedProduct = null;
     this.selectedCat = newCat;
 
     if (newCat === 'all') {
@@ -113,6 +114,8 @@ export class CashRegisterComponent implements OnInit {
       this.total.update(t => t + newUnit.subtotal)
       this.currentUnits.push(newUnit)
     }
+
+    this.selectedProduct = null;
   }
 
   setDiscount( subtotal: number, discount: number ) {
@@ -130,6 +133,11 @@ export class CashRegisterComponent implements OnInit {
     this.currentUnits.splice(i, 1);
   }
 
+  onSelectProduct( p: IProduct ) {
+    this.selectedProduct = p;
+
+  }
+
   onSubmit() {
     console.log("* onSubmit()")
     console.log(this.currentUnits)
@@ -139,4 +147,32 @@ export class CashRegisterComponent implements OnInit {
       this.total.set(0);
     })
   }
+
+  price = new FormControl<string | null>(null)
+  weight = new FormControl<string | null>(null)
+  discount = new FormControl<string | null>(null)
+
+  addSelectedProduct() {
+    /* IMPLEMENT */
+    // this.addToOrder.emit({
+    //   ...this.product,
+    //   price: Number(this.price.value ? this.price.value : this.product.price),
+    //   weight: Number(this.weight.value ? this.weight.value : this.product.weight),
+    //   discount: Number(this.discount.value),
+    //   quantity: -1
+    // })
+
+    this.price.setValue(null)
+    this.weight.setValue(null)
+    this.discount.setValue(null)
+  }
+
+  addIsDisabled() {
+    if (this.selectedProduct?.priceType === 'dynamic' && !this.price.value)
+      return (true);
+    if (this.selectedProduct?.weightType === 'dynamic' && !this.weight.value)
+      return (true);
+    return (false);
+  }
+
 }
