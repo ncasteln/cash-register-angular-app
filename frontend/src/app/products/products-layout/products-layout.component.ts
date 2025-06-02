@@ -22,7 +22,7 @@ import { ProductItemComponent } from '../product-item/product-item.component';
   templateUrl: './products-layout.component.html',
   styleUrl: './products-layout.component.scss'
 })
-export class ProductsLayoutComponent {
+export class ProductsLayoutComponent implements OnInit {
   readonly uploadsPath = 'http://localhost:3000/api/products/uploads/'
   @Input() products: IProduct[] = [];
   @Input() layout: TLayoutMode = 'table';
@@ -30,6 +30,8 @@ export class ProductsLayoutComponent {
   @Output() delete = new EventEmitter<string>();
   @Output() restore = new EventEmitter<string>();
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit(): void {
   }
 }

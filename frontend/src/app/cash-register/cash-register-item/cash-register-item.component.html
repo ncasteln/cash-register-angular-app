@@ -11,7 +11,7 @@
     <div class="h-full flex flex-col items-center justify-center text-sm">
       <label for="product.name'-input'">Prezzo</label>
       @if (product.priceType === 'fixed') {
-        <b class="p-1 px-2 text-2xl">
+        <b class="p-1 px-2">
           {{ product.price | number: '1.2-2' }} € / {{ product.measureType === 'kg' ? 'kg' : 'unità'}}
         </b>
       }
@@ -82,10 +82,10 @@
 <!-- GRID -->
 @else if ( layoutMode === 'grid') {
   <div (click)="selectProduct()"
-    class="w-32 flex flex-col items-center bg-green-100 hover:bg-green-300 cursor-pointer p-2"
+    class="w-32 min-h-32 shadow-sm flex flex-col items-center bg-green-100 hover:bg-green-300 cursor-pointer p-2"
     [ngClass]="{ 'bg-green-500' : isSelectedProduct }">
 
-    <div class="flex items-center font-bold">{{ product.name }}</div>
+    <div class="flex items-center font-bold text-lg mb-2">{{ product.name }}</div>
 
     <img class="w-24 h-24 object-cover border-[1px] border-gray-500 rounded-sm"
       [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"

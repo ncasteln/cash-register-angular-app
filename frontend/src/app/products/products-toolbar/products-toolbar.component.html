@@ -1,35 +1,33 @@
 <div class="w-full flex justify-between items-center py-5">
-  <div class="w-full flex gap-5 justify-between">
-    <div class="flex gap-3">
-      @for ( c of categories; track $index; let last = $last ) {
-        @if (c.cat === 'deleted') {
-          <button
-            [ngClass]="selectedCategory() === c.cat
-              ? 'bg-white text-red-500'
-              : 'bg-red-500 text-white border-0 hover:bg-white hover:text-red-500 duration-200'"
-            class="rounded-full p-5 border-red-500 border-2"
-            (click)="onClickCategory(c.cat)">
-            {{ c.text }}
-          </button>
-        }
-        @else {
-          <button
-            [ngClass]="selectedCategory() === c.cat
-              ? 'bg-white text-green-400'
-              : 'bg-green-400 text-white border-0 hover:bg-white hover:text-green-400 duration-200'"
-            class="rounded-full p-5 border-green-400 border-2"
-            (click)="onClickCategory(c.cat)">
-            {{ c.text }}
-          </button>
-        }
+  <div class="flex gap-3">
+    @for ( c of categories; track $index; let last = $last ) {
+      @if (c.cat === 'deleted') {
+        <button
+          [ngClass]="selectedCategory() === c.cat
+            ? 'bg-white text-red-500'
+            : 'bg-red-500 text-white border-0 hover:bg-white hover:text-red-500 duration-200'"
+          class="rounded-full px-5 py-2 border-red-500 border-2"
+          (click)="onClickCategory(c.cat)">
+          {{ c.text }}
+        </button>
       }
-    </div>
-    <div class="flex gap-5">
-      <button [routerLink]="['/create-product']"
-        class="bg-green-500 hover:bg-green-400 text-white rounded-md p-5">
-          Crea nuovo
-      </button>
-      <button class="bg-green-500 hover:bg-green-400 text-white rounded-md p-5" role="button" (click)="onClickReset()">Reset</button>
-    </div>
+      @else {
+        <button
+          [ngClass]="selectedCategory() === c.cat
+            ? 'bg-white text-green-400'
+            : 'bg-green-400 text-white border-0 hover:bg-white hover:text-green-400 duration-200'"
+          class="rounded-full px-5 py-2 border-green-400 border-2"
+          (click)="onClickCategory(c.cat)">
+          {{ c.text }}
+        </button>
+      }
+    }
+  </div>
+  <div class="flex gap-2">
+    <button [routerLink]="['/create-product']"
+      class="bg-green-500 hover:bg-green-400 text-white rounded-md px-5 py-2">
+        Crea nuovo
+    </button>
+    <button class="bg-green-500 hover:bg-green-400 text-white rounded-md px-5 py-2" role="button" (click)="onClickReset()">Reset</button>
   </div>
 </div>

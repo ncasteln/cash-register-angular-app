@@ -37,7 +37,7 @@ const productSchema = new mongoose.Schema({
   tax: { type: Number, required: false },
   weight: { type: Number, required: false },
   priceType: { type: String, enum: AmountType },
-  weightType: { type: String, enum: AmountType },
+  weightType: { type: String, enum: AmountType, required: false },
   measureType: { type: String, enum: MeasureType },
   category: { type: String, enum: Category }
 });

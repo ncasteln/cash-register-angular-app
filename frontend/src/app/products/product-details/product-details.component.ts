@@ -97,13 +97,12 @@ export class ProductDetailsComponent implements OnInit {
       priceType: new FormControl(this.product?.priceType ?? AmountType.fixed, [ Validators.required ]),
       price: new FormControl(this.product?.price ?? null, [ Validators.pattern(/^\d+(\.\d{1,2})?$/) ]),
 
-      weightType: new FormControl(this.product?.weightType ?? AmountType.dynamic, [ Validators.required ]),
+      weightType: new FormControl(this.product?.weightType ?? "null", [ Validators.required ]),
       weight: new FormControl(this.product?.weight ?? null, [ Validators.pattern(/^\d+(\.\d{1,2})?$/) ]),
 
       measureType: new FormControl(this.product?.measureType ?? MeasureType.kg, [ Validators.required ]),
 
       category: new FormControl(this.product?.category ?? Category.vegetable, [ Validators.required ]),
-
       external: new FormControl(this.product?.external ?? false, [ Validators.required ]), // remove
       disabled: new FormControl(this.product?.disabled ?? false, [ Validators.required ]),
       id: new FormControl(this.product?._id ?? null),

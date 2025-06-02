@@ -49,7 +49,7 @@ export class CashRegisterComponent implements OnInit {
     this._productService.getProducts()
     .subscribe(res => {
       this.products = res.filter(p => !p.disabled && !p.deleted);
-      this.filteredProducts = this.products;
+      this.filteredProducts = this.products.sort((a, b) => a.name > b.name ? 1 : -1);
     });
   }
 
@@ -62,7 +62,7 @@ export class CashRegisterComponent implements OnInit {
     this.selectedCat = newCat;
 
     if (newCat === 'all') {
-      this.filteredProducts = this.products;
+      this.filteredProducts = this.products.sort((a, b) => a.name > b.name ? 1 : -1);
       return ;
     }
     this.filteredProducts = this.products.filter(p => {
@@ -70,6 +70,7 @@ export class CashRegisterComponent implements OnInit {
         return p.deleted;
       return p.category === newCat;
     })
+    .sort((a, b) => a.name > b.name ? 1 : -1)
   }
 
   onAddToOrder( newUnit: IUnit ) {

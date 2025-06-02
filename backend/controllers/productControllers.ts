@@ -59,13 +59,13 @@ export const postProducts = async(req: any, res: any) => {
 
     const newProduct = new productModel({
       name,
-      price: price === "null" ? null : price,
+      price: (price === "null" || priceType === "dynamic") ? null : price,
       img,
       external,
       disabled,
       tax: tax === "null" ? null : tax,
-      weight: weight === "null" ? null : weight,
-      weightType,
+      weight: (weight === "null" || weightType === "null") ? null : weight,
+      weightType: weightType === "null" ? null : weightType,
       measureType,
       priceType,
       category
@@ -89,13 +89,13 @@ export const updateProducts = async(req: any, res: any) => {
     const newProduct = await productModel.findOneAndUpdate(
       { _id: req.params.id },
       { name,
-        price: price === "null" ? null : price,
+        price: (price === "null" || priceType === "dynamic") ? null : price,
         img,
         external,
         disabled,
         tax: tax === "null" ? null : tax,
-        weight: weight === "null" ? null : weight,
-        weightType,
+        weight: (weight === "null" || weightType === "null") ? null : weight,
+        weightType: weightType === "null" ? null : weightType,
         priceType,
         measureType,
         category

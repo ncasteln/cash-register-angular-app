@@ -43,9 +43,10 @@ export class ProductsComponent implements OnInit {
   }
 
   getProducts() {
+    console.log("GOT")
     this._productsService.getProducts().subscribe(p => {
       this.products = p;
-      this.filteredProducts = p;
+      this.filteredProducts = p.sort((a, b) => a.name > b.name ? 1 : -1);
     })
   }
 
@@ -75,14 +76,15 @@ export class ProductsComponent implements OnInit {
     this.selectedCat = newCat;
 
     if (newCat === 'all') {
-      this.filteredProducts = this.products;
+      this.filteredProducts = this.products.sort((a, b) => a.name > b.name ? 1 : -1);
       return ;
     }
     this.filteredProducts = this.products.filter(p => {
       if (newCat === 'deleted')
         return p.deleted;
-      return p.category === newCat;
+      return (p.category === newCat && !p.deleted);
     })
+    .sort((a, b) => a.name > b.name ? 1 : -1)
   }
 
   /* RESET */
