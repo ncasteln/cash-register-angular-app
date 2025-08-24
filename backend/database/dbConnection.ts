@@ -5,7 +5,13 @@ const connectToDb = async () => {
     if (!process.env.MONGODB_URI)
       throw new Error("MONGODB_URI is not defined")
     else {
-      const mongo = await mongoose.connect(process.env.MONGODB_URI);
+      const mongo = await mongoose.connect(
+        process.env.MONGODB_URI,
+        // {
+        //   useNewUrlParser: true,
+        //   useUnifiedTopology: true,
+        // }
+      );
       console.log(`* Connected to database: ${mongo.connection.host}`)
     }
   }

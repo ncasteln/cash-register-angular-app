@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IProduct, IProductResponse } from '../models';
 import { BehaviorSubject, catchError, map, Subject, tap, throwError } from 'rxjs';
+import { environment } from '../../environment/environment';
 
 interface IAction {
   action: string,
@@ -12,14 +13,15 @@ interface IAction {
   providedIn: 'root'
 })
 export class ProductsService {
-  readonly url = 'http://localhost:3000/api/products'
+  readonly productsUrl = `${environment.productsUrl}`
+
   private _action = new Subject<IAction>();
   public action$ = this._action.asObservable();
 
   constructor( private http: HttpClient ) {}
 
   getProducts() {
-    return (this.http.get<IProduct[]>(this.url));
+    return (this.http.get<IProduct[]>(this.productsUrl));
   }
 
   action( action: string, product: IProduct ) {
@@ -27,32 +29,32 @@ export class ProductsService {
   }
 
   getProductById( _id: string ) {
-    return (this.http.get<IProductResponse>(`${this.url}/${_id}`))
+    return (this.http.get<IProductResponse>(`${this.productsUrl}/${_id}`))
   }
 
   create( productForm: FormData ) {
     return (
-      this.http.post<IProduct>(`${this.url}/create/`, productForm, {
+      this.http.post<IProduct>(`${this.productsUrl}/create/`, productForm, {
         observe: 'response'
       }));
   }
 
   delete( _id: string ) {
     return (this.http.delete<IProductResponse>(
-      `${this.url}/delete/${_id}`,
+      `${this.productsUrl}/delete/${_id}`,
       { observe: 'response' }))
   }
 
   restore( _id: string ) {
     return (this.http.put<IProductResponse>(
-      `${this.url}/restore/${_id}`,
+      `${this.productsUrl}/restore/${_id}`,
       { observe: 'response' }))
   }
 
   update( _id: string, productForm: FormData ) {
     return (
       this.http.put<IProduct>(
-        `${this.url}/update/${_id}`,
+        `${this.productsUrl}/update/${_id}`,
         productForm
         ));
   }
@@ -60,13 +62,13 @@ export class ProductsService {
   disable( _id: string ) {
     return (
       this.http.put<IProductResponse>(
-        `${this.url}/update/disable/${_id}`,
+        `${this.productsUrl}/update/disable/${_id}`,
         { observe: 'response' }
       )
     )
   }
 
   reset() {
-    return (this.http.delete(this.url + '/reset', { observe: 'response' }))
+    return (this.http.delete(this.productsUrl + '/reset', { observe: 'response' }))
   }
 }

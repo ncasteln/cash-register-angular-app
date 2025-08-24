@@ -12,6 +12,7 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { TrimDirective } from '../../directives/trim.directive';
 import { MatRadioModule } from '@angular/material/radio';
 import { DisableControlDirective } from '../../directives/disable-control.directive';
+import { environment } from '../../../environment/environment';
 
 function duplicateValidator( products: IProduct[] ): ValidatorFn {
   const productNames = products.map(p => p.name.trim());
@@ -51,7 +52,7 @@ const trimValidator = (control: AbstractControl): ValidationErrors | null => {
   styleUrl: './product-details.component.scss'
 })
 export class ProductDetailsComponent implements OnInit {
-  readonly uploadsPath = 'http://localhost:3000/api/products/uploads/';
+  readonly uploadsUrl = `${environment.productsUrl}/uploads/`
 
   productForm!: FormGroup;
   imageForm!: FormGroup;

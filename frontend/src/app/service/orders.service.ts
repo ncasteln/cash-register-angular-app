@@ -1,26 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IOrder, IOrderResponse, IProduct, IUnit } from '../models';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
-  readonly url = 'http://localhost:3000/api/orders'
+  readonly ordersUrl = `${environment.ordersUrl}`
 
   constructor( private http: HttpClient ) {}
 
   getOrders() {
-    return (this.http.get<IOrder[]>(this.url));
+    return (this.http.get<IOrder[]>(this.ordersUrl));
   }
 
   getOrderById( _id: string ) {
-    return (this.http.get<IOrder>(`${this.url}/${_id}`))
+    return (this.http.get<IOrder>(`${this.ordersUrl}/${_id}`))
   }
 
   create( units: IUnit[] ) {
     return (
-      this.http.post<IOrderResponse>(`${this.url}/create/`,
+      this.http.post<IOrderResponse>(`${this.ordersUrl}/create/`,
         units,
         { observe: 'response' }
       ));
@@ -28,14 +29,14 @@ export class OrdersService {
 
   delete( _id: string ) {
     return (this.http.delete<IOrder>(
-      `${this.url}/delete/${_id}`,
+      `${this.ordersUrl}/delete/${_id}`,
       { observe: 'response' }))
   }
 
   update( _id: string, newUnit: IUnit ) {
     return (
       this.http.put<IProduct>(
-        `${this.url}/update/${_id}`,
+        `${this.ordersUrl}/update/${_id}`,
         newUnit
         ));
   }
@@ -43,7 +44,7 @@ export class OrdersService {
   markOrder( _id: string ) {
     return (
       this.http.put<IOrderResponse>(
-        `${this.url}/update/markOrder/${_id}`,
+        `${this.ordersUrl}/update/markOrder/${_id}`,
         { observe: 'response' }
       ));
   }
@@ -51,7 +52,7 @@ export class OrdersService {
   markUnit( _id: string, unitIndex: number ) {
     return (
       this.http.put<IOrderResponse>(
-        `${this.url}/update/markUnit/${_id}/${unitIndex}`,
+        `${this.ordersUrl}/update/markUnit/${_id}/${unitIndex}`,
         { observe: 'response' }
       ));
   }
@@ -60,6 +61,6 @@ export class OrdersService {
   }
 
   reset() {
-    return (this.http.delete(this.url + '/reset', { observe: 'response' }))
+    return (this.http.delete(this.ordersUrl + '/reset', { observe: 'response' }))
   }
 }

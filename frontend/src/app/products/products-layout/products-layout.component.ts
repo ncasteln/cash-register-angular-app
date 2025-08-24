@@ -6,6 +6,7 @@ import { ProductActionsComponent } from '../product-actions/product-actions.comp
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductItemComponent } from '../product-item/product-item.component';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'products-layout',
@@ -23,7 +24,7 @@ import { ProductItemComponent } from '../product-item/product-item.component';
   styleUrl: './products-layout.component.scss'
 })
 export class ProductsLayoutComponent implements OnInit {
-  readonly uploadsPath = 'http://localhost:3000/api/products/uploads/'
+  readonly uploadsUrl = `${environment.productsUrl}/uploads/`
   @Input() products: IProduct[] = [];
   @Input() layout: TLayoutMode = 'table';
   @Input() selectedCat: Category | string = 'all';

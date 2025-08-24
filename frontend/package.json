@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:cash-register-angular-app": "node dist/cash-register-angular-app/server/server.mjs"
+
+    "start-prod": "ng serve --configuration=production",
+    "build-prod": "ng build --configuration=production"
   },
   "private": true,
   "dependencies": {

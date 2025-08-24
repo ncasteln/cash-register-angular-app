@@ -7,6 +7,7 @@ import { CashRegisterToolbarComponent } from './cash-register-toolbar/cash-regis
 import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
 import { OrdersService } from '../service/orders.service';
 import { CashRegisterItemComponent } from './cash-register-item/cash-register-item.component';
+import { environment } from '../../environment/environment';
 
 @Component({
   selector: 'cash-register',
@@ -25,7 +26,7 @@ import { CashRegisterItemComponent } from './cash-register-item/cash-register-it
   styleUrl: './cash-register.component.scss'
 })
 export class CashRegisterComponent implements OnInit {
-  readonly uploadsPath = 'http://localhost:3000/api/products/uploads/'
+  readonly uploadsUrl = `${environment.productsUrl}/uploads/`
   products: IProduct[] = [];
   filteredProducts: IProduct[] = [];
   total = signal(0);

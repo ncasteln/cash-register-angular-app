@@ -106,7 +106,7 @@
       </form>
       @if (product) {
         <div class="w-1/2 flex justify-center">
-          <img class="h-96 border-[1px] border-gray-400 rounded" [src]="product.img ? uploadsPath+product.img : 'assets/img-not-found.png'" alt="">
+          <img class="h-96 border-[1px] border-gray-400 rounded" [src]="product.img ? uploadsUrl+product.img : 'assets/img-not-found.png'" alt="">
         </div>
       }
     </div>

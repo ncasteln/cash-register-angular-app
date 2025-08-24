@@ -3,6 +3,7 @@ import { categories, Product } from '../../models';
 import { DecimalPipe, NgClass } from '@angular/common';
 import { ProductActionsComponent } from '../product-actions/product-actions.component';
 import { RouterLink } from '@angular/router';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'product-item',
@@ -17,7 +18,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './product-item.component.scss'
 })
 export class ProductItemComponent {
-  readonly uploadsPath = 'http://localhost:3000/api/products/uploads/';
+  readonly uploadsUrl = `${environment.productsUrl}/uploads/`
   readonly categories = categories;
   @Input() product = new Product();
   @Output() delete = new EventEmitter();

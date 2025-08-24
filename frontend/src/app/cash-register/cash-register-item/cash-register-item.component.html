@@ -3,7 +3,7 @@
   <div class="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr] items-center gap-2 text-lg hover:bg-green-200 bg-green-100 mb-2 border-[1px] border-green-200 p-2">
     <img
       class="w-24 h-24 object-cover border-[1px] border-gray-500 rounded-sm"
-      [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"
+      [src]="product.img ? uploadsUrl + product.img : 'assets/img-not-found.png'"
       [alt]="product.name || 'Product image'" />
 
     <div class="h-full flex items-center">{{ product.name }}</div>
@@ -88,7 +88,7 @@
     <div class="flex items-center font-bold text-lg mb-2">{{ product.name }}</div>
 
     <img class="w-24 h-24 object-cover border-[1px] border-gray-500 rounded-sm"
-      [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"
+      [src]="product.img ? uploadsUrl + product.img : 'assets/img-not-found.png'"
       [alt]="product.name || 'Product image'" />
   </div>
 }
@@ -101,7 +101,7 @@
     </button>
     <div class="flex gap-5">
       <img class="w-48 h-48 object-cover border-[1px] border-gray-500 rounded-sm"
-        [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"
+        [src]="product.img ? uploadsUrl + product.img : 'assets/img-not-found.png'"
         [alt]="product.name || 'Product image'" />
 
       <!-- Inputs -->

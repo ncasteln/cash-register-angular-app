@@ -7,7 +7,7 @@
   }">
   <img [ngClass]="{ 'opacity-50': product.disabled }"
     class="w-24 h-24 object-cover border-[1px] border-gray-500 rounded-sm"
-    [src]="product.img ? uploadsPath + product.img : 'assets/img-not-found.png'"
+    [src]="product.img ? uploadsUrl + product.img : 'assets/img-not-found.png'"
     [alt]="product.name || 'Product image'" />
 
   <div class="h-full flex items-center font-bold" [ngClass]="{ 'opacity-50': product.disabled }">{{ product.name }}</div>

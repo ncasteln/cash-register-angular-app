@@ -4,6 +4,7 @@ import { DecimalPipe, NgClass } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControl, FormControlDirective, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'cash-register-item',
@@ -20,7 +21,7 @@ import { FormControl, FormControlDirective, FormGroup, FormsModule, ReactiveForm
   styleUrl: './cash-register-item.component.scss'
 })
 export class CashRegisterItemComponent implements OnInit {
-  readonly uploadsPath = 'http://localhost:3000/api/products/uploads/'
+  readonly uploadsUrl = `${environment.productsUrl}/uploads/`
   @Input() product: IProduct = new Product();
   @Input() layoutMode: TLayoutMode = 'grid';
   @Input() isSelectedProduct: boolean = false;
