@@ -20,8 +20,6 @@ services:
   mongodb:
     image: mongo:6
     container_name: cash-register-db
-    ports:
-      - "27017:27017"
     volumes:
       - mongo-data:/data/db
 
