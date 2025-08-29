@@ -3,7 +3,7 @@ services:
     build: ./frontend
     container_name: cash-register-frontend
     ports:
-      - "4200:80" # Angular app accessible at http://localhost:4200
+      - "4200:8080" # Angular app accessible at http://localhost:4200
     depends_on:
       - backend
 
@@ -13,7 +13,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/mydb
+      - MONGO_URI=mongodb://mongodb:27017/selvetto_db
     depends_on:
       - mongodb
 
@@ -25,23 +25,3 @@ services:
 
 volumes:
   mongo-data:
-
-# services:
-#   # nginx:
-#   #   image: nginx:alpine
-#   #   ports:
-#   #     - "4200:4200"
-#   #   volumes:
-#   #     - ./nginx.conf:/etc/nginx/nginx.conf:ro
-#   #   depends_on:
-#   #     - frontend
-
-#   frontend:
-#     build:
-#       context: ./frontend
-#     ports:
-#       - '4200:4200'
-#     container_name: selvetto-frontend
-
-#     # depends_on:
-#     #   - backend

@@ -8,6 +8,9 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
+# Build TypeScript -> JavaScript
+RUN npm run build
+
 EXPOSE 5000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start:prod"]

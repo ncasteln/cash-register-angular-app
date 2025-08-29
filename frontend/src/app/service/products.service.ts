@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IProduct, IProductResponse } from '../models';
 import { BehaviorSubject, catchError, map, Subject, tap, throwError } from 'rxjs';
-import { environment } from '../../environment/environment';
+import { environment } from '../../environments/environment';
 
 interface IAction {
   action: string,
@@ -21,6 +21,7 @@ export class ProductsService {
   constructor( private http: HttpClient ) {}
 
   getProducts() {
+    console.log("BACKEND URL: ", this.productsUrl)
     return (this.http.get<IProduct[]>(this.productsUrl));
   }
 

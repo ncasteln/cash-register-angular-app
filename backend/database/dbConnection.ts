@@ -1,12 +1,16 @@
 import mongoose from 'mongoose';
 
 const connectToDb = async () => {
+  const m = "mongodb://mongodb:27017/selvetto_db"
+
   try {
-    if (!process.env.MONGODB_URI)
-      throw new Error("MONGODB_URI is not defined")
+    if (!m/* process.env.MONGODB_DEV */)
+      throw new Error("MONGODB_DEV is not defined")
     else {
+      console.log("NODE ENV: ", process.env.NODE_ENV);
+
       const mongo = await mongoose.connect(
-        process.env.MONGODB_URI,
+        m/* process.env.MONGODB_DEV */,
         // {
         //   useNewUrlParser: true,
         //   useUnifiedTopology: true,

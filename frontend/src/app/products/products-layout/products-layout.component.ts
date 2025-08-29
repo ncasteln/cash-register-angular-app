@@ -6,7 +6,7 @@ import { ProductActionsComponent } from '../product-actions/product-actions.comp
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductItemComponent } from '../product-item/product-item.component';
-import { environment } from '../../../environment/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'products-layout',

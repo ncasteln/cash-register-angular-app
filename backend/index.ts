@@ -13,7 +13,7 @@ config();
 
 /* Variables */
 const PORT = process.env.PORT;
-const ANGULAR_URI = process.env.ANGULAR_URI;
+const ANGULAR_DEV = process.env.ANGULAR_DEV;
 
 /* MongoDB */
 connectToDb();
@@ -22,7 +22,7 @@ connectToDb();
 app.use(bodyParser.json())
 
 /* Cors */
-app.use(cors({ origin: ANGULAR_URI, }))
+app.use(cors({ origin: ANGULAR_DEV, }))
 
 /* Setting static files for direct access */
 app.use('uploads', express.static(path.join(__dirname, 'uploads')));

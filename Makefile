@@ -7,7 +7,7 @@ N	=	\033[1;30m
 
 up: env folders credentials build
 	@echo "$(G)* Creating containers...$(W)";
-	docker compose up
+	docker compose up;
 
 build:
 	@echo "$(G)* Building the images of each service...$(W)";

@@ -12,7 +12,7 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { TrimDirective } from '../../directives/trim.directive';
 import { MatRadioModule } from '@angular/material/radio';
 import { DisableControlDirective } from '../../directives/disable-control.directive';
-import { environment } from '../../../environment/environment';
+import { environment } from '../../../environments/environment';
 
 function duplicateValidator( products: IProduct[] ): ValidatorFn {
   const productNames = products.map(p => p.name.trim());

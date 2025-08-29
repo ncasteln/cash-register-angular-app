@@ -7,7 +7,7 @@ import { CashRegisterToolbarComponent } from './cash-register-toolbar/cash-regis
 import { DynamicTableComponent } from '../dynamic-table/dynamic-table.component';
 import { OrdersService } from '../service/orders.service';
 import { CashRegisterItemComponent } from './cash-register-item/cash-register-item.component';
-import { environment } from '../../environment/environment';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'cash-register',

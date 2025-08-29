@@ -3,7 +3,7 @@ import { categories, Product } from '../../models';
 import { DecimalPipe, NgClass } from '@angular/common';
 import { ProductActionsComponent } from '../product-actions/product-actions.component';
 import { RouterLink } from '@angular/router';
-import { environment } from '../../../environment/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'product-item',
