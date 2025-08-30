@@ -14,18 +14,23 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - MONGO_DEV=mongodb://localhost:27017/selvetto_db
-      - MONGO_PROD=mongodb://mongodb:27017/selvetto_db
+      - MONGO_URI=mongodb://mongodb:27017/selvetto_db
     depends_on:
       - mongodb
     restart: always
 
   mongodb:
+    build: ./backup
     image: mongo:6
-    container_name: cash-register-db
+    container_name: cash-register-mongodb
     volumes:
       - mongo-data:/data/selvetto_db
+      # - ./backup:/backup
     restart: always
+
+  # BACKUP CMD
+  # mongodump --db selvetto_db --out=/backup/selvetto_db_dump
+  # mongorestore --drop /backup/selvetto_db_dump
 
 volumes:
   mongo-data:
