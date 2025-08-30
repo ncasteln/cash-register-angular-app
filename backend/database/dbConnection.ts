@@ -4,18 +4,12 @@ const connectToDb = async () => {
   const m = "mongodb://mongodb:27017/selvetto_db"
 
   try {
-    if (!m/* process.env.MONGODB_DEV */)
+    if (!m)
       throw new Error("MONGODB_DEV is not defined")
     else {
-      console.log("NODE ENV: ", process.env.NODE_ENV);
+      console.log("ENV: ", process.env.MONGO_URI);
 
-      const mongo = await mongoose.connect(
-        m/* process.env.MONGODB_DEV */,
-        // {
-        //   useNewUrlParser: true,
-        //   useUnifiedTopology: true,
-        // }
-      );
+      const mongo = await mongoose.connect(m);
       console.log(`* Connected to database: ${mongo.connection.host}`)
     }
   }

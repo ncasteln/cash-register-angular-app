@@ -6,6 +6,7 @@ services:
       - "4200:8080" # Angular app accessible at http://localhost:4200
     depends_on:
       - backend
+    restart: always
 
   backend:
     build: ./backend
@@ -13,15 +14,18 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/selvetto_db
+      - MONGO_DEV=mongodb://localhost:27017/selvetto_db
+      - MONGO_PROD=mongodb://mongodb:27017/selvetto_db
     depends_on:
       - mongodb
+    restart: always
 
   mongodb:
     image: mongo:6
     container_name: cash-register-db
     volumes:
-      - mongo-data:/data/db
+      - mongo-data:/data/selvetto_db
+    restart: always
 
 volumes:
   mongo-data:
