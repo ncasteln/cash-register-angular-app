@@ -1,4 +1,8 @@
 #! /bin/bash
 
-BACKUP_FOLDER="/backup/$(date +%F_%R)"
-mongodump -o $BACKUP_FOLDER
+# change the out name and create 5 different backups
+# change the time (no every minute)
+
+mongodump --host mongodb --db selvetto_db --out=/backup
+
+echo "Cron job executed at $(date)" >> "/backup/backup.log"

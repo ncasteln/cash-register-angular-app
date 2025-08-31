@@ -7,6 +7,8 @@ services:
     depends_on:
       - backend
     restart: always
+    networks:
+      - fe_be_net
 
   backend:
     build: ./backend
@@ -18,19 +20,41 @@ services:
     depends_on:
       - mongodb
     restart: always
+    networks:
+      - fe_be_net
+      - be_mongo_net
 
   mongodb:
-    build: ./backup
     image: mongo:6
     container_name: cash-register-mongodb
     volumes:
       - mongo-data:/data/selvetto_db
-      # - ./backup:/backup
     restart: always
+    networks:
+      - be_mongo_net
+      - mongo_backup_net
 
-  # BACKUP CMD
-  # mongodump --db selvetto_db --out=/backup/selvetto_db_dump
-  # mongorestore --drop /backup/selvetto_db_dump
+  backup:
+    build: ./backup
+    container_name: cash-register-backup
+    volumes:
+      - ./backup:/backup
+    depends_on:
+      - mongodb
+    restart: always
+    networks:
+      - mongo_backup_net
+    init: true
 
 volumes:
   mongo-data:
+
+networks:
+  fe_be_net:
+  be_mongo_net:
+  mongo_backup_net:
+
+  # BACKUP CMD
+  # mongosh "mongodb://mongodb:27017"
+  # mongodump --host mongodb --db selvetto_db --out=/backup
+  # mongorestore --drop /backup/selvetto_db_dump
