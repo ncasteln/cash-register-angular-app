@@ -1,8 +1,19 @@
 #! /bin/bash
 
-# change the out name and create 5 different backups
-# change the time (no every minute)
+BACKUP_DIR="/backup"
+MAX_BACKUP=5
+OUT="selvetto_db_$(date +"%Y-%m-%d_%H-%M-%S")"
+COUNT=$(find "$BACKUP_DIR" -maxdepth 1 -type d -name "selvetto_db_*" | wc -l)
 
-mongodump --host mongodb --db selvetto_db --out=/backup
+if [ "$COUNT" -ge $MAX_BACKUP ]; then
+  # remove the oldest
+  OLDEST=$(find "$BACKUP_DIR" -maxdepth 1 -type d -name "selvetto_db_*" | sort | head -n 1)
+  rm -rfd "$OLDEST";
+fi
 
-echo "Cron job executed at $(date)" >> "/backup/backup.log"
+mongodump --host mongodb --db selvetto_db --out="$BACKUP_DIR/$OUT"
+
+#restore
+# mongorestore --host mongodb --drop --nsInclude="selvetto_db.*" "/backup/$FOLDER"
+
+echo "Cron job executed at $(date)" >> "$BACKUP_DIR/backup.log"

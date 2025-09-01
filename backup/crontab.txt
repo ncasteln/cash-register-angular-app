@@ -1,1 +1,1 @@
-* * * * * /backup.sh
+* * * * * /backup/backup.sh
