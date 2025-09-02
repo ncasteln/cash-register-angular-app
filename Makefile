@@ -5,10 +5,9 @@ R	=	\033[0;31m
 W	=	\033[0m
 N	=	\033[1;30m
 
-
 up: build
 	@echo "$(G)* Creating containerspacka...$(W)"
-	docker compose up
+	docker compose up;
 
 build:
 	@echo "$(G)* Building the images of each service...$(W)";
@@ -17,7 +16,6 @@ build:
 down:
 	@echo "$(G)* Removing containers...$(W)";
 	docker compose down;
-
 
 # ----------------------------------------------------------------------- UTILS
 display:

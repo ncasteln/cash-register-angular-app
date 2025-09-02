@@ -8,7 +8,7 @@ const connectToDb = async () => {
     if (!m)
       throw Error("* Not able to find MONGODB ip address")
     const mongo = await mongoose.connect(m);
-    console.log(`* Connected to database: ${mongo.connection.host}`)
+    console.log(`* Connected to database: ${mongo.connection.host} [${process.env.NODE_ENV} mode]`)
   }
   catch (err) {
     console.error(err)
