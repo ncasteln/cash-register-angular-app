@@ -1,10 +1,7 @@
 # CashRegisterAngularApp
 
-## To do:
-1) FRONTEND
-2) BACKEND
-3) DEPLOY
-  - Separate dev and prod (goal is to run nodemon in dev mode)
+## Possible improvements
+- Better dev and prod environment; for now, only the production is dockerized, while the development not. Development is done in the host machine using `npm run start` and `npm run start:dev` directly. A possible improvement would be dockerize dev, maybe using watch mode of docker.
 
 ## Backend
 ```
