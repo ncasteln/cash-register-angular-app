@@ -15,8 +15,6 @@ services:
     container_name: cash-register-backend
     ports:
       - "5000:5000"
-    environment:
-      - MONGO_URI=mongodb://mongodb:27017/selvetto_db
     depends_on:
       - mongodb
     restart: always
@@ -32,18 +30,18 @@ services:
     restart: always
     networks:
       - be_mongo_net
-      - mongo_backup_net
+      - mongo_dump_net
 
-  backup:
-    build: ./backup
-    container_name: cash-register-backup
+  dump:
+    build: ./dump
+    container_name: cash-register-dump
     volumes:
-      - ./backup:/backup
+      - ./dump/dumps:/dump/dumps
     depends_on:
       - mongodb
     restart: always
     networks:
-      - mongo_backup_net
+      - mongo_dump_net
     init: true
 
 volumes:
@@ -52,10 +50,4 @@ volumes:
 networks:
   fe_be_net:
   be_mongo_net:
-  mongo_backup_net:
-
-  # BACKUP CMD
-  # mongosh "mongodb://mongodb:27017"
-  # mongodump --host mongodb --db selvetto_db --out=/backup
-  # mongorestore --drop /backup/selvetto_db_dump
-  # mongorestore --db=selvetto_db backup/name-of-dump
+  mongo_dump_net:

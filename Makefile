@@ -5,9 +5,10 @@ R	=	\033[0;31m
 W	=	\033[0m
 N	=	\033[1;30m
 
-up: env folders credentials build
-	@echo "$(G)* Creating containers...$(W)";
-	docker compose up;
+
+up: build
+	@echo "$(G)* Creating containerspacka...$(W)"
+	docker compose up
 
 build:
 	@echo "$(G)* Building the images of each service...$(W)";
@@ -98,4 +99,4 @@ reset: fclean #reuires sudo privileges
 
 .PHONY: nginx nginx-cont stop clean clean-img fclean display mariadb \
 mariadb-cont wp wp-cont clean-net clean-vol build up down reset secrets \
-clean-data env folders credentials
+clean-data

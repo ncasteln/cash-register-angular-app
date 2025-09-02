@@ -60,9 +60,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -77,7 +75,7 @@
               "browserTarget": "cash-register-angular-app:build:production"
             },
             "development": {
-              "browserTarget": "cash-register-angular-app:build:development"
+              "buildTarget": "cash-register-angular-app:build:development"
             }
           },
           "defaultConfiguration": "development"
