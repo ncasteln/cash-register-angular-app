@@ -5,9 +5,15 @@ R	=	\033[0;31m
 W	=	\033[0m
 N	=	\033[1;30m
 
-up: build
-	@echo "$(G)* Creating containerspacka...$(W)"
+up: env build
+	@echo "$(G)* Creating containers...$(W)"
 	docker compose up;
+
+env:
+	@if [ ! -f ./backend/.env ]; then \
+		echo "$(R)Needed ./backend/.env file with ANGULAR_DEV, MONGO_DEV, MONGO_PROD, PORT$(W)"; \
+		exit 1; \
+	fi
 
 build:
 	@echo "$(G)* Building the images of each service...$(W)";
