@@ -1,36 +1,98 @@
-# CashRegisterAngularApp
+# 💵 Cash Register Angular App
 
-## Possible improvements
-- Better dev and prod environment; for now, only the production is dockerized, while the development not. Development is done in the host machine using `npm run start` and `npm run start:dev` directly. A possible improvement would be dockerize dev, maybe using watch mode of docker.
+A modular full-stack application for managing sales, inventory, and basic point-of-sale operations.
+Built with **Angular**, **Node.js (Express)**, and **MongoDB**, this project demonstrates a clean, containerized architecture where the frontend and backend communicate through a RESTful API.
 
-## Backend
+---
+
+## 🧱 Overview
+
+This project serves as a simple yet complete example of a CRUD-based web app.
+It provides a user interface for managing items and transactions, backed by a secure API and persistent database storage.
+
+You can use it as:
+- A base for POS (point-of-sale) or inventory tools
+- A teaching or demo app for Angular–Express integration
+- A playground for Dockerized deployment and environment configuration
+
+---
+
+## ⚙️ Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| Frontend | Angular 18, TypeScript, RxJS |
+| Backend | Node.js, Express, Mongoose |
+| Database | MongoDB |
+| Environment | Docker, Docker Compose |
+| Utilities | dotenv, body-parser, CORS, nodemon |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Install or have access to:
+- **Node.js** (≥ 18.x)
+- **npm**
+- **MongoDB** (local or cloud)
+- **Docker + Docker Compose** (for containerized setup)
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/ncasteln/cash-register-angular-app.git
+cd cash-register-angular-app
 ```
-backend/
-  |___database
-  |___controllers ---> refers to the action handlers
-  |___middleware ----> functions which stays between the req and the response
-  |___modals --------> data structure used in the application
-  |___routes
+
+Install dependencies for both services:
+
+```bash
+cd backend && npm install
+cd ../frontend && npm install
 ```
 
-Steps:
-1) Create the backend folder, `node init` and add dependencies: `express`, `cors`, `body-parser`, `nodemon`, `dotenv`, `mongoose`.
+### Environment Configuration
+Create a `.env` file inside `backend/`:
 
-2) Create index.js and initialize a simple express server.
+```bash
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/cash-register
+```
 
-3) Create `.env` file which works with the dep _dotenv_. Add the _PORT_ variable as `KEY=value` pair. In `index.js` it is possible to use it with `require('dotenv').config()` and accessible through `process.env.PORT`.
+### Running the Application
 
-4) Install mongoDB and create a new database, a new collection, and import data. Use `mongoose` to connect to mongoDB with node, export the connection into index.js. Update the `.env` file with _URL_ variable of the database, which is possible to use. _Attention:_ you need to connect to the mongodb server **AND** the specific database!
+## Dev mode
 
-5) Add Schemas of Data Structure used in the application.
+Run backend and frontend separately:
+```bash
+# Backend (Express API)
+cd backend
+npm run dev
 
-6) Setup the _router_ with the associated method (ex. `.get()`) and create the related _controller_. The controller has the responsability to handle that method, processing the request (for example getting the data, posting something new, or updating the existent one).
+# Frontend (Angular app)
+cd ../frontend
+npm start
+```
 
-7) Add cors, to allow connection from the frontend.
+Access the app at:
 
-## Set up a get request in Angular18
-1) Create a service whose job is to simple send the Http request. This request is done inside a class method, like `getAll()`.
-2) The service is used as an argument in the constructor of the related component; the component will call the `getAll()` function and `.subscribe()`
+- Frontend → http://localhost:4200
+- Backend → http://localhost:3000
 
-## The corresponding to React Fragment
-While in React there is the symbol `<>` to group elements of a new component, without creating and additional `<div>` or other container, in Angular there are 2 solutions, depending on the context. The first solution is the use of `<ng-container>`, while the second solution could be the _attribute selector_, like `selector: 'button[load]'` which is called in HTML with `<button load ...>Click me</button>`.
+## Production Mode (Dockerized)
+
+To build and run everything with Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+Both containers will start and communicate internally.
+
+### License
+Licensed under the MIT License.
+See the [LICENSE](/LICENSE) for more information.
