@@ -1,8 +1,7 @@
 [build]
+  base = "frontend"
   command = "ng build"
   publish = "dist/cash-register-angular-app/browser"
 
 [[plugins]]
   package = "@netlify/angular-runtime"
-  [plugins.inputs]
-    projectRoot = "frontend"
