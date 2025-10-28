@@ -5,3 +5,6 @@
 
 [[plugins]]
   package = "@netlify/angular-runtime"
+
+[build.environment]
+  NPM_FLAGS = "--legacy-peer-deps"
