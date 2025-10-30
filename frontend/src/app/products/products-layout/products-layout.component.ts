@@ -24,7 +24,7 @@ import { environment } from '../../../environments/environment';
   styleUrl: './products-layout.component.scss'
 })
 export class ProductsLayoutComponent implements OnInit {
-  readonly uploadsUrl = `/api/uploads/`
+  readonly uploadsUrl = `${environment.apiUrl}/uploads/`
 
   @Input() products: IProduct[] = [];
   @Input() layout: TLayoutMode = 'table';
