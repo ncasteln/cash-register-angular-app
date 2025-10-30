@@ -18,7 +18,7 @@ import { environment } from '../../../environments/environment';
   styleUrl: './product-item.component.scss'
 })
 export class ProductItemComponent {
-  readonly uploadsUrl = `${environment.productsUrl}/uploads/`
+  readonly uploadsUrl = `/api/uploads/`
   readonly categories = categories;
   @Input() product = new Product();
   @Output() delete = new EventEmitter();

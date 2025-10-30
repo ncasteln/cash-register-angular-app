@@ -52,7 +52,7 @@ const trimValidator = (control: AbstractControl): ValidationErrors | null => {
   styleUrl: './product-details.component.scss'
 })
 export class ProductDetailsComponent implements OnInit {
-  readonly uploadsUrl = `${environment.productsUrl}/uploads/`
+  readonly uploadsUrl = `/api/uploads/`
 
   productForm!: FormGroup;
   imageForm!: FormGroup;

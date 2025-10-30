@@ -26,7 +26,7 @@ import { environment } from '../../environments/environment';
   styleUrl: './cash-register.component.scss'
 })
 export class CashRegisterComponent implements OnInit {
-  readonly uploadsUrl = `${environment.productsUrl}/uploads/`
+  readonly uploadsUrl = `/api/uploads/`
   products: IProduct[] = [];
   filteredProducts: IProduct[] = [];
   total = signal(0);

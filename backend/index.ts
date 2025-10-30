@@ -12,8 +12,17 @@ const app = express();
 config();
 
 /* Variables */
-const PORT = process.env.PORT;
-const ANGULAR_DEV = process.env.ANGULAR_DEV;
+const port = process.env.PORT;
+if (!port) {
+  console.error("* PORT not set")
+  process.exit(1)
+}
+
+const frontend = process.env.FRONTEND;
+if (!frontend) {
+  console.error("* FRONTEND not set")
+  process.exit(1)
+}
 
 /* MongoDB */
 connectToDb();
@@ -22,13 +31,16 @@ connectToDb();
 app.use(bodyParser.json())
 
 /* Cors */
-app.use(cors({ origin: ANGULAR_DEV, }))
+const origins = [
+  frontend
+]
+app.use(cors({ origin: frontend }))
 
 /* Setting static files for direct access */
 app.use('uploads', express.static(path.join(__dirname, 'uploads')));
 
 /* Listen for requests */
-app.listen(PORT, () => { console.log(`* Server running on port ${PORT}`); })
+app.listen(port, () => { console.log(`* Server running on port ${port}`); })
 
 /* Routes */
 app.use('/api', productsRouter);

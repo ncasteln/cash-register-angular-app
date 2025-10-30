@@ -24,7 +24,8 @@ import { environment } from '../../../environments/environment';
   styleUrl: './products-layout.component.scss'
 })
 export class ProductsLayoutComponent implements OnInit {
-  readonly uploadsUrl = `${environment.productsUrl}/uploads/`
+  readonly uploadsUrl = `/api/uploads/`
+
   @Input() products: IProduct[] = [];
   @Input() layout: TLayoutMode = 'table';
   @Input() selectedCat: Category | string = 'all';

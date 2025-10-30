@@ -78,6 +78,9 @@
               "buildTarget": "cash-register-angular-app:build:development"
             }
           },
+          "options": {
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
@@ -107,5 +110,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

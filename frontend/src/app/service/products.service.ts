@@ -13,7 +13,7 @@ interface IAction {
   providedIn: 'root'
 })
 export class ProductsService {
-  readonly productsUrl = `${environment.productsUrl}`
+  readonly productsUrl = `/api/products`;
 
   private _action = new Subject<IAction>();
   public action$ = this._action.asObservable();

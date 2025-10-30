@@ -21,7 +21,7 @@ import { environment } from '../../../environments/environment';
   styleUrl: './cash-register-item.component.scss'
 })
 export class CashRegisterItemComponent implements OnInit {
-  readonly uploadsUrl = `${environment.productsUrl}/uploads/`
+  readonly uploadsUrl = `/api/uploads/`
   @Input() product: IProduct = new Product();
   @Input() layoutMode: TLayoutMode = 'grid';
   @Input() isSelectedProduct: boolean = false;
