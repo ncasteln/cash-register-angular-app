@@ -31,10 +31,15 @@ connectToDb();
 app.use(bodyParser.json())
 
 /* Cors */
-const origins = [
-  frontend
-]
-app.use(cors({ origin: frontend }))
+app.use(cors({
+  origin: frontend,
+  credentials: true
+}))
+
+app.use((req, res, next) => {
+  console.debug('ORIGIN:', req.headers.origin);
+  next();
+});
 
 /* Setting static files for direct access */
 app.use('uploads', express.static(path.join(__dirname, 'uploads')));
