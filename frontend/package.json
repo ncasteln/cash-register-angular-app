@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
-    "start-prod": "ng serve --configuration=production",
-    "build:production": "ng build --configuration=production"
+    "start": "ng serve",
+    "build:prod": "ng build --configuration=production",
+    "start:prod": "ng serve --configuration=production"
   },
   "private": true,
   "dependencies": {

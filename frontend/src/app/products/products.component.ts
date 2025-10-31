@@ -43,7 +43,6 @@ export class ProductsComponent implements OnInit {
   }
 
   getProducts() {
-    console.log("GOT")
     this._productsService.getProducts().subscribe(p => {
       this.products = p;
       this.filteredProducts = p.sort((a, b) => a.name > b.name ? 1 : -1);

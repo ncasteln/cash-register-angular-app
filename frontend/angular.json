@@ -72,14 +72,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cash-register-angular-app:build:production"
+              "buildTarget": "cash-register-angular-app:build:production"
             },
             "development": {
               "buildTarget": "cash-register-angular-app:build:development"
             }
-          },
-          "options": {
-            "proxyConfig": "src/proxy.conf.json"
           },
           "defaultConfiguration": "development"
         },
