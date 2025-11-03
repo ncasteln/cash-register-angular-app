@@ -1,5 +1,4 @@
 import multer from "multer"
-import { productModel } from "../models/productModels";
 
 export const imageStorage = multer.diskStorage({
   destination: function (req, file, cb) {
