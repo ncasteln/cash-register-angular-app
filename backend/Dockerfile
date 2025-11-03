@@ -1,6 +1,6 @@
 FROM node:18
 
-ARG NODE_ENV=production
+ARG NODE_ENV=development
 ENV NODE_ENV=$NODE_ENV
 
 WORKDIR /app
@@ -16,4 +16,4 @@ RUN npm run build
 
 EXPOSE 5000
 
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start:dev"]

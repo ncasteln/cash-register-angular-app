@@ -11,7 +11,7 @@ up: env build
 
 env:
 	@if [ ! -f ./backend/.env ]; then \
-		echo "$(R)Needed ./backend/.env file with ANGULAR_DEV, MONGO_DEV, MONGO_PROD, PORT$(W)"; \
+		echo "$(R)Needed ./backend/.env file with FRONTEND, MONGO_DEV, MONGO_PROD, PORT$(W)"; \
 		exit 1; \
 	fi
 
