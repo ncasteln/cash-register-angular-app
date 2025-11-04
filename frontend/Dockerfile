@@ -23,7 +23,7 @@ RUN npm ci --legacy-peer-deps
 COPY . .
 
 # Build the Angular application
-RUN npm run build
+RUN npm run build:docker
 
 # =========================================
 # Stage 2: Prepare Nginx to Serve Static Files

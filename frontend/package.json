@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "build": "ng build --configuration=development",
-    "start": "ng serve --configuration=development",
+    "build:docker": "ng build --configuration=docker",
+    "build:dev": "ng build --configuration=development",
+    "start:dev": "ng serve",
     "build:prod": "ng build --configuration=production",
     "start:prod": "ng serve --configuration=production"
   },

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build:dev": "tsc",
+    "start:docker": "NODE_ENV=docker nodemon index.js",
     "start:dev": "NODE_ENV=development nodemon index.js",
     "start:prod": "NODE_ENV=production node dist/index.js"
   },

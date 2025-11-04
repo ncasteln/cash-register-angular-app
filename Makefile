@@ -10,8 +10,8 @@ up: env build
 	docker compose up;
 
 env:
-	@if [ ! -f ./backend/.env ]; then \
-		echo "$(R)Needed ./backend/.env file with FRONTEND, MONGO_DEV, MONGO_PROD, PORT$(W)"; \
+	@if [ ! -f ./backend/.env.docker ]; then \
+		echo "$(R)Needed ./backend/.env.docker file with FRONTEND, MONGO, PORT$(W)"; \
 		exit 1; \
 	fi
 

@@ -21,7 +21,6 @@ export class ProductsService {
   constructor( private http: HttpClient ) {}
 
   getProducts() {
-    console.log('Fetching products from', this.productsUrl);
     return (this.http.get<IProduct[]>(this.productsUrl));
   }
 
