@@ -5,7 +5,8 @@ import productsRouter from './routes/productRoutes';
 import ordersRouter from './routes/orderRoutes';
 import connectToDb from './database/dbConnection';
 import path from 'path';
-import bodyParser from 'body-parser'
+import bodyParser from 'body-parser';
+import userRouter from './routes/userRoutes';
 
 const app = express();
 
@@ -45,11 +46,11 @@ app.use(cors({
 /* Setting static files for direct access */
 app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
+/* Log out incoming reuqests */
 app.use((req, res, next) => {
   console.log(req.method, req.path);
   next();
 });
-
 
 /* Listen for requests */
 app.listen(port, () => { console.log(`
@@ -60,3 +61,4 @@ app.listen(port, () => { console.log(`
 /* Routes */
 app.use('/api', productsRouter);
 app.use('/api', ordersRouter);
+app.use('/api', userRouter);
