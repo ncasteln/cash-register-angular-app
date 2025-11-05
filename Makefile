@@ -5,7 +5,7 @@ R	=	\033[0;31m
 W	=	\033[0m
 N	=	\033[1;30m
 
-up: env build
+up: env
 	@echo "$(G)* Creating containers...$(W)"
 	docker compose up;
 
