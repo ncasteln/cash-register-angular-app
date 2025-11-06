@@ -4,7 +4,6 @@ import { Response } from 'express';
 
 export const getProducts = async(req: any, res: any) => {
   try {
-    // console.log("* Products.GET");
     const products = await productModel.find({});
     if (products)
       res.status(200).json(products);
@@ -18,7 +17,6 @@ export const getProducts = async(req: any, res: any) => {
 
 export const getImage = async(req: any, res: Response) => {
   try {
-    // console.log("* Products.GET");
     const result = await productModel.findOne({ img: req.params.id });
     if (!result)
       throw Error("not found")
@@ -32,10 +30,8 @@ export const getImage = async(req: any, res: Response) => {
 
 export const getProductById = async(req: any, res: any) => {
   try {
-    // console.log("* Products.GET: ", req.params);
     const id = req.params.id;
     const product = await productModel.findById(id);
-    // console.log(product);
     if (!product)
       throw Error("* Product doesn't exists");
     res.status(200).json({
@@ -51,7 +47,6 @@ export const getProductById = async(req: any, res: any) => {
 
 export const postProducts = async(req: any, res: any) => {
   try {
-    // console.log("* Products.POST: ", req.params, req.body);
     let { name, price, img, external, disabled, tax, weight, priceType, weightType, measureType, category } = req.body;
 
     if (req.file)
@@ -80,7 +75,6 @@ export const postProducts = async(req: any, res: any) => {
 
 export const updateProducts = async(req: any, res: any) => {
   try {
-    // console.log("* Products.UPDATE: ", req.params, req.body)
     let { name, price, img, external, disabled, tax, weight, weightType, priceType, measureType, category } = req.body;
 
     if (req.file)
@@ -115,7 +109,6 @@ export const updateProducts = async(req: any, res: any) => {
 
 export const disableProduct = async (req: any, res: any) => {
   try {
-    // console.log("* Products.DISABLE: ", req.params);
     const id = req.params.id;
     const product = await productModel.findById(id)
     if (!product)
@@ -134,8 +127,6 @@ export const disableProduct = async (req: any, res: any) => {
 
 export const deleteProducts = async(req: any, res: any) => {
   try {
-    // console.log("* Products.DELETE: ", req.params);
-
     const id = req.params.id;
     const product = await productModel.findById(id);
     if (!product)
@@ -155,8 +146,6 @@ export const deleteProducts = async(req: any, res: any) => {
 
 export const restoreProducts = async(req: any, res: any) => {
   try {
-    // console.log("* Products.RESTORE: ", req.params);
-
     const id = req.params.id;
     const deletedProduct = await productModel.findOne({
       _id: id,
@@ -179,7 +168,6 @@ export const restoreProducts = async(req: any, res: any) => {
 
 export const resetProducts = async (req: any, res: any) => {
   try {
-    // console.log("* RESET");
     await productModel.deleteMany();
     await productModel.insertMany(resetJson);
     res.status(200).json({ msg: "* Database reset success" });
