@@ -5,6 +5,7 @@ import { ProductsComponent } from './products/products.component';
 import { HistoryComponent } from './history/history.component';
 import { CashRegisterComponent } from './cash-register/cash-register.component';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
+import { LoginComponent } from './login/login.component';
 
 
 export const routes: Routes = [
@@ -24,6 +25,11 @@ export const routes: Routes = [
     path: 'create-product',
     title: 'Create product',
     component: ProductDetailsComponent
+  },
+  {
+    path: 'login',
+    title: 'Login',
+    component: LoginComponent
   },
   { path: 'report', component: ReportComponent },
   { path: 'history', component: HistoryComponent },
