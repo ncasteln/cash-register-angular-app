@@ -1,5 +1,11 @@
 export type TLayoutMode = 'grid' | 'table' | 'details';
 
+/* USER */
+export interface IUser {
+  email: string,
+  password: string
+}
+
 /* PRODUCTS */
 export class Product implements IProduct {
   _id = '';

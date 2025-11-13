@@ -24,6 +24,7 @@ ordersRouter.put('/orders/update/markOrder/:id', markOrder);
 ordersRouter.put('/orders/update/markUnit/:id/:unitIndex', markUnit);
 
 /* DELETE */
+// http:localhost:5000/api/orders/delete/
 ordersRouter.delete('/orders/delete/:id', deleteOrder);
 
 /* RESET DB */

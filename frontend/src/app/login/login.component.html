@@ -1,1 +1,21 @@
-<p>login works!</p>
+<div class="py-16 px-5">
+  <!-- <products-toolbar
+    (onViewChange)="toggleLayoutMode($event)"
+    (resetDatabase)="resetDatabase()"
+    (onCategoryChange)="onCategoryChange($event)"/> -->
+  <!-- <products-layout
+    (delete)="deleteProduct($event)"
+    (restore)="restoreProduct($event)"
+    [products]="filteredProducts"
+    [layout]="layoutMode()"
+    [selectedCat]="selectedCat" /> -->
+  <mat-form-field class="border-2 border-green-200 hover:bg-green-200 p-5" appearance="outline">
+    <mat-label class="font-bold text-lg">Email: </mat-label>
+    <input matInput type="email" formControlName="email" />
+  </mat-form-field>
+
+  <mat-form-field class="border-2 border-green-200 hover:bg-green-200 p-5" appearance="outline">
+    <mat-label class="font-bold text-lg">Password: </mat-label>
+    <input matInput type="password" formControlName="password" />
+  </mat-form-field>
+</div>
