@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser } from '../models';
 import { AuthService } from '../service/auth.service';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'login',
@@ -10,8 +11,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    MatFormField,
-    MatLabel,
+    MatFormFieldModule,
+    MatInputModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
     password: ''
   }
   errorMsg = '';
-  userForm!: FormGroup
+  userForm!: FormGroup;
 
   constructor( private authService: AuthService ) {
 
@@ -34,8 +35,12 @@ export class LoginComponent implements OnInit {
 
   generateForm() {
     this.userForm = new FormGroup({
-      email: new FormControl(),
-      password: new FormControl()
+      email: new FormControl(this.user.email, [ Validators.required ]),
+      password: new FormControl(this.user.password, [ Validators.required ])
     })
+  }
+
+  onLogin() {
+    alert("PORCODIO")
   }
 }

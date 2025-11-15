@@ -40,12 +40,12 @@ const trimValidator = (control: AbstractControl): ValidationErrors | null => {
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
+    MatRadioModule,
     MatHint,
     KeyValuePipe,
     NgClass,
     NgxMatFileInputModule,
     TrimDirective,
-    MatRadioModule,
     DisableControlDirective
   ],
   templateUrl: './product-details.component.html',
