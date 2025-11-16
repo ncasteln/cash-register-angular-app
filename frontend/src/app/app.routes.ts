@@ -5,7 +5,8 @@ import { ProductsComponent } from './products/products.component';
 import { HistoryComponent } from './history/history.component';
 import { CashRegisterComponent } from './cash-register/cash-register.component';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
-import { LoginComponent } from './login/login.component';
+import { SigninComponent } from './login/signin.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 export const routes: Routes = [
@@ -27,9 +28,14 @@ export const routes: Routes = [
     component: ProductDetailsComponent
   },
   {
-    path: 'login',
-    title: 'Login',
-    component: LoginComponent
+    path: 'signin',
+    title: 'Signin',
+    component: SigninComponent
+  },
+  {
+    path: 'signup',
+    title: 'Signup',
+    component: SignupComponent
   },
   { path: 'report', component: ReportComponent },
   { path: 'history', component: HistoryComponent },

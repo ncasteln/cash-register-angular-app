@@ -4,20 +4,22 @@ import { AuthService } from '../service/auth.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-  selector: 'login',
+  selector: 'signin',
   standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    RouterLink,
+    RouterLinkActive
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: './signin.component.html',
 })
-export class LoginComponent implements OnInit {
+export class SigninComponent implements OnInit {
   user: IUser = {
     email: '',
     password: ''
@@ -40,7 +42,8 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  onLogin() {
-    alert("PORCODIO")
+  onSignin() {
+    const { email, password } = this.userForm.value;
+    this.authService.signin(email, password).subscribe(res => res);
   }
 }

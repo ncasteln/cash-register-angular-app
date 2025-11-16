@@ -99,7 +99,8 @@
             type="submit"
             class="text-white p-2 w-full"
             [ngClass]="(!productForm.dirty) ? 'bg-green-300' : 'bg-green-500 hover:hover:bg-green-400'"
-            [disabled]="!(productForm.dirty)">Salva le modifiche
+            [disabled]="!(productForm.dirty)">
+            Salva le modifiche
           </button>
           <button type="button" class="bg-red-500 hover:hover:bg-red-400 text-white p-2 w-full" (click)="cancel()">Annulla</button>
         </div>

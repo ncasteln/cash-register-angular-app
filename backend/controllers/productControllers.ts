@@ -47,7 +47,18 @@ export const getProductById = async(req: any, res: any) => {
 
 export const postProducts = async(req: any, res: any) => {
   try {
-    let { name, price, img, external, disabled, tax, weight, priceType, weightType, measureType, category } = req.body;
+    let {
+      name,
+      price,
+      img,
+      external,
+      disabled,
+      tax,
+      weight,
+      priceType,
+      weightType,
+      measureType,
+      category } = req.body;
 
     if (req.file)
       img = req.file.filename;

@@ -1,0 +1,22 @@
+<div class="py-16 px-5 w-full">
+  <form
+    [formGroup]="userForm"
+    (ngSubmit)="onSignin()"
+    class="flex flex-col items-center mt-24 p-10 border-2 align-middle max-w-72 m-auto">
+
+    <mat-form-field class="" appearance="outline">
+      <mat-label class="font-bold text-lg">Email: </mat-label>
+      <input matInput type="email" formControlName="email" />
+    </mat-form-field>
+
+    <mat-form-field class="" appearance="outline">
+      <mat-label class="font-bold text-lg">Password: </mat-label>
+      <input matInput type="password" formControlName="password" />
+    </mat-form-field>
+
+    <button class="border w-full p-5 rounded-sm bg-amber-400 hover:bg-amber-300" type="submit">Signin</button>
+    <span>Don't have an account?
+      <a routerLink="/signup" routerLinkActive="underline" class="hover:text-amber-500">Sign up</a>
+    </span>
+  </form>
+</div>
