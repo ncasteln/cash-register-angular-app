@@ -4,7 +4,7 @@ import { AuthService } from '../service/auth.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'signin',
@@ -21,15 +21,16 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class SigninComponent implements OnInit {
   user: IUser = {
-    email: '',
+    username: '',
     password: ''
   }
   errorMsg = '';
   userForm!: FormGroup;
 
-  constructor( private authService: AuthService ) {
-
-  }
+  constructor(
+    private _authService: AuthService,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {
     this.generateForm();
@@ -37,13 +38,24 @@ export class SigninComponent implements OnInit {
 
   generateForm() {
     this.userForm = new FormGroup({
-      email: new FormControl(this.user.email, [ Validators.required ]),
+      username: new FormControl(this.user.username, [ Validators.required ]),
       password: new FormControl(this.user.password, [ Validators.required ])
     })
   }
 
   onSignin() {
-    const { email, password } = this.userForm.value;
-    this.authService.signin(email, password).subscribe(res => res);
+    const { username, password } = this.userForm.value;
+    this._authService.signin(username, password).subscribe({
+      next: (res) => {
+        this._authService.setToken(res.token); // before testing add the signout + button which changes
+        this._router.navigate([ '/products ']);
+      },
+      error: (err) => {
+        console.log(err) // how access the backend errors
+      },
+      complete: () => {
+        console.log("Completed!")
+      },
+    });
   }
 }

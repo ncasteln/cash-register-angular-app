@@ -2,8 +2,12 @@ export type TLayoutMode = 'grid' | 'table' | 'details';
 
 /* USER */
 export interface IUser {
-  email: string,
+  username: string,
   password: string
+}
+
+export interface ISigninResponse {
+  token: string
 }
 
 /* PRODUCTS */

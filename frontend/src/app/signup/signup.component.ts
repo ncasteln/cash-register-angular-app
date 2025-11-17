@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthService } from '../service/auth.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -19,15 +20,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class SignupComponent {
   user: IUser = {
-    email: '',
+    username: '',
     password: ''
   }
   errorMsg = '';
   userForm!: FormGroup;
 
-  constructor( private authService: AuthService ) {
-
-  }
+  constructor(
+    private _authService: AuthService,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {
     this.generateForm();
@@ -35,14 +37,17 @@ export class SignupComponent {
 
   generateForm() {
     this.userForm = new FormGroup({
-      email: new FormControl(this.user.email, [ Validators.required ]),
+      username: new FormControl(this.user.username, [ Validators.required ]),
       password: new FormControl(this.user.password, [ Validators.required ])
     })
   }
 
   onSignup() {
-    const { email, password } = this.userForm.value;
-    this.authService.signup(email, password).subscribe(res => res /* What to do */)
+    const { username, password } = this.userForm.value;
+    this._authService.signup(username, password).subscribe(res => {
+      /* Add loading */
+      this._router.navigate([ '/products' ])
+    })
   }
 
 }

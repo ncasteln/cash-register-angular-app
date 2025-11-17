@@ -7,11 +7,16 @@ import { CashRegisterComponent } from './cash-register/cash-register.component';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { SigninComponent } from './login/signin.component';
 import { SignupComponent } from './signup/signup.component';
+import { authGuard } from './guards/auth.guard';
 
 
 export const routes: Routes = [
   { path: '', redirectTo: '/cash-register', pathMatch: 'full' },
-  { path: 'cash-register', component: CashRegisterComponent },
+  {
+    path: 'cash-register',
+    title: 'Cash register',
+    canActivate: [ authGuard ],
+    component: CashRegisterComponent },
   {
     path: 'products',
     title: 'Products',

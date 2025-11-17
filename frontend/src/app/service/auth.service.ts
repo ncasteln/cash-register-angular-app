@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { IUser } from '../models';
+import { ISigninResponse, IUser } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +15,14 @@ export class AuthService {
 
   readonly apiUrl = `${environment.apiUrl}`;
 
-  signup( email: string, password: string ) {
-    const body = { email, password };
-    return this.httpClient.post<IUser>(`${this.apiUrl}/user/signup`, body, { observe: 'response' });
+  signup( username: string, password: string ) {
+    const body = { username, password };
+    return this.httpClient.post(`${this.apiUrl}/user/signup`, body);
   }
 
-  signin( email: string, password: string ) {
-    const body = { email, password };
-    return this.httpClient.post<IUser>(`${this.apiUrl}/user/signin`, body, { observe: 'response' });
+  signin( username: string, password: string ) {
+    const body = { username, password };
+    return this.httpClient.post<ISigninResponse>(`${this.apiUrl}/user/signin`, body);
   }
 
   signout() {
@@ -34,7 +34,15 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
+  setToken( token: string ) {
+    return localStorage.setItem('token', token);
+  }
+
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  removeToken() {
+    return localStorage.removeItem('token');
   }
 }
