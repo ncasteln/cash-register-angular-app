@@ -8,12 +8,16 @@
       <li><a class="hover:underline underline-offset-4" routerLink="products" routerLinkActive="underline text-white">Listino prodotti</a></li>
     </ul>
 
-
-    <a class="hover:underline underline-offset-4"
-      routerLink="signin"
-      routerLinkActive="underline text-white">
-      Sign In
-    </a>
+    @if (!isLogged) {
+      <a class="hover:underline underline-offset-4"
+        routerLink="signin"
+        routerLinkActive="underline text-white">
+        Sign in
+      </a>
+    }
+    @else {
+      <button class="hover:text-white hover:underline" (click)="onSignout()">Sign out</button>
+    }
 
     <div class="flex-shrink-0">
       {{ fullDate | translateDate: 'tdpipe-not-defined' }}

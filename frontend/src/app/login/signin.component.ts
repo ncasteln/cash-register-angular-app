@@ -48,7 +48,7 @@ export class SigninComponent implements OnInit {
     this._authService.signin(username, password).subscribe({
       next: (res) => {
         this._authService.setToken(res.token); // before testing add the signout + button which changes
-        this._router.navigate([ '/products ']);
+        this._router.navigate(['/products']);
       },
       error: (err) => {
         console.log(err) // how access the backend errors

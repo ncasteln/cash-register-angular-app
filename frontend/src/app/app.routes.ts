@@ -20,16 +20,19 @@ export const routes: Routes = [
   {
     path: 'products',
     title: 'Products',
+    canActivate: [ authGuard ],
     component: ProductsComponent
   },
   {
     path: 'product-details/:_id',
     title: 'Product details',
+    canActivate: [ authGuard ],
     component: ProductDetailsComponent
   },
   {
     path: 'create-product',
     title: 'Create product',
+    canActivate: [ authGuard ],
     component: ProductDetailsComponent
   },
   {
@@ -42,7 +45,11 @@ export const routes: Routes = [
     title: 'Signup',
     component: SignupComponent
   },
-  { path: 'report', component: ReportComponent },
-  { path: 'history', component: HistoryComponent },
-  { path: '**', component: NotFoundComponent }
+  { path: 'history',
+    title: 'History',
+    canActivate: [ authGuard ],
+    component: HistoryComponent },
+  { path: '**',
+    component: NotFoundComponent
+  }
 ];
