@@ -20,3 +20,14 @@ button {
 .mdc-notched-outline__notch {
   border-right: none;
 }
+
+/* Toast service */
+.toast-success {
+  background: #4CAF50 !important;  /* green */
+  color: white !important;
+}
+
+.toast-error {
+  background: #f44336 !important;  /* red */
+  color: white !important;
+}

@@ -1,7 +1,5 @@
-<nav class="fixed top-0 left-0 w-full bg-green-500 z-50 text-xl">
-  <div class="max-w-[1680px] m-auto flex p-5 gap-10 justify-between items-center">
-    <!-- <a class="flex-shrink-0" href="/">Selvetto</a> -->
-
+<nav class="fixed top-0 left-0 w-full h-16 bg-green-500 z-50 text-xl">
+  <div class="max-w-[1680px] m-auto h-full flex p-5 gap-10 justify-between items-center">
     <ul class="flex flex-1 gap-10 h-full">
       <li><a class="hover:underline underline-offset-4" routerLink="cash-register" routerLinkActive="underline text-white">Cassa</a></li>
       <li><a class="hover:underline underline-offset-4" routerLink="history" routerLinkActive="underline text-white">Storico</a></li>
@@ -18,9 +16,5 @@
     @else {
       <button class="hover:text-white hover:underline" (click)="onSignout()">Sign out</button>
     }
-
-    <div class="flex-shrink-0">
-      {{ fullDate | translateDate: 'tdpipe-not-defined' }}
-    </div>
   </div>
 </nav>

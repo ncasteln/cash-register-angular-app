@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ToastService } from '../service/toast.service';
 
 @Component({
   selector: 'signin',
@@ -29,7 +30,8 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -49,12 +51,13 @@ export class SigninComponent implements OnInit {
       next: (res) => {
         this._authService.setToken(res.token); // before testing add the signout + button which changes
         this._router.navigate(['/products']);
+        this._toast.success(res.message);
       },
       error: (err) => {
         console.log(err) // how access the backend errors
       },
       complete: () => {
-        console.log("Completed!")
+
       },
     });
   }

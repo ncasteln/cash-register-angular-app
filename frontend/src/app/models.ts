@@ -7,7 +7,8 @@ export interface IUser {
 }
 
 export interface ISigninResponse {
-  token: string
+  token: string,
+  message: string
 }
 
 /* PRODUCTS */
